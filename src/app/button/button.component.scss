@@ -1,0 +1,14 @@
+@import '../../styles.scss';
+
+.button {
+   padding: 12px 21px;
+   background-color: $primary;
+   border-radius: 56px;
+   font-weight: 700;
+   font-size: 15px;
+
+   &:hover {
+      background-color: $primary-light;
+      transition: background-color 200ms ease;
+   }
+}
