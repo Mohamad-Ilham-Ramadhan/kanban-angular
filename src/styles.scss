@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$primary: #635fc7;
+$danger: #ea5555;
+$dark-bg: #20212c;
+$dark-main: #2b2c37;
+$dark-border: #3e3f4e;
+
+$light-bg: #f4f7fd;
