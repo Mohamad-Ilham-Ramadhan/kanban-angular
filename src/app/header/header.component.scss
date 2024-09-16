@@ -4,6 +4,8 @@
    background-color: $dark-main;
    height: 96px;
    border-bottom: 1px solid $dark-border;
+   position: fixed;
+   top: 0;
 }
 .logo-wrapper {
    width: 300px;

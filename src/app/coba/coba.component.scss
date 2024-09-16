@@ -1,0 +1,17 @@
+.main {
+   // display: flex;
+   // position: fixed;  
+   // top: 0;
+   // left: 0;
+   height: 200px;
+   width: 500px;
+   background-color: aqua;
+   overflow: auto;
+
+   .section {
+      display: flex;
+      background-color: tomato;
+      height: 100px;
+      width: 2000px;
+   }
+}

@@ -1,15 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { selectFeatureTheme, AppState } from './selectors/theme.selector';
 import { toggleTheme } from './actions/theme.action';
+
+import { HeaderComponent } from './header/header.component';
+import { MainComponent } from './main/main.component';
+import { CobaComponent } from './coba/coba.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, AsyncPipe],
+  imports: [HeaderComponent, MainComponent, CobaComponent, AsyncPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

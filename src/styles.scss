@@ -135,3 +135,39 @@ body {
      background-color: $dark-bg;
   }
 }
+
+.button {
+  padding: 8px;
+  border-radius: 50px;
+  background-color: $primary;
+}
+
+// custom scroll bar
+
+/* width */
+::-webkit-scrollbar {
+  width: 11.5px;
+  height: 11.5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: darken($color: $dark-bg, $amount: 3);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #3E3F4E; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $primary; 
+}
+
+// Corner
+::-webkit-scrollbar-corner { 
+  background-color: darken($color: $dark-bg, $amount: 3);
+}
