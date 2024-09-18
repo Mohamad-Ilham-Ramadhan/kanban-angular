@@ -1,0 +1,15 @@
+@import '../../styles.scss';
+
+input {
+   background-color: transparent;
+   border: 2px solid #4e4f61;
+   border-radius: 4px;
+   padding: 8px 16px;
+   color: white;
+   width: 100%;
+   outline: none;
+   
+   &:focus-visible {
+      border-color: $primary;
+   }
+}

@@ -1,0 +1,12 @@
+@import '../../styles.scss';
+
+.container {
+   background-color: $dark-main;
+   padding: 32px;
+   // width: 800px;
+   border-radius: 16px;
+}
+.title {
+   font-size: 18px;
+   margin-bottom: 16px;
+}

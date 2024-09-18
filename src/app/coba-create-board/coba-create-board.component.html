@@ -1,0 +1,11 @@
+<div>{{ board$ | async }}</div>
+<mat-slide-toggle>Toggle me!</mat-slide-toggle>
+
+
+<form action="" [formGroup]="form" (submit)="formSubmit($event)">
+   <label for="">
+      Name:
+      <input type="text" formControlName="name">
+   </label>
+   <button>Submit</button>
+</form>

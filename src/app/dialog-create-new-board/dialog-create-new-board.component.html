@@ -1,0 +1,21 @@
+<div class="container">
+   <h2 class="title">Add New Board</h2>
+   <form action="" [formGroup]="form" (ngSubmit)="submit($event)">
+      <label for="input-name" class="block mb-4">
+         <div class="label mb-2">Name</div>
+         <app-input [control]="form.controls.name" />
+      </label>
+
+      <label class="block mb-4">
+         <div class="label mb-2">Columns</div>
+         @for (control of form.controls.columns.controls; track $index) {
+            <div class="mb-2">
+               <app-input [control]="control" />
+            </div>
+         }
+      </label>
+
+      <app-button (click)="addNewColumn()" size="small" color="white" class="block w-full mb-4" classes="w-full">+ Add New Column</app-button>
+      <app-button type="submit" size="small" class="w-full" classes="w-full">Create New Board</app-button>
+   </form>
+</div>

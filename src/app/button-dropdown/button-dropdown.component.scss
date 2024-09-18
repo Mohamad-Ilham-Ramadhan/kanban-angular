@@ -4,9 +4,12 @@
    display: flex;
    align-items: center;
    justify-content: center;
-   padding: 8px;
-   border-radius: 8px;
+   padding: 10px 8px;
+   border-radius: 16px;
    color: $button-dropdown;
+   background-color: transparent;
+
+   
    &:hover {
       background-color: $dark-bg;
    }

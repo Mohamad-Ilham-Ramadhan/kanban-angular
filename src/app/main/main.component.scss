@@ -32,6 +32,20 @@
       height: calc(100vh - 96px);
       overflow-y: auto;
       transition: .5s;
+      .button-new-board {
+         color: $primary;
+         transition: 200ms all;
+         &:hover {
+            // color: darken($color: $primary, $amount: 10);
+            opacity: .5;
+         }
+         .icon {
+            margin-right: 16px;
+         }
+         .text {
+            font-weight: 700;
+         }
+      }
    }
    .board-section {
       height: 100%;

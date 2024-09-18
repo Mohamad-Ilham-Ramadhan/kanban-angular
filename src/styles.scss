@@ -1,7 +1,40 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the theme object.
+$angular-kanban-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+:root {
+  @include mat.all-component-themes($angular-kanban-theme);
+}
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($angular-kanban-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($angular-kanban-theme);
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 $primary: #635fc7;
 $primary-light: #A8A4FF;
@@ -125,8 +158,13 @@ $button-dropdown: #828fa3;
    font-weight: 800;
    src: url('./assets/fonts/plus-jakarta-sans-v8-latin-800italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
  }
-
-
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+html, body { height: 100%; }
 body {
   font-family: "Plus Jakarta Sans";
   font-style: normal;
@@ -136,10 +174,47 @@ body {
   }
 }
 
+input {
+  color: black;
+}
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  outline: none;
+  text-align: inherit;
+
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .button {
   padding: 8px;
   border-radius: 50px;
   background-color: $primary;
+}
+.label {
+  font-size: 12px;
+  font-weight: 600;
 }
 
 // custom scroll bar
@@ -170,4 +245,46 @@ body {
 // Corner
 ::-webkit-scrollbar-corner { 
   background-color: darken($color: $dark-bg, $amount: 3);
+}
+
+.mat-mdc-dialog-surface.mdc-dialog__surface {
+  border-radius: 0px;
+  background-color: transparent;
+}
+
+
+// tailwindcss like
+.block {display: block;}
+.flex {display: flex;}
+.items-center {align-items: center;}
+.justify-between {justify-content: space-between;}
+.w-full {width: 100%}
+
+@for $i from 1 through 50 {
+  // margins
+  .mt-#{$i} {
+    margin-top: #{$i * 0.250}rem;
+  }
+  .mb-#{$i} {
+    margin-bottom: #{$i * 0.250}rem;
+  }
+  .ml-#{$i} {
+    margin-left: #{$i * 0.250}rem;
+  }
+  .mr-#{$i} {
+    margin-right: #{$i * 0.250}rem;
+  }
+  // paddings
+  .pt-#{$i} {
+    padding-top: #{$i * 0.250}rem;
+  }
+  .pb-#{$i} {
+    padding-bottom: #{$i * 0.250}rem;
+  }
+  .pl-#{$i} {
+    padding-left: #{$i * 0.250}rem;
+  }
+  .pr-#{$i} {
+    padding-right: #{$i * 0.250}rem;
+  }
 }
