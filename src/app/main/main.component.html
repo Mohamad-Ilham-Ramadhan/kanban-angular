@@ -7,9 +7,9 @@
          <span class="text" (click)="openDialog()">+ Create New Board</span>
       </button>
       <div>
-         <!-- @for (board of boards$ | async; track $index) {
-            <div>{{board.name}}</div>
-         } -->
+         @for (board of boards$ | async; track $index) {
+            <div>{{ board.name }}</div>
+         }
       </div>
       <button (click)="toggleSidebar()" class="button">Show/hide sidebar</button>
 
