@@ -1,3 +1,11 @@
-<button class="button">
+<button 
+   [class]="'button ' + classes" 
+   [ngClass]="{
+      'small': size === 'small', 
+      'medium': size === 'medium',
+      'color-primary': color === 'primary',
+      'color-white': color === 'white',
+   }" 
+   [type]="type">
    <ng-content />
 </button>

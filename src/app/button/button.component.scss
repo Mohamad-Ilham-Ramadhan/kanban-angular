@@ -1,14 +1,33 @@
 @import '../../styles.scss';
 
 .button {
-   padding: 12px 21px;
-   background-color: $primary;
    border-radius: 56px;
    font-weight: 700;
-   font-size: 15px;
-
-   &:hover {
-      background-color: $primary-light;
-      transition: background-color 200ms ease;
+   text-align: center;
+   transition: background-color 200ms ease;
+   
+   &.color-primary {
+      background-color: $primary;
+      &:hover {
+         background-color: $primary-light;
+      }
    }
+   &.color-white {
+      background-color: white;
+      color: $primary;
+      &:hover {
+         background-color: darken($color: #fff, $amount: 10%);
+         color: darken($color: $primary, $amount: 10%);
+      }
+   }
+   &.medium {
+      font-size: 15px;
+      padding: 12px 21px;
+   }
+   &.small {
+      font-size: 13px;
+      padding: 8px 16px;
+   }
+   
+
 }
