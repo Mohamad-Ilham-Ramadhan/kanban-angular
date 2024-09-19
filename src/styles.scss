@@ -42,6 +42,7 @@ $danger: #ea5555;
 $dark-bg: #20212c;
 $dark-main: #2b2c37;
 $dark-border: #3e3f4e;
+$text-gray: #828fa3;
 
 $light-bg: #f4f7fd;
 $button-dropdown: #828fa3;
@@ -259,6 +260,7 @@ button {
 .items-center {align-items: center;}
 .justify-between {justify-content: space-between;}
 .w-full {width: 100%}
+.text-gray { color: $text-gray;}
 
 @for $i from 1 through 50 {
   // margins

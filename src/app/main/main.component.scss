@@ -32,11 +32,54 @@
       height: calc(100vh - 96px);
       overflow-y: auto;
       transition: .5s;
+      padding-right: 24px;
+      padding-top: 16px;
+
+      .boards-count {
+         color: $text-gray;
+         text-transform: uppercase;
+         letter-spacing: 2.5px;
+         font-size: 12px;
+         font-weight: 700;
+         padding-left: 32px;
+         margin-bottom: 16px;
+      }
+      .boards-wrapper {
+         .board {
+            padding: 11px 24px 11px 32px;
+            border-radius: 0px 50px 50px 0px;
+            display: flex;
+            align-items: center;
+            color: $text-gray;
+            font-weight: 700;
+            margin-bottom: 4px;
+            transition: 200ms ease;
+            &.active {
+               background-color: $primary;
+               color: #fff;
+            }
+            &:hover {
+               cursor: pointer;
+               background-color: $primary-light;
+               color: #fff;
+               &.active {
+                  background-color: $primary;
+               }
+            }
+            .icon-span {
+               display: flex;
+               margin-right: 16px;
+            }
+         }
+      }
       .button-new-board {
          color: $primary;
          transition: 200ms all;
+         padding-left: 32px;
+         padding-top: 11px;
+         padding-bottom: 11px;
+         margin-bottom: 32px;
          &:hover {
-            // color: darken($color: $primary, $amount: 10);
             opacity: .5;
          }
          .icon {
@@ -47,6 +90,7 @@
          }
       }
    }
+
    .board-section {
       height: 100%;
       overflow: auto;

@@ -10,7 +10,7 @@ import { State } from '../reducers';
 
 import { InputComponent } from '../input/input.component';
 import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { selectBoards } from '../selectors/board.selector';
+import { selectBoards, selectActiveBoard } from '../selectors/board.selector';
 @Component({
   selector: 'app-main',
   standalone: true,
@@ -28,9 +28,11 @@ export class MainComponent {
   });
 
   boards$ = new Observable<any>();
+  activeBoard$ = new Observable();
 
   constructor(private store: Store<State>) {
     this.boards$ = store.select(selectBoards);
+    this.activeBoard$ = store.select(selectActiveBoard);
   }
 
   toggleSidebar() {

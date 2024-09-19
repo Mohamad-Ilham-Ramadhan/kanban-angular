@@ -8,3 +8,8 @@ export const selectBoards = createSelector(
   selectFeature,
   (state: BoardState) => state.boards
 );
+
+export const selectActiveBoard = createSelector(
+  selectFeature,
+  (state: BoardState) => state.activeBoard
+);
