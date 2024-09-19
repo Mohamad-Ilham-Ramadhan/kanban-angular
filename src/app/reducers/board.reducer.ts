@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
 
-import { create } from "../actions/board.action";
+import { create, getStateFromLocalStorage } from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -93,6 +93,14 @@ export const initialState: BoardState = {
 
 export const boardReducer = createReducer(
    initialState,
+   on(getStateFromLocalStorage, (state) => {
+      if (typeof window !== 'undefined') {
+         let state = JSON.parse(localStorage.getItem('board') || "{}");
+         if (Object.keys(state).length === 0) return initialState;
+         return state;
+      }
+      return initialState;
+   }),
    on(create, (state, payload) => {
       const currentBoard = [state.boards[state.activeBoard]];
       console.log('payload', payload)
@@ -101,6 +109,12 @@ export const boardReducer = createReducer(
          boards: [...state.boards, {id: uuid(), name: payload.name, columns: payload.columns}]
       }
       console.log('newBoard', newBoard)
+      if (typeof window === 'undefined') {
+         console.log('tidak ada window di boardReducer')
+      } else {
+         console.log('ada window di boardReducer')
+         localStorage.setItem('board', JSON.stringify( newBoard ))
+      }
       return newBoard;
    }),
 );

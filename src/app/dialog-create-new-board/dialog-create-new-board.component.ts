@@ -39,11 +39,8 @@ export class DialogCreateNewBoardComponent {
   submit(e: Event) {
     e.preventDefault();
     const { name, columns } = this.form.controls;
-    console.log('name', this.form.controls.name.value)
-    console.log('columns[0]', this.form.controls.columns.controls)
     let columnsValue: any[] = [];
     this.form.controls.columns.controls.forEach( (control, index) => {
-      console.log(`columns[${index}]`, control.value)
       columnsValue.push(
         {
           id: uuid(),
@@ -52,6 +49,7 @@ export class DialogCreateNewBoardComponent {
         }
       )
     });
-    this.store.dispatch(create({columns: columnsValue, name: name.value ? name.value : '',}))
+    this.store.dispatch(create({columns: columnsValue, name: name.value ? name.value : ''}));
+    this.dialogRef.close();
   }
 }

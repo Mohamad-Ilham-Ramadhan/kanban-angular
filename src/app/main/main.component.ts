@@ -31,9 +31,6 @@ export class MainComponent {
 
   constructor(private store: Store<State>) {
     this.boards$ = store.select(selectBoards);
-    this.boards$.subscribe( val => {
-      console.log('this.boards$.subscribe', val)
-    });
   }
 
   toggleSidebar() {

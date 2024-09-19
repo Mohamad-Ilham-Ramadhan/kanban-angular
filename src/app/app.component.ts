@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { selectFeatureTheme, AppState } from './selectors/theme.selector';
 import { toggleTheme } from './actions/theme.action';
+import { State } from './reducers';
+import { getStateFromLocalStorage } from './actions/board.action';
 
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
@@ -24,10 +26,11 @@ import { DialogCreateNewBoardComponent } from './dialog-create-new-board/dialog-
 })
 export class AppComponent implements OnInit  {
   constructor(@Inject(DOCUMENT) private document: Document, private store: Store<AppState>) {
-    this.theme$ = this.store.select(selectFeatureTheme)
+    this.theme$ = this.store.select(selectFeatureTheme);
   }
   theme$: Observable<string>
   ngOnInit(): void {
+    this.store.dispatch(getStateFromLocalStorage());
     this.theme$.subscribe( val => {
       if (val === 'dark') {
         this.document.body.classList.add(val)
