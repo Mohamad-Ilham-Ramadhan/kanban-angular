@@ -12,6 +12,7 @@ import { InputComponent } from '../input/input.component';
 import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { selectBoards, selectActiveBoard, selectCurrentBoard } from '../selectors/board.selector';
 import { Column, Board } from '../reducers/board.reducer';
+import { setActiveBoard } from '../actions/board.action';
 
 import { CountPipe } from '../pipes/count.pipe';
 @Component({
@@ -49,6 +50,10 @@ export class MainComponent {
     console.log('this.asideEl', this.asideEl.nativeElement);
     // this.asideEl.nativeElement.classList.toggle('hide');
     this.mainEl.nativeElement.classList.toggle('hide');
+  }
+
+  chooseBoard(index: number) {
+    this.store.dispatch(setActiveBoard({index}))
   }
 
   dialog = inject(MatDialog);
