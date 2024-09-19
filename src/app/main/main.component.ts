@@ -12,7 +12,7 @@ import { InputComponent } from '../input/input.component';
 import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { selectBoards, selectActiveBoard, selectCurrentBoard } from '../selectors/board.selector';
 import { Column, Board } from '../reducers/board.reducer';
-import { setActiveBoard } from '../actions/board.action';
+import { setActiveBoard, deleteBoard } from '../actions/board.action';
 
 import { CountPipe } from '../pipes/count.pipe';
 @Component({
@@ -54,6 +54,10 @@ export class MainComponent {
 
   chooseBoard(index: number) {
     this.store.dispatch(setActiveBoard({index}))
+  }
+
+  deleteBoard() {
+    this.store.dispatch(deleteBoard())
   }
 
   dialog = inject(MatDialog);

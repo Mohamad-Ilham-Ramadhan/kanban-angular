@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
 
-import { create, getStateFromLocalStorage, setActiveBoard} from "../actions/board.action";
+import { create, deleteBoard, getStateFromLocalStorage, setActiveBoard} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -371,5 +371,9 @@ export const boardReducer = createReducer(
       const newState = {...state, activeBoard: index};
       localStorage.setItem('board', JSON.stringify(newState))
       return newState
+   }),
+   on(deleteBoard, (state) => {
+      const newBoards = state.boards.filter( (b, i) => i !== state.activeBoard);
+      return {boards: newBoards, activeBoard: 0};
    })
 );

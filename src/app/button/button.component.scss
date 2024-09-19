@@ -5,6 +5,10 @@
    font-weight: 700;
    text-align: center;
    transition: background-color 200ms ease;
+
+   &:focus {
+      outline: $focus-outline 2px solid;
+   }
    
    &.color-primary {
       background-color: $primary;
