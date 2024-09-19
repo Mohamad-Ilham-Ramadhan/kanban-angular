@@ -10,11 +10,14 @@ import { State } from '../reducers';
 
 import { InputComponent } from '../input/input.component';
 import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { selectBoards, selectActiveBoard } from '../selectors/board.selector';
+import { selectBoards, selectActiveBoard, selectCurrentBoard } from '../selectors/board.selector';
+import { Column, Board } from '../reducers/board.reducer';
+
+import { CountPipe } from '../pipes/count.pipe';
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterLink, CommonModule, AsyncPipe, InputComponent, FormsModule, ReactiveFormsModule],
+  imports: [RouterLink, CommonModule, AsyncPipe, InputComponent, FormsModule, ReactiveFormsModule, CountPipe],
   // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
@@ -29,10 +32,17 @@ export class MainComponent {
 
   boards$ = new Observable<any>();
   activeBoard$ = new Observable();
+  currentBoard$ = new Observable<Board>();
+  columns: Column[] = [];
 
   constructor(private store: Store<State>) {
     this.boards$ = store.select(selectBoards);
     this.activeBoard$ = store.select(selectActiveBoard);
+    this.currentBoard$ = store.select(selectCurrentBoard);
+    this.currentBoard$.subscribe( (cb: Board) => {
+      console.log('cb', cb)
+      this.columns = cb.columns;
+    })
   }
 
   toggleSidebar() {

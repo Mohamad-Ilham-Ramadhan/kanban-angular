@@ -97,21 +97,74 @@
       width: 100%;
       
       .wrapper {
+         display: flex;
          width: fit-content;
          min-width: 1500px;
          flex-wrap: nowrap;
          gap: 32px;
-         padding: 32px;
+         padding: 24px 32px;
+
+         
          
          .tasks-wrapper {
             width: 280px;
             flex-shrink: 0;
+
+            .column-name {
+               display: flex;
+               align-items: center;
+               margin-bottom: 24px;
+               .circle {
+                  display: block;
+                  width: 15px;
+                  height: 15px;
+                  border-radius: 50px;
+                  margin-right: 12px;
+                  &.color-0 {
+                     background-color: #49c4e5;
+                  }
+                  &.color-1 {
+                     background-color: #8471f2;
+                  }
+                  &.color-2 {
+                     background-color: #67e2ae;
+                  }
+                  &.color-3 {
+                     background-color: #e5a449;
+                  }
+                  &.color-4 {
+                     background-color: #2a3fd8;
+                  }
+                  &.color-5 {
+                     background-color: #c36e6e;
+                  }
+   
+               }
+               .text {
+                  font-size: 12px;
+                  font-weight: bold;
+                  color: $text-gray;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+               }
+            }
             
             .task {
                border-radius: 8px;
                border: 1px solid $dark-border;
                background-color: $dark-main;
                margin-bottom: 16px;
+               padding: 24px 16px;
+               .title {
+                  font-weight: bold;
+                  font-size: 15px;
+                  margin-bottom: 8px;
+               }
+               .subtasks-done {
+                  color: $text-gray;
+                  font-size: 12px;
+                  font-weight: bold;
+               }
             }
          }
       }

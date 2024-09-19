@@ -13,3 +13,12 @@ export const selectActiveBoard = createSelector(
   selectFeature,
   (state: BoardState) => state.activeBoard
 );
+
+export const selectCurrentBoard = createSelector(
+  selectFeature,
+  (state: BoardState) => state.boards[state.activeBoard]
+);
+// export const selectCurrentBoard = createSelector(
+//   selectFeature,
+//   (state: BoardState) => state.boards[state.activeBoard]
+// );

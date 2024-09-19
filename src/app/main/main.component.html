@@ -20,106 +20,22 @@
       <button (click)="toggleSidebar()" class="button">Show/hide sidebar</button>
    </aside>
    <div class="board-section">
-      <div class="wrapper flex">
-         <div class="tasks-wrapper">
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
+      <div class="wrapper">
+         <!-- @for (item of (currentBoard$.columns | async); track $index) {} -->
+          @for (column of columns; track $index) {
+             <div class="tasks-wrapper">
+               <div class="column-name">
+                  <span [class]="'circle ' + 'color-'+$index"></span>
+                  <span class="text">{{ column.name }} ({{column.tasks.length}})</span>
+               </div>
+               @for (task of column.tasks; track $index) {
+                  <div class="task">
+                     <div class="title">{{ task.title }}</div>
+                     <div class="subtasks-done">{{ task.subtasks | count: 'isDone'}} of {{task.subtasks.length}} subtasks</div>
+                  </div>
+               }
             </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-         </div>
-         <div class="tasks-wrapper">
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-         </div>
-         <div class="tasks-wrapper">
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-         </div>
-
-         <!-- <div class="tasks-wrapper">
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-         </div>
-
-         <div class="tasks-wrapper">
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-         </div>
-
-         <div class="tasks-wrapper">
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-            <div class="task">
-               <div>Research pricing points of various competitors and trial different business models</div>
-               <div>1 of 3 subtasks</div>
-            </div>
-         </div> -->
+          }
       </div>
    </div>
 </main>
