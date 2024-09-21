@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,12 @@ import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss'
 })
-export class InputComponent {
+export class InputComponent implements AfterViewInit {
   @Input('type') type: 'text'|'number'|'file' = 'text';
   @Input() control?: FormControl | undefined;
+  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+
+  ngAfterViewInit(): void {
+    
+  }
 }

@@ -1,5 +1,5 @@
 @if(control) {
-   <input [type]="type" [formControl]="control">
+   <input [type]="type" [formControl]="control" #input>
 } @else {
-   <input [type]="type" />
+   <input [type]="type" #input/>
 }

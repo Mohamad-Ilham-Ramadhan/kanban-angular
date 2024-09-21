@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, viewChildren, ElementRef, ContentChild, ContentChildren, AfterContentInit, effect, ViewChildren, Input, QueryList } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { v4 as uuid } from 'uuid';
@@ -23,9 +23,17 @@ export interface DialogData {
   styleUrl: './dialog-create-new-board.component.scss'
 })
 export class DialogCreateNewBoardComponent {
+  constructor() {
+    effect(() => {
+      this.columns()[this.form.controls.columns.length - 1].input?.nativeElement.focus()
+    });
+  }
+
   dialogRef = inject(MatDialogRef);
   data = inject<DialogData>(MAT_DIALOG_DATA);
   store = inject(Store);
+
+  columns = viewChildren<InputComponent>('column');
 
   form = new FormGroup({
     name: new FormControl(''),
