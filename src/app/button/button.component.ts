@@ -11,7 +11,7 @@ import { NgClass } from '@angular/common';
 export class ButtonComponent {
   @Input('type') type: 'button' | 'submit' = 'button';
   @Input('size') size: 'medium' | 'small' = 'medium';
-  @Input('color') color: 'primary' | 'white' = 'primary';
+  @Input('color') color: 'primary' | 'white' | 'danger' = 'primary';
   @Input('classes') classes: string = '';
   
 }

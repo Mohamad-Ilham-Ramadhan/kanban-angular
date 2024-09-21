@@ -250,6 +250,11 @@ button {
   border-radius: 0px;
   background-color: transparent;
 }
+.dialog-container {
+  background-color: $dark-main;
+  padding: 32px;
+  border-radius: 8px;
+}
 
 
 // tailwindcss like

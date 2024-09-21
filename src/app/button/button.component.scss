@@ -19,9 +19,17 @@
    &.color-white {
       background-color: white;
       color: $primary;
+      transition: opacity 200ms ease;
       &:hover {
-         background-color: darken($color: #fff, $amount: 10%);
-         color: darken($color: $primary, $amount: 10%);
+         opacity: .6;
+      }
+   }
+   &.color-danger {
+      background-color: $danger;
+      color: white;
+      transition: opacity 200ms ease;
+      &:hover {
+         opacity: .6;
       }
    }
    &.medium {
