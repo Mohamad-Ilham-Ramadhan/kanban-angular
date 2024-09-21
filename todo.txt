@@ -1,0 +1,3 @@
+- unique board name.
+- form validation on create new board
+- new column

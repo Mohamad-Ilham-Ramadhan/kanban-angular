@@ -36,6 +36,9 @@ export class DialogCreateNewBoardComponent {
   addNewColumn() {
     this.form.controls.columns.push(new FormControl(''))
   }
+  removeColumn(index: number) {
+    this.form.controls.columns.removeAt(index)
+  }
   submit(e: Event) {
     e.preventDefault();
     const { name, columns } = this.form.controls;
