@@ -6,7 +6,12 @@
       <div class="title">Platform Launch</div>
       <div class="flex items-center">
          <app-button class="mr-4">+ Add New Task</app-button>
-         <app-button-dropdown></app-button-dropdown>
+         <app-button-dropdown position="right">
+            <div class="flex flex-column edit-delete-wrapper">
+               <button class="edit-board">Edit Board</button>
+               <button class="delete-board">Delete Board</button>
+            </div>
+         </app-button-dropdown>
       </div>
    </div>
 </header>

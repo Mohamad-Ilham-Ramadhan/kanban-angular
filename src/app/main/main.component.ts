@@ -15,6 +15,7 @@ import { Column, Board } from '../reducers/board.reducer';
 import { setActiveBoard, deleteBoard } from '../actions/board.action';
 
 import { CountPipe } from '../pipes/count.pipe';
+
 @Component({
   selector: 'app-main',
   standalone: true,
@@ -41,14 +42,11 @@ export class MainComponent {
     this.activeBoard$ = store.select(selectActiveBoard);
     this.currentBoard$ = store.select(selectCurrentBoard);
     this.currentBoard$.subscribe( (cb: Board) => {
-      console.log('cb', cb)
       this.columns = cb.columns;
     })
   }
 
   toggleSidebar() {
-    console.log('this.asideEl', this.asideEl.nativeElement);
-    // this.asideEl.nativeElement.classList.toggle('hide');
     this.mainEl.nativeElement.classList.toggle('hide');
   }
 
@@ -56,9 +54,6 @@ export class MainComponent {
     this.store.dispatch(setActiveBoard({index}))
   }
 
-  deleteBoard() {
-    this.store.dispatch(deleteBoard())
-  }
 
   dialog = inject(MatDialog);
   openDialog() {

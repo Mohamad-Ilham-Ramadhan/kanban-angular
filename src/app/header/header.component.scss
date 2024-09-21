@@ -30,3 +30,23 @@
    text-wrap: nowrap;
    overflow: hidden;
 }
+
+.edit-delete-wrapper { 
+   gap: 10px;
+   .edit-board {
+      color: $text-gray;
+      font-weight: 500;
+      transition: opacity 200ms ease;
+      &:hover {
+         opacity: .7;
+      }
+   }
+   .delete-board {
+      color: $danger;
+      font-weight: 500;
+      transition: opacity 200ms ease;
+      &:hover {
+         opacity: .7;
+      }
+   }
+}

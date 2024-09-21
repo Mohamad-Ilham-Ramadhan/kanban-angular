@@ -1,16 +1,34 @@
 @import '../../styles.scss';
 
-.button {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 10px 8px;
-   border-radius: 16px;
-   color: $button-dropdown;
-   background-color: transparent;
+.container {
+   position: relative;
+   .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 8px;
+      border-radius: 16px;
+      color: $button-dropdown;
+      background-color: transparent;
+      
+      &:hover {
+         background-color: $dark-bg;
+      }
+   }
+}
+.dropdown {
+   min-width: 190px;
+   background-color: darken($color: $dark-bg, $amount: 1%);
+   padding: 18px 20px;
+   border-radius: 8px;
 
-   
-   &:hover {
-      background-color: $dark-bg;
+   position: absolute;
+   top: 12px;
+
+   &.pos-right {right: -22px;}
+   &.pos-left {left: 0;}
+   &.pos-center {
+      left: 50%;
+      transform: translateX(calc(-50% + 8px));
    }
 }

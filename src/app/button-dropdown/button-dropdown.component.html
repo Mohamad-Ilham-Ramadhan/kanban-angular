@@ -1,3 +1,21 @@
-<button class="button">
-   <svg width="5" height="20" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;"><g fill="currentColor" fill-rule="evenodd"><circle cx="2.308" cy="2.308" r="2.308"></circle><circle cx="2.308" cy="10" r="2.308"></circle><circle cx="2.308" cy="17.692" r="2.308"></circle></g></svg>
-</button>
+<div class="container">
+   <button class="button" (click)="show = !show" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+   <!-- <button class="button" [matMenuTriggerFor]="menu" (menuOpened)="menuOpened()"> -->
+      <svg width="5" height="20" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;"><g fill="currentColor" fill-rule="evenodd"><circle cx="2.308" cy="2.308" r="2.308"></circle><circle cx="2.308" cy="10" r="2.308"></circle><circle cx="2.308" cy="17.692" r="2.308"></circle></g></svg>
+   </button>
+   <!-- <mat-menu class="ilham-ganteng" overlayPanelClass="ilham-ganteng" #menu xPosition="before" xPosition="after">
+      <div>Asik aja</div>
+   </mat-menu> -->
+   <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="trigger"
+      [cdkConnectedOverlayOpen]="show"
+      (overlayOutsideClick)="show = !show"
+   >
+      <div @openClose class="dropdown" #dropdown [ngClass]="{'pos-left': position === 'left', 'pos-center': position === 'center', 'pos-right': position === 'right'}">
+         <ng-content/>
+      </div>
+   </ng-template>
+   <!-- @if (show) {
+   } -->
+</div>

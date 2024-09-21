@@ -195,8 +195,6 @@ button {
   font: inherit;
 
   /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
-  line-height: normal;
-
   /* Corrects font smoothing for webkit */
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
@@ -220,7 +218,6 @@ button {
 }
 
 // custom scroll bar
-
 /* width */
 ::-webkit-scrollbar {
   width: 11.5px;
@@ -258,6 +255,7 @@ button {
 // tailwindcss like
 .block {display: block;}
 .flex {display: flex;}
+.flex-column { flex-direction: column;}
 .items-center {align-items: center;}
 .justify-between {justify-content: space-between;}
 .w-full {width: 100%}
