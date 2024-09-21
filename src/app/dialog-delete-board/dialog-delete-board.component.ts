@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, output, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -8,6 +8,7 @@ import { selectCurrentBoard, selectActiveBoard } from '../selectors/board.select
 import { State } from '../reducers';
 
 import { ButtonComponent } from '../button/button.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-delete-board',
@@ -17,6 +18,11 @@ import { ButtonComponent } from '../button/button.component';
   styleUrl: './dialog-delete-board.component.scss'
 })
 export class DialogDeleteBoardComponent implements AfterViewInit {
+  cancel = output();
+  dialogRef = inject(MatDialogRef<DialogDeleteBoardComponent>)
+  onCancel() {
+    this.dialogRef.close()
+  }
   constructor(private store: Store<State>) {
     this.board$ = this.store.select(selectCurrentBoard);
   }

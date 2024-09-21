@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { ButtonComponent } from '../button/button.component';
 import { ButtonDropdownComponent } from '../button-dropdown/button-dropdown.component';
@@ -24,10 +24,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     // console.log('store', this.store.state)
   }
-
+  dialogRef!: MatDialogRef<DialogDeleteBoardComponent>;
   openDialogDeleteBoard() {
-    const dialogRef = this.dialog.open(DialogDeleteBoardComponent, {
+    this.dialogRef = this.dialog.open(DialogDeleteBoardComponent, {
       width: '480px'
     })
-  }
+  };
+  
 }
