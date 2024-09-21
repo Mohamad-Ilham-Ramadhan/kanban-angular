@@ -2,7 +2,7 @@
    <div class="title">Delete this board?</div>
    <div class="text">Are you sure you want to delete the '{{(board$ | async)?.name}}' board? This action will remove all columns and tasks and cannot be reversed.</div>
    <div class="flex buttons-wrapper">
-      <app-button color="danger" size="small" class="block w-full" classes="w-full">Delete</app-button>
+      <app-button color="danger" size="small" class="block w-full" classes="w-full" (click)="onDelete()">Delete</app-button>
       <app-button color="white" size="small" class="block w-full" classes="w-full" (click)="onCancel()">Cancel</app-button>
    </div>
 </div>

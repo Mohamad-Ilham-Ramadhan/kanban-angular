@@ -374,6 +374,8 @@ export const boardReducer = createReducer(
    }),
    on(deleteBoard, (state) => {
       const newBoards = state.boards.filter( (b, i) => i !== state.activeBoard);
-      return {boards: newBoards, activeBoard: 0};
+      const newState = {boards: newBoards, activeBoard: 0};
+      localStorage.setItem('board', JSON.stringify(newState))
+      return newState;
    })
 );

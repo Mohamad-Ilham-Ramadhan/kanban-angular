@@ -30,16 +30,4 @@ export const reducers: ActionReducerMap<State> = {
   board: boardReducer
 };
 
-export function cobaReducer(reducer: ActionReducer<any>) : ActionReducer<any> {
-  return function(state, action) {
-    if (typeof window === 'undefined') {
-      console.log('no window')
-    } else {
-      console.log('there is a window there is a door', state);
-      localStorage.setItem('coba', 'coba coba aja');
-    }
-    return reducer(state, action);
-  }
-}
-
-export const metaReducers: MetaReducer<State>[] = isDevMode() ? [cobaReducer] : [cobaReducer];
+export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];
