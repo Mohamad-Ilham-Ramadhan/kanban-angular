@@ -355,7 +355,7 @@ export const boardReducer = createReducer(
       const currentBoard = [state.boards[state.activeBoard]];
       console.log('payload', payload)
       let newBoard: BoardState = {
-         activeBoard: state.activeBoard,
+         activeBoard: state.boards.length,
          boards: [...state.boards, {id: uuid(), name: payload.name, columns: payload.columns}]
       }
       console.log('newBoard', newBoard)
