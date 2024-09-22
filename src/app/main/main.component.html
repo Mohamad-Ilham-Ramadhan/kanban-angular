@@ -31,13 +31,16 @@
              <div class="tasks-wrapper">
                <div class="column-name">
                   <span [class]="'circle ' + 'color-'+$index"></span>
-                  <span class="text">{{ column.name }} ({{column.tasks.length}})</span>
+                  <span class="text">{{ column.name }}({{column.tasks.length}})</span>
                </div>
                @for (task of column.tasks; track $index) {
                   <div class="task">
                      <div class="title">{{ task.title }}</div>
                      <div class="subtasks-done">{{ task.subtasks | count: 'isDone'}} of {{task.subtasks.length}} subtasks</div>
                   </div>
+               }
+               @if (column.tasks.length === 0) {
+                  <div class="empty-column"></div>
                }
             </div>
           }

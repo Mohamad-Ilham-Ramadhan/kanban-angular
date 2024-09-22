@@ -12,6 +12,7 @@
    width: 100%;
    transition: .5s;
    overflow: auto;
+
    &.hide {
       padding-left: 0px;
       .aside {
@@ -104,12 +105,13 @@
          flex-wrap: nowrap;
          gap: 32px;
          padding: 24px 32px;
-
-         
+         height: 100%;
          
          .tasks-wrapper {
             width: 280px;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
 
             .column-name {
                display: flex;
@@ -167,6 +169,14 @@
                   font-weight: bold;
                }
             }
+
+            .empty-column {
+               height: 100%;
+               border-radius: 8px;
+               // border: 2px dashed $dark-border;
+               border: 2px dashed darken($text-gray, 25%);
+            }
+
          }
       }
    }
