@@ -12,4 +12,8 @@ input {
    &:focus-visible {
       border-color: $primary;
    }
+
+   &.error {
+      border: 2px solid $danger;
+   }
 }

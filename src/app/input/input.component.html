@@ -1,5 +1,5 @@
 @if(control) {
-   <input [type]="type" [formControl]="control" #input>
+   <input [type]="type" [formControl]="control" #input [ngClass]="{error: isError}" />
 } @else {
-   <input [type]="type" #input/>
+   <input [type]="type" #input [ngClass]="{error: isError}" />
 }

@@ -1,6 +1,6 @@
 import { Component, inject, viewChildren, ElementRef, ContentChild, ContentChildren, AfterContentInit, effect, ViewChildren, Input, QueryList } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { v4 as uuid } from 'uuid';
 
 import { Store } from '@ngrx/store';
@@ -34,21 +34,25 @@ export class DialogCreateNewBoardComponent {
   store = inject(Store);
 
   columns = viewChildren<InputComponent>('column');
-
+  submitted: boolean = false;
+  
   form = new FormGroup({
-    name: new FormControl(''),
+    name: new FormControl('', [Validators.required]),
     columns: new FormArray([
-      new FormControl(''),
+      new FormControl('', [Validators.required]),
     ])
   });
   addNewColumn() {
-    this.form.controls.columns.push(new FormControl(''))
+    if (this.form.controls.columns.length === 6) return;
+    this.form.controls.columns.push(new FormControl('', [Validators.required]))
   }
   removeColumn(index: number) {
     this.form.controls.columns.removeAt(index)
   }
   submit(e: Event) {
     e.preventDefault();
+    this.submitted = true;
+    if (this.form.invalid) return;
     const { name, columns } = this.form.controls;
     let columnsValue: any[] = [];
     this.form.controls.columns.controls.forEach( (control, index) => {

@@ -10,3 +10,12 @@
    justify-content: center;
    width: 40px;
 }
+.error {
+   position: absolute;
+   right: 8px;
+   top: 50%;
+   transform: translateY(-50%);
+   font-size: 12px;
+   font-weight: 500;
+   color: $danger;
+}
