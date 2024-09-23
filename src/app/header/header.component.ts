@@ -1,34 +1,54 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+import { selectCurrentBoard } from '../selectors/board.selector';
+import { State } from '../reducers';
+import { Board } from '../reducers/board.reducer';
 
 import { ButtonComponent } from '../button/button.component';
 import { ButtonDropdownComponent } from '../button-dropdown/button-dropdown.component';
 import { DialogDeleteBoardComponent } from '../dialog-delete-board/dialog-delete-board.component';
+import { DialogEditBoardComponent } from '../dialog-edit-board/dialog-edit-board.component';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ButtonComponent, ButtonDropdownComponent],
+  imports: [AsyncPipe, ButtonComponent, ButtonDropdownComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
   dialog = inject(MatDialog);
-  
-  constructor(private store: Store) {
-    // @ts-ignore
-    this.theme$ = store.select('count')
+  dialogData!: Board;
+  constructor(private store: Store<State>) {
+    this.board$ = store.select(selectCurrentBoard)
+    this.board$.subscribe( (b) => {
+      this.dialogData = b;
+    })
   }
-  theme$: Observable<string>;
+
+  board$: Observable<Board>
+  
   ngOnInit(): void {
     // console.log('store', this.store.state)
   }
-  dialogRef!: MatDialogRef<DialogDeleteBoardComponent>;
+  dialogDeleteRef!: MatDialogRef<DialogDeleteBoardComponent>;
+  dialogEditRef!: MatDialogRef<DialogEditBoardComponent>;
+
   openDialogDeleteBoard() {
-    this.dialogRef = this.dialog.open(DialogDeleteBoardComponent, {
+    this.dialogDeleteRef = this.dialog.open(DialogDeleteBoardComponent, {
       width: '480px'
     })
   };
+
+  editBoard() {
+    console.log('edit Board')
+    this.dialogEditRef = this.dialog.open(DialogEditBoardComponent, {
+      width: '480px',
+      data: this.dialogData
+    })
+  }
   
 }

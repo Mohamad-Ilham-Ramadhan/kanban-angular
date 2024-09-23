@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
 
-import { create, deleteBoard, getStateFromLocalStorage, newColumn, setActiveBoard} from "../actions/board.action";
+import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -418,7 +418,6 @@ export const boardReducer = createReducer(
       return initialState;
    }),
    on(create, (state, payload) => {
-      const currentBoard = [state.boards[state.activeBoard]];
       console.log('payload', payload)
       let newBoard: BoardState = {
          activeBoard: state.boards.length,
@@ -452,6 +451,32 @@ export const boardReducer = createReducer(
 
       let newBoard = {...state.boards[state.activeBoard]};
       newBoard.columns = newColumns;
+      let newBoards = [...state.boards];
+      newBoards[state.activeBoard] = newBoard;
+      const newState = {...state, boards: newBoards};
+      localStorage.setItem('board', JSON.stringify(newState));
+      return newState;
+   }),
+   on(editBoard, (state, {boardName, columnNames, ids}) => {
+      const filteredColumns = state.boards[state.activeBoard].columns.filter ( c => {
+         return ids.has(c.id)
+      });
+      const newColumns: Column[] = [];
+      columnNames.forEach( (name, index) => {
+         if (index >= filteredColumns.length) {
+            newColumns.push({
+               id: uuid(),
+               name, 
+               tasks: []
+            })
+         } else {
+            newColumns.push({...filteredColumns[index], name})
+         }
+      });
+
+      let newBoard = {...state.boards[state.activeBoard]};
+      newBoard.columns = newColumns;
+      newBoard.name = boardName;
       let newBoards = [...state.boards];
       newBoards[state.activeBoard] = newBoard;
       const newState = {...state, boards: newBoards};
