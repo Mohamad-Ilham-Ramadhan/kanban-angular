@@ -13,6 +13,8 @@ export class InputComponent implements AfterViewInit {
   @Input('type') type: 'text'|'number'|'file' = 'text';
   @Input() control?: FormControl | undefined;
   @Input() isError: boolean = false;
+  @Input() isDisabled: boolean = false;
+
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
   ngAfterViewInit(): void {

@@ -16,4 +16,7 @@ input {
    &.error {
       border: 2px solid $danger;
    }
+   &:disabled {
+      opacity: .3;
+   }
 }

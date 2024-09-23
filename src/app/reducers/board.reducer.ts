@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
 
-import { create, deleteBoard, getStateFromLocalStorage, setActiveBoard} from "../actions/board.action";
+import { create, deleteBoard, getStateFromLocalStorage, newColumn, setActiveBoard} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -432,6 +432,31 @@ export const boardReducer = createReducer(
          localStorage.setItem('board', JSON.stringify( newBoard ))
       }
       return newBoard;
+   }),
+   on(newColumn, (state, {columnNames, ids}) => {
+      const filteredColumns = state.boards[state.activeBoard].columns.filter ( c => {
+         return ids.has(c.id)
+      });
+      const newColumns: Column[] = [];
+      columnNames.forEach( (name, index) => {
+         if (index >= filteredColumns.length) {
+            newColumns.push({
+               id: uuid(),
+               name, 
+               tasks: []
+            })
+         } else {
+            newColumns.push({...filteredColumns[index], name})
+         }
+      });
+
+      let newBoard = {...state.boards[state.activeBoard]};
+      newBoard.columns = newColumns;
+      let newBoards = [...state.boards];
+      newBoards[state.activeBoard] = newBoard;
+      const newState = {...state, boards: newBoards};
+      localStorage.setItem('board', JSON.stringify(newState));
+      return newState;
    }),
    on(setActiveBoard, (state, {index}) => {
       const newState = {...state, activeBoard: index};

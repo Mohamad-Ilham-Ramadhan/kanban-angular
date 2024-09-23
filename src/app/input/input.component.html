@@ -1,5 +1,5 @@
 @if(control) {
-   <input [type]="type" [formControl]="control" #input [ngClass]="{error: isError}" />
+   <input [type]="type" [formControl]="control" #input [ngClass]="{error: isError}" [attr.disabled]="isDisabled" />
 } @else {
-   <input [type]="type" #input [ngClass]="{error: isError}" />
+   <input [type]="type" #input [ngClass]="{error: isError}" [attr.disabled]="isDisabled" />
 }
