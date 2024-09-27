@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild, ComponentRef } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -12,6 +12,9 @@ import { ButtonComponent } from '../button/button.component';
 import { ButtonDropdownComponent } from '../button-dropdown/button-dropdown.component';
 import { DialogDeleteBoardComponent } from '../dialog-delete-board/dialog-delete-board.component';
 import { DialogEditBoardComponent } from '../dialog-edit-board/dialog-edit-board.component';
+import { DialogNewTaskComponent } from '../dialog-new-task/dialog-new-task.component';
+
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -22,7 +25,16 @@ import { DialogEditBoardComponent } from '../dialog-edit-board/dialog-edit-board
 export class HeaderComponent implements OnInit {
   dialog = inject(MatDialog);
   dialogData!: Board;
-  constructor(private store: Store<State>) {
+
+  form: FormGroup;
+  incrementSlider() {
+    this.form.get('slider')?.patchValue(this.form.get('slider')?.value + 1)
+  }
+  constructor(private store: Store<State>, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      slider: [50]
+    });
+
     this.board$ = store.select(selectCurrentBoard)
     this.board$.subscribe( (b) => {
       this.dialogData = b;
@@ -36,7 +48,8 @@ export class HeaderComponent implements OnInit {
   }
   dialogDeleteRef!: MatDialogRef<DialogDeleteBoardComponent>;
   dialogEditRef!: MatDialogRef<DialogEditBoardComponent>;
-
+  dialogAddNewTask!: MatDialogRef<DialogNewTaskComponent>;
+  
   openDialogDeleteBoard() {
     this.dialogDeleteRef = this.dialog.open(DialogDeleteBoardComponent, {
       width: '480px'
@@ -50,5 +63,15 @@ export class HeaderComponent implements OnInit {
       data: this.dialogData
     })
   }
+  addNewTask() {
+    console.log('add new task');
+    this.dialogAddNewTask = this.dialog.open(DialogNewTaskComponent, {
+      width: '480px',
+      
+    })
+  }
+
+
+
   
 }

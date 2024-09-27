@@ -1,0 +1,55 @@
+<div class="dialog-container">
+   <h2 class="title">Add New Task</h2>
+   <form action="" [formGroup]="form" (ngSubmit)="submit($event)">
+      <label for="input-name" class="block mb-4">
+         <div class="label mb-2">Title</div>
+         <div class="relative">
+            <app-input [control]="fc('title')" [isError]="submitted && !!form.get('title')?.hasError('required')" />
+            @if (submitted && !!form.get('title')?.hasError('required')) {
+               <div class="error">Required</div>
+            }
+         </div>
+      </label>
+
+      <label for="input-name" class="block mb-4">
+         <div class="label mb-2">Description</div>
+         <div class="relative">
+            <app-textarea [control]="fc('description')" [isError]="submitted && fc('description').hasError('required')" />
+            @if (submitted && fc('description').hasError('required')) {
+               <div class="error">Required</div>
+            }
+         </div>
+      </label>
+
+      <label class="block mb-4">
+         <div class="label mb-2">Subtasks</div>
+         @for (control of subtasksControls; track $index) {
+            <div class="mb-2 flex relative">
+               <div class="relative w-full">
+                  <app-input [control]="control" [isError]="submitted && fa('subtasks').controls[$index].hasError('required')" class="block w-full" #column />
+                  @if (submitted && fa('subtasks').controls[$index].hasError('required')) {
+                     <div class="error">Required</div>
+                  }
+               </div>
+               @if (fa('subtasks').controls.length > 1) {
+                  <button class="button-remove-column button-outline" type="button" (click)="removeSubtask($index)"><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"></path><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"></path></g></svg></button>
+               }
+            </div>
+         }
+      </label>
+      @if (fa('subtasks').length < 6) {
+         <app-button (click)="addNewSubtask()" size="small" color="white" class="block w-full mb-4" classes="w-full">+ Add New Column</app-button>
+      }
+
+      <label for="input-name" class="block mb-4">
+         <div class="label mb-2">Status</div>
+         <div class="relative">
+            <app-select 
+               [columns]="columns"
+               formControlName="status" 
+            />
+         </div>
+      </label>
+      <app-button type="submit" size="small" class="w-full" classes="w-full">Create New Board</app-button>
+   </form>
+</div>

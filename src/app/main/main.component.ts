@@ -10,7 +10,7 @@ import { DialogNewColumnComponent } from '../dialog-new-column/dialog-new-column
 import { State } from '../reducers';
 
 import { InputComponent } from '../input/input.component';
-import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormGroup,  FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import { selectBoards, selectActiveBoard, selectCurrentBoard } from '../selectors/board.selector';
 import { Column, Board } from '../reducers/board.reducer';
 import { setActiveBoard } from '../actions/board.action';
@@ -29,9 +29,7 @@ export class MainComponent {
   @ViewChild('aside') asideEl!: ElementRef;
   @ViewChild('main') mainEl!: ElementRef;
 
-  form = new FormGroup({
-    suka: new FormControl('')
-  });
+  form: FormGroup;
 
   boards$ = new Observable<any>();
   activeBoard$ = new Observable();
@@ -39,7 +37,17 @@ export class MainComponent {
   columns: Column[] = [];
   dialogData: any;
 
-  constructor(private store: Store<State>) {
+
+
+  constructor(private store: Store<State>, private fb : FormBuilder) {
+    this.form = this.fb.group({
+      select: '1'
+    });
+    this.form.get('select')?.valueChanges.subscribe( (val) => {
+      console.log("this.form.get('select')?.valueChanges.subscribe", val)
+    });
+
+    
     this.boards$ = store.select(selectBoards);
     this.activeBoard$ = store.select(selectActiveBoard);
     this.currentBoard$ = store.select(selectCurrentBoard);
@@ -50,6 +58,11 @@ export class MainComponent {
         columns: cb.columns
       }
     })
+  }
+
+  cobaSubmit(e: Event) {
+
+    console.log('cobaSubmit', this.form.get('select')?.value)
   }
 
   toggleSidebar() {

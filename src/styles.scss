@@ -165,10 +165,10 @@ $button-dropdown: #828fa3;
   margin: 0;
   padding: 0;
   line-height: 1.5;
+  font-family: "Plus Jakarta Sans"; 
 }
 html, body { height: 100%; }
 body {
-  font-family: "Plus Jakarta Sans";
   font-style: normal;
   &.dark {
      color: #fff;

@@ -1,0 +1,64 @@
+@import '../../styles.scss';
+
+.container {
+   position: relative;
+   .button {
+      position: relative;
+      background-color: transparent;
+      border: 2px solid #4e4f61;
+      border-radius: 4px;
+      padding: 8px 16px;
+      color: white;
+      width: 100%;
+      min-height: 39px;
+      outline: none;
+      &:focus-visible {
+         border-color: $primary;
+      }
+      &.error {
+         border: 2px solid $danger;
+      }
+      &:disabled {
+         opacity: .3;
+      }
+      .selected-name {
+         font-size: 13px;
+         font-weight: 500;
+      }
+      .arrow {
+         position: absolute;
+         right: 16px;
+         top: 50%;
+         transform: translateY(-50%);
+      }
+      
+   }
+}
+.dropdown {
+   min-width: 190px;
+   background-color: $dark-bg;
+   padding: 16px;
+   border-radius: 4px;
+
+   position: absolute;
+   top: 12px;
+
+   &.pos-right {right: -22px;}
+   &.pos-left {left: 0;}
+   &.pos-center {
+      left: 50%;
+      transform: translateX(calc(-50% + 8px));
+   }
+
+   .option {
+      font-size: 13px;
+      font-weight: 500;
+      color: $text-gray;
+      margin-bottom: 8px;
+      &:hover { 
+         cursor: pointer;
+         color: #ffffff;
+         font-weight: 600;
+      }
+   }
+}

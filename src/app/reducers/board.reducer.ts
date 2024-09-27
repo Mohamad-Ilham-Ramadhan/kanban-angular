@@ -1,7 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
-
-import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard} from "../actions/board.action";
+import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -28,7 +27,6 @@ export interface BoardState {
    activeBoard: number;
    boards: Board[]
 }
-
 export const initialState: BoardState = {
    activeBoard: 0,
    boards: [
@@ -407,6 +405,10 @@ export const initialState: BoardState = {
    ],
 }
 
+const emptyColumn = {
+   id: uuid
+}
+
 export const boardReducer = createReducer(
    initialState,
    on(getStateFromLocalStorage, (state) => {
@@ -458,7 +460,7 @@ export const boardReducer = createReducer(
       return newState;
    }),
    on(editBoard, (state, {boardName, columnNames, ids}) => {
-      const filteredColumns = state.boards[state.activeBoard].columns.filter ( c => {
+      const filteredColumns = state.boards[state.activeBoard].columns.filter( c => {
          return ids.has(c.id)
       });
       const newColumns: Column[] = [];
@@ -493,5 +495,40 @@ export const boardReducer = createReducer(
       const newState = {boards: newBoards, activeBoard: 0};
       localStorage.setItem('board', JSON.stringify(newState))
       return newState;
-   })
+   }),
+   on(addTask, (state, {title, description, subtasks, status}) => {
+      const newState = {...state};
+      if (!newState.boards[newState.activeBoard].columns.find( (c) => c.id === status)) return state;
+      let theColumn: Column = {...newState.boards[newState.activeBoard].columns.find( (c) => c.id === status)} as Column;
+      if (newState.boards[newState.activeBoard].columns.find( (c) => c.id === status)) {
+         subtasks = subtasks.map( s => ({id: uuid(), title: s, isDone: false}))
+   
+         if (theColumn.tasks !== undefined) {
+            const tasks = [...theColumn.tasks];
+            tasks.push({
+               id: uuid(),
+               title,
+               description,
+               subtasks
+            });
+            theColumn.tasks = tasks;
+         };
+         const currentBoard = {...newState.boards[newState.activeBoard]};
+         let columns = [...newState.boards[newState.activeBoard].columns];
+         columns = columns.map((c, i) => {
+            if (c.id === status) return theColumn
+            return c;
+         });
+         currentBoard.columns = columns;
+         let boards = [...newState.boards];
+         boards = boards.map((b, i) => {
+            if (b.id === currentBoard.id) return currentBoard
+            return b
+         })
+         newState.boards = boards;
+      }
+      localStorage.setItem('board', JSON.stringify(newState))
+      return newState;
+   }),
+   
 );

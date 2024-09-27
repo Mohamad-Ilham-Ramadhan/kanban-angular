@@ -1,9 +1,9 @@
 import { Renderer2, Component, effect, ElementRef, viewChild, ViewChild, inject, Inject, Input, TemplateRef, ViewContainerRef, AfterViewInit} from '@angular/core';
 import { DOCUMENT, NgClass} from '@angular/common';
-import { OverlayModule, OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { TemplatePortal, PortalModule, Portal } from '@angular/cdk/portal';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
 import {MatMenuModule} from '@angular/material/menu';
-import { trigger, state, style, animate, transition, AnimationEvent } from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-button-dropdown',
@@ -32,11 +32,11 @@ import { trigger, state, style, animate, transition, AnimationEvent } from '@ang
 })
 export class ButtonDropdownComponent implements AfterViewInit {
   private window: any;
-  dropdown = viewChild<ElementRef<HTMLDivElement>>('dropdown');
   @ViewChild('overlay') overlayTemplate!: TemplateRef<unknown>;
   @ViewChild('menu') menu!: ElementRef<HTMLDivElement>;
-  show: boolean = false;
   @Input() position: 'center'|'left'|'right' = 'left';
+  dropdown = viewChild<ElementRef<HTMLDivElement>>('dropdown');
+  show: boolean = false;
 
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {
     this.window = document.defaultView;
@@ -55,7 +55,6 @@ export class ButtonDropdownComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // console.log('this.menu', this.menu)
   }
 
   menuOpened() {
@@ -64,8 +63,5 @@ export class ButtonDropdownComponent implements AfterViewInit {
 
   toggleDropdown() {
     this.show = !this.show;
-    setTimeout(() => {
-      // console.log('dropdown', this.dropdown);
-    })
   }
 }

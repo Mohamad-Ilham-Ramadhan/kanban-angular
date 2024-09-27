@@ -7,3 +7,4 @@ export const setActiveBoard = createAction('[Board] set active board', props<{in
 export const deleteBoard = createAction('[Board] delete a board');
 export const newColumn = createAction('[Board] new column', props<{columnNames: string[], ids: Set<string>}>());
 export const editBoard = createAction('[Board] edit board', props<{boardName: string, columnNames: string[], ids: Set<string>}>());
+export const addTask = createAction('[Board] add task', props<{title: string, description: string, subtasks: any[], status: string}>());
