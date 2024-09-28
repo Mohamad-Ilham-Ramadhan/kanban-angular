@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
-import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask} from "../actions/board.action";
+import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -530,5 +530,34 @@ export const boardReducer = createReducer(
       localStorage.setItem('board', JSON.stringify(newState))
       return newState;
    }),
-   
+   on(moveColumn, (state, {prevId, newId, taskId}) => {
+      let prevColumn = {...state.boards[state.activeBoard].columns.find(c => c.id === prevId)}
+      let newColumn = {...state.boards[state.activeBoard].columns.find( c => c.id === newId)}
+      let task = prevColumn.tasks?.find( t => t.id === taskId);
+
+      let newColumnTasks: Task[] = [];
+      if (newColumn.tasks) {
+         newColumnTasks = [...newColumn.tasks]
+      }
+      prevColumn.tasks = prevColumn.tasks?.filter( (t) => t.id !== taskId);
+      if (task) {newColumnTasks?.push(task)}
+      newColumn.tasks = newColumnTasks;
+      let boardColumns = [...state.boards[state.activeBoard].columns].map( c => {
+         if (c.id === newId) {
+            return newColumn;
+         } else if (c.id === prevId) {
+            return prevColumn;
+         } 
+         return c;
+      });
+      let currentBoard = {...state.boards[state.activeBoard]};
+      currentBoard.columns = boardColumns as Column[];
+      let boards = [...state.boards];
+      boards[state.activeBoard] = currentBoard;
+      let newState = {...state};
+      newState.boards = boards;
+      // console.log('newState.boards[state.activeBoard]', Object.isSealed(newState.boards[state.activeBoard]))
+      
+      return newState;
+   }),
 );

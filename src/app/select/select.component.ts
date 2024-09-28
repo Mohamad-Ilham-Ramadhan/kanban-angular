@@ -1,9 +1,10 @@
-import { Component, forwardRef, Input, ViewChild, TemplateRef, ElementRef, viewChild, Inject, Renderer2, effect} from '@angular/core';
+import { Component, forwardRef, Input, ViewChild, TemplateRef, ElementRef, viewChild, Inject, Renderer2, effect, Output, EventEmitter} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT, NgClass } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 
+import { Column } from '../reducers/board.reducer';
 export interface Value {
   id: string;
   name: string;
@@ -32,13 +33,21 @@ export class SelectComponent implements ControlValueAccessor {
   show: boolean = false;
 
   @Input() columns: Value[] = [];
+  @Input() currentColumn!: Value;
+  @Output() onSelect = new EventEmitter();
   open: boolean = false;
 
   selectedName: string;
-
+  selectedId: string;
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {
+    console.log('this.currentColumn', this.currentColumn);
+
+    
     this.window = document.defaultView;
     this.selectedName = this.columns.length > 0 ? this.columns[0].name : '';
+    this.selectedId = this.columns.length > 0 ? this.columns[0].id : '';
+
+    console.log('this.columnIndex')
 
     effect(() => {
       console.log('select effect()');
@@ -63,7 +72,10 @@ export class SelectComponent implements ControlValueAccessor {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      if (this.columns.length > 0) {
+      if (this.currentColumn) {
+        this.selectedName = this.currentColumn.name;
+        this.updateValue(this.currentColumn.id);
+      } else if (this.columns.length > 0) {
         this.selectedName = this.columns.length > 0 ? this.columns[0].name : '';
         this.updateValue(this.columns.length > 0 ? this.columns[0].id : '');
       }
@@ -77,7 +89,6 @@ export class SelectComponent implements ControlValueAccessor {
   toggleDropdown() {
     this.show = !this.show;
   }
-  
 
   onChange: any = () => {};
   onTouch: any = () => {};
@@ -96,10 +107,11 @@ export class SelectComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     // this.disabled = isDisabled;
-  }
+  } 
 
   updateValue(id: string): void {
-    console.log('id', id)
+    console.log('updateValue() id', id)
+    this.selectedId = id;
     this.onChange(id);
     this.onTouch();
   }
@@ -108,6 +120,7 @@ export class SelectComponent implements ControlValueAccessor {
     console.log('select component selectOption ', id);
     this.selectedName = name;
     this.show = false;
+    this.onSelect.emit({prevId: this.selectedId, newId: id});
     this.updateValue(id);
   }
 }

@@ -1,0 +1,12 @@
+@import '../../styles.scss';
+
+.description {
+   font-size: .8125rem;
+    color: #828fa3;
+    color: $text-gray;
+    line-height: 23px;
+    max-height: 10rem;
+    overflow-x: hidden;
+    word-break: break-word;
+    overflow-y: auto;
+}

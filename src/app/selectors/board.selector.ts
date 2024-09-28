@@ -18,6 +18,11 @@ export const selectCurrentBoard = createSelector(
   selectFeature,
   (state: BoardState) => state.boards[state.activeBoard]
 );
+export const selectColumns = createSelector(
+  selectFeature,
+  (state: BoardState) => state.boards[state.activeBoard].columns
+);
+
 // export const selectCurrentBoard = createSelector(
 //   selectFeature,
 //   (state: BoardState) => state.boards[state.activeBoard]

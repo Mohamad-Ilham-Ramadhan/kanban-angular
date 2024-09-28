@@ -165,6 +165,9 @@
                   font-size: 12px;
                   font-weight: bold;
                }
+               &:hover {
+                  cursor: pointer;
+               }
             }
             .empty-column {
                height: 100%;

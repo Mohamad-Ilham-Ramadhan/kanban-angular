@@ -23,19 +23,18 @@
          </span>
          <span>Hide Sidebar</span>
       </button>
-
    </aside>
    <div class="board-section">
       <div class="wrapper">
          <!-- @for (item of (currentBoard$.columns | async); track $index) {} -->
-          @for (column of columns; track $index) {
+          @for (column of columns; track $index; let columnIndex = $index) {
              <div class="tasks-wrapper">
                <div class="column-name">
-                  <span [class]="'circle ' + 'color-'+$index"></span>
+                  <span [class]="'circle ' + 'color-'+columnIndex"></span>
                   <span class="text">{{ column.name }}({{column.tasks.length}})</span>
                </div>
                @for (task of column.tasks; track $index) {
-                  <div class="task">
+                  <div class="task" (click)="openDialogTask(task, columnIndex)">
                      <div class="title">{{ task.title }}</div>
                      <div class="subtasks-done">{{ task.subtasks | count: 'isDone'}} of {{task.subtasks.length}} subtasks</div>
                   </div>
