@@ -85,10 +85,11 @@ export class MainComponent {
       data: this.dialogData
     });
   }
-  openDialogTask(task: Task, columnIndex: number) {
+  
+  openDialogTask(task: Task, columnIndex: number, taskIndex: number) {
     const dialogRef = this.dialog.open(DialogTaskComponent, {
       width: '480px',
-      data: {task, columnIndex}
+      data: {task, columnIndex, taskIndex}
     });
   }
 }

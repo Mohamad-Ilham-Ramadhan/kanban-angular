@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
-import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn} from "../actions/board.action";
+import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -534,7 +534,6 @@ export const boardReducer = createReducer(
       let prevColumn = {...state.boards[state.activeBoard].columns.find(c => c.id === prevId)}
       let newColumn = {...state.boards[state.activeBoard].columns.find( c => c.id === newId)}
       let task = prevColumn.tasks?.find( t => t.id === taskId);
-
       let newColumnTasks: Task[] = [];
       if (newColumn.tasks) {
          newColumnTasks = [...newColumn.tasks]
@@ -556,8 +555,32 @@ export const boardReducer = createReducer(
       boards[state.activeBoard] = currentBoard;
       let newState = {...state};
       newState.boards = boards;
-      // console.log('newState.boards[state.activeBoard]', Object.isSealed(newState.boards[state.activeBoard]))
-      
+      localStorage.setItem('board', JSON.stringify(newState));
       return newState;
    }),
+   on(toggleSubtask, (state, {columnIndex, taskIndex, subtaskIndex}) => {
+
+      let newState = {...state};
+      let boards = [...newState.boards];
+      let board = {...boards[newState.activeBoard]};
+      let columns = [...board.columns];
+      let column = {...columns[Number(columnIndex)]};
+      let tasks = [...column.tasks];
+      let task = {...tasks[Number(taskIndex)]};
+      let subtasks = [...task.subtasks];
+      let subtask = {...task.subtasks[Number(subtaskIndex)]};
+      subtask.isDone = !subtask.isDone;
+      subtasks[Number(subtaskIndex)] = subtask;
+      task.subtasks = subtasks;
+      tasks[Number(taskIndex)] = task;
+      column.tasks = tasks;
+      columns[Number(columnIndex)] = column;
+      board.columns = columns;
+      boards[newState.activeBoard] = board;
+      newState.boards = boards;
+
+      localStorage.setItem('board', JSON.stringify(newState));
+
+      return newState;
+   })
 );

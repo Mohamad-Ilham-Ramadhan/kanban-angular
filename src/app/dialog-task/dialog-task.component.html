@@ -1,10 +1,10 @@
 <div class="dialog-container">
-   <div class="title">{{ data.task.title }}</div>
-   <div class="description">{{ data.task.description }}</div>
+   <div class="title">{{ task.title }}</div>
+   <div class="description">{{ task.description }}</div>
    <label class="label mb-2">
       <div class="mb-2">Subtasks (0 of 1)</div>
-      @for (subtask of data.task.subtasks; track $index) {
-         <app-checkbox [text]="subtask.title" [checked]="subtask.isDone" />
+      @for (subtask of task.subtasks; track $index) {
+         <app-checkbox [text]="subtask.title" [checked]="subtask.isDone" (click)="toggleSubtask($index)" />
       }
    </label>
    <label class="label">

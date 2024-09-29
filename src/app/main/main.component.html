@@ -34,7 +34,7 @@
                   <span class="text">{{ column.name }}({{column.tasks.length}})</span>
                </div>
                @for (task of column.tasks; track $index) {
-                  <div class="task" (click)="openDialogTask(task, columnIndex)">
+                  <div class="task" (click)="openDialogTask(task, columnIndex, $index)">
                      <div class="title">{{ task.title }}</div>
                      <div class="subtasks-done">{{ task.subtasks | count: 'isDone'}} of {{task.subtasks.length}} subtasks</div>
                   </div>
