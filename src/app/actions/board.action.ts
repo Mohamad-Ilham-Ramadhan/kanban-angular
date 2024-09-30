@@ -11,3 +11,4 @@ export const addTask = createAction('[Board] add task', props<{title: string, de
 export const moveColumn = createAction('[Board] move column', props<{prevId: string, newId: string, taskId: string}>());
 export const toggleSubtask = createAction('[Board] toggle subtask', props<{columnIndex: string, taskIndex: string, subtaskIndex: string}>());
 export const deleteTask = createAction('[Board] delete task', props<{columnIndex: string, taskIndex: string}>());
+export const editTask = createAction('[Board] edit task', props<{title: string, description: string, subtasks: any[], status: string, columnIndex: string, taskIndex: string}>());

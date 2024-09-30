@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
-import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask, deleteTask} from "../actions/board.action";
+import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask, deleteTask, editTask} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -596,7 +596,33 @@ export const boardReducer = createReducer(
       board.columns = columns;
       boards[state.activeBoard] = board;
       newState.boards = boards
-      
+      localStorage.setItem('board', JSON.stringify(newState));
       return newState;
    }),
+   on(editTask, (state, {title, description, subtasks, status, columnIndex, taskIndex}) => {
+      let newState = JSON.parse(JSON.stringify(state)) as BoardState;
+
+      let newColumnIndex = 0;
+      let newColumn = newState.boards[state.activeBoard].columns.find( (c, idx) => {
+         if (c.id === status) {
+            newColumnIndex = idx;
+            return true;
+         }
+         return false;
+      });
+      if (!newColumn) return state;
+      // move column [start]
+      let task = newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks.splice(Number(taskIndex), 1)[0];
+         // edit task [start]
+      task.title = title;
+      task.description = description;
+      task.subtasks = subtasks
+         // edit task [end]
+      newColumn.tasks.push(task);
+      newState.boards[state.activeBoard].columns[newColumnIndex] = newColumn;
+      // move column [end]
+      localStorage.setItem('board', JSON.stringify(newState));
+
+      return newState;
+   })
 );

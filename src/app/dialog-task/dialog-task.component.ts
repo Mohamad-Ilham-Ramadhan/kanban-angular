@@ -13,6 +13,7 @@ import { State } from '../reducers';
 import { Column, Task} from '../reducers/board.reducer';
 import { selectColumns } from '../selectors/board.selector';
 import { moveColumn, toggleSubtask, deleteTask } from '../actions/board.action';
+import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.component';
 @Component({
   selector: 'app-dialog-task',
   standalone: true,
@@ -43,7 +44,18 @@ export class DialogTaskComponent {
     this.store.dispatch(toggleSubtask({columnIndex: this.data.columnIndex, taskIndex: this.data.taskIndex, subtaskIndex: event}))
   }
 
-  editTask() {}
+  dialogEditTaskRef!: MatDialogRef<DialogEditTaskComponent>;
+  openDialogEditTask(task: Task) {
+    this.dialog.closeAll();
+    this.dialogEditTaskRef = this.dialog.open(DialogEditTaskComponent, {
+      width: '480px',
+      data: {
+        task,
+        columnIndex: this.data.columnIndex,
+        taskIndex: this.data.taskIndex,
+      }
+    })
+  }
 
   dialogDeleteTaskRef!: MatDialogRef<DialogDeleteComponent>;
   openDialogDeleteTask(task: Task) {
