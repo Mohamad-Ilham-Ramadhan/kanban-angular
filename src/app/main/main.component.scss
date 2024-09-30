@@ -10,13 +10,16 @@
    padding-left: 300px;
    height: 100vh;
    width: 100%;
-   transition: .5s;
+   transition: 200ms ease;
    overflow: auto;
 
    &.hide {
       padding-left: 0px;
       .aside {
          left: -300px;
+      }
+      .button-show-sidebar {
+         opacity: 1;
       }
    }
    .button-hide-sidebar {
@@ -32,9 +35,18 @@
       }
    }
    .button-show-sidebar {
+      height: 48px;
+      width: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1px 6px;
       position: fixed;
       left: 0;
-      bottom: 100px;
+      bottom: 32px;
+      border-radius: 0px 50px 50px 0px;
+      transition: 700ms opacity ease;
+      opacity: 0;
    }
    .aside {
       position: fixed;
@@ -44,7 +56,7 @@
       flex-shrink: 0;
       height: calc(100vh - 96px);
       overflow-y: auto;
-      transition: .5s;
+      transition: 200ms ease;
       padding-right: 24px;
       padding-top: 16px;
       border-right: 1px solid $dark-border;
