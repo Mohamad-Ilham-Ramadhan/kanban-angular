@@ -19,6 +19,18 @@
          left: -300px;
       }
    }
+   .button-hide-sidebar {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      color: $text-gray;
+      font-weight: bold;
+      padding-left: 32px;
+      transition: 200ms opacity ease;
+      &:hover {
+         opacity: .5;
+      }
+   }
    .button-show-sidebar {
       position: fixed;
       left: 0;
