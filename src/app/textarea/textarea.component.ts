@@ -12,4 +12,5 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
 export class TextareaComponent {
   @Input() control!: FormControl;
   @Input() isError: boolean = false;
+  @Input() rows!: string | number;
 }
