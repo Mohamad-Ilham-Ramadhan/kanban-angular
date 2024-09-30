@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
-import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask} from "../actions/board.action";
+import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask, deleteTask} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -582,5 +582,21 @@ export const boardReducer = createReducer(
       localStorage.setItem('board', JSON.stringify(newState));
 
       return newState;
-   })
+   }),
+   on(deleteTask, (state, {columnIndex, taskIndex}) => {
+      let newState = {...state};
+      let boards = [...newState.boards];
+      let board = {...boards[newState.activeBoard]};
+      let columns = [...board.columns];
+      let column = {...columns[Number(columnIndex)]};
+      let tasks = [...column.tasks];
+      tasks.splice(Number(taskIndex), 1);
+      column.tasks = tasks;
+      columns[Number(columnIndex)] = column;
+      board.columns = columns;
+      boards[state.activeBoard] = board;
+      newState.boards = boards
+      
+      return newState;
+   }),
 );

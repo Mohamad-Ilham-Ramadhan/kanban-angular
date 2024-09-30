@@ -3,15 +3,16 @@ import { CommonModule, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { FormGroup,  FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewBoardComponent } from '../dialog-create-new-board/dialog-create-new-board.component';
 import { DialogNewColumnComponent } from '../dialog-new-column/dialog-new-column.component';
 import { DialogTaskComponent } from '../dialog-task/dialog-task.component';
-import { State } from '../reducers';
-
 import { InputComponent } from '../input/input.component';
-import { FormGroup,  FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
+import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+
+import { State } from '../reducers';
 import { selectBoards, selectActiveBoard, selectCurrentBoard } from '../selectors/board.selector';
 import { Column, Board, Task } from '../reducers/board.reducer';
 import { setActiveBoard } from '../actions/board.action';
@@ -92,4 +93,19 @@ export class MainComponent {
       data: {task, columnIndex, taskIndex}
     });
   }
+
+  dialogDeleteTaskRef!: MatDialogRef<DialogDeleteComponent>;
+  openDialogDeleteTask(task: Task) {
+    this.dialogDeleteTaskRef = this.dialog.open(DialogDeleteComponent, {
+      width: '480px',
+      data: {
+        title: 'Delete this board?',
+        description: `Are you sure you want to delete the '${task.title}' board? This action will remove all columns and tasks and cannot be reversed.`,
+        delete: () => {
+          alert('delete task');
+          // this.store.dispatch(delete());
+        }
+      }
+    })
+  };
 }
