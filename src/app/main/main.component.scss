@@ -22,18 +22,7 @@
          opacity: 1;
       }
    }
-   .button-hide-sidebar {
-      display: flex;
-      align-items: center;
-      font-size: 15px;
-      color: $text-gray;
-      font-weight: bold;
-      padding-left: 32px;
-      transition: 200ms opacity ease;
-      &:hover {
-         opacity: .5;
-      }
-   }
+
    .button-show-sidebar {
       height: 48px;
       width: 56px;
@@ -114,6 +103,60 @@
          }
          .text {
             font-weight: 700;
+         }
+      }
+      .button-hide-sidebar {
+         display: flex;
+         align-items: center;
+         width: 100%;
+         font-size: 15px;
+         color: $text-gray;
+         font-weight: bold;
+         padding-left: 32px;
+         transition: 200ms opacity ease;
+         &:hover {
+            opacity: .5;
+         }
+      }
+      .switch-theme-wrapper {
+         background-color: $dark-bg;
+         border-radius: 8px;
+         margin-left: 32px;
+         margin-right: 20px;
+         margin-bottom: 16px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 48px;
+         
+         .switch-theme {
+            background-color: $primary;
+            height: 20px;
+            width: 40px;
+            border-radius: 20px;
+            padding: 6px 4px;
+            display: flex;
+            align-items: center;
+            margin: 0px 32px;
+            position: relative;
+
+            &.light {
+               .circle {
+                  left: 22px;
+               }
+            }
+            .circle {
+               height: 14px;
+               width: 14px;
+               background-color: #ffffff;
+               border-radius: 100%;
+               position: absolute;
+               left: 4px;
+               transition: 200ms ease;
+            }
+         }
+         .icon {
+            color: $text-gray;
          }
       }
    }

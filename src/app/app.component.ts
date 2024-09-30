@@ -30,7 +30,7 @@ export class AppComponent implements OnInit  {
   }
   theme$: Observable<string>
   ngOnInit(): void {
-    this.store.dispatch(getStateFromLocalStorage());
+    this.store.dispatch(getStateFromLocalStorage()); // board state
     this.theme$.subscribe( val => {
       if (val === 'dark') {
         this.document.body.classList.add(val)

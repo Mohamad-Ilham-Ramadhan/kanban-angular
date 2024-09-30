@@ -16,6 +16,7 @@ import { State } from '../reducers';
 import { selectBoards, selectActiveBoard, selectCurrentBoard } from '../selectors/board.selector';
 import { Column, Board, Task } from '../reducers/board.reducer';
 import { setActiveBoard } from '../actions/board.action';
+import { toggleTheme } from '../actions/theme.action';
 
 import { CountPipe } from '../pipes/count.pipe';
 
@@ -23,7 +24,6 @@ import { CountPipe } from '../pipes/count.pipe';
   selector: 'app-main',
   standalone: true,
   imports: [RouterLink, CommonModule, AsyncPipe, InputComponent, FormsModule, ReactiveFormsModule, CountPipe],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -38,6 +38,7 @@ export class MainComponent {
   currentBoard$ = new Observable<Board>();
   columns: Column[] = [];
   dialogData: any;
+  theme$ = new Observable();
 
   constructor(private store: Store<State>, private fb : FormBuilder) {
     this.form = this.fb.group({
@@ -47,6 +48,10 @@ export class MainComponent {
       console.log("this.form.get('select')?.valueChanges.subscribe", val)
     });
 
+    this.theme$ = store.select('theme');
+    this.theme$.subscribe( val => {
+      console.log('val', val);
+    });
     
     this.boards$ = store.select(selectBoards);
     this.activeBoard$ = store.select(selectActiveBoard);
@@ -60,9 +65,8 @@ export class MainComponent {
     })
   }
 
-  cobaSubmit(e: Event) {
-
-    console.log('cobaSubmit', this.form.get('select')?.value)
+  toggleTheme() {
+    this.store.dispatch(toggleTheme());
   }
 
   toggleSidebar() {
@@ -103,7 +107,6 @@ export class MainComponent {
         description: `Are you sure you want to delete the '${task.title}' board? This action will remove all columns and tasks and cannot be reversed.`,
         delete: () => {
           alert('delete task');
-          // this.store.dispatch(delete());
         }
       }
     })
