@@ -6,6 +6,7 @@ import { AsyncPipe } from '@angular/common';
 
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { SelectComponent, Value } from '../select/select.component';
+import { ButtonDropdownComponent } from '../button-dropdown/button-dropdown.component';
 
 import { State } from '../reducers';
 import { Column, Task} from '../reducers/board.reducer';
@@ -14,7 +15,7 @@ import { moveColumn, toggleSubtask } from '../actions/board.action';
 @Component({
   selector: 'app-dialog-task',
   standalone: true,
-  imports: [CheckboxComponent, SelectComponent, AsyncPipe],
+  imports: [CheckboxComponent, SelectComponent, ButtonDropdownComponent, AsyncPipe],
   templateUrl: './dialog-task.component.html',
   styleUrl: './dialog-task.component.scss'
 })
@@ -38,4 +39,7 @@ export class DialogTaskComponent {
   toggleSubtask(event: any) {
     this.store.dispatch(toggleSubtask({columnIndex: this.data.columnIndex, taskIndex: this.data.taskIndex, subtaskIndex: event}))
   }
+
+  editTask() {}
+  openDialogDeleteTask() {}
 }

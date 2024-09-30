@@ -7,10 +7,11 @@ import { Store } from '@ngrx/store';
 import { selectCurrentBoard } from '../selectors/board.selector';
 import { State } from '../reducers';
 import { Board } from '../reducers/board.reducer';
+import { deleteBoard } from '../actions/board.action';
 
 import { ButtonComponent } from '../button/button.component';
 import { ButtonDropdownComponent } from '../button-dropdown/button-dropdown.component';
-import { DialogDeleteBoardComponent } from '../dialog-delete-board/dialog-delete-board.component';
+import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 import { DialogEditBoardComponent } from '../dialog-edit-board/dialog-edit-board.component';
 import { DialogNewTaskComponent } from '../dialog-new-task/dialog-new-task.component';
 
@@ -46,13 +47,20 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     // console.log('store', this.store.state)
   }
-  dialogDeleteRef!: MatDialogRef<DialogDeleteBoardComponent>;
+  dialogDeleteRef!: MatDialogRef<DialogDeleteComponent>;
   dialogEditRef!: MatDialogRef<DialogEditBoardComponent>;
   dialogAddNewTask!: MatDialogRef<DialogNewTaskComponent>;
   
   openDialogDeleteBoard() {
-    this.dialogDeleteRef = this.dialog.open(DialogDeleteBoardComponent, {
-      width: '480px'
+    this.dialogDeleteRef = this.dialog.open(DialogDeleteComponent, {
+      width: '480px',
+      data: {
+        title: 'Delete this board?',
+        description: `Are you sure you want to delete the '${this.dialogData.name}' board? This action will remove all columns and tasks and cannot be reversed`,
+        delete: () => {
+          this.store.dispatch(deleteBoard());
+        }
+      }
     })
   };
 
@@ -67,11 +75,10 @@ export class HeaderComponent implements OnInit {
     console.log('add new task');
     this.dialogAddNewTask = this.dialog.open(DialogNewTaskComponent, {
       width: '480px',
-      
+      data: {
+        title: 'Delete this board?',
+        description: `Are you sure you want to delete the '${this.dialogData.name}' board? This action will remove all columns and tasks and cannot be reversed`,
+      }
     })
   }
-
-
-
-  
 }

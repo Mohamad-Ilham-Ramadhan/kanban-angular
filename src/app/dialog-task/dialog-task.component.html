@@ -1,5 +1,14 @@
 <div class="dialog-container">
-   <div class="title">{{ task.title }}</div>
+   <div class="title-wrapper">
+      <div class="title">{{ task.title }}</div>
+      
+      <app-button-dropdown class="button-dropdown" position="center">
+         <div class="flex flex-column edit-delete-wrapper">
+            <button class="edit-board" (click)="editTask()">Edit Task</button>
+            <button class="delete-board" (click)="openDialogDeleteTask()">Delete Task</button>
+         </div>
+      </app-button-dropdown>
+   </div>
    <div class="description">{{ task.description }}</div>
    <label class="label mb-2">
       <div class="mb-2">Subtasks (0 of 1)</div>

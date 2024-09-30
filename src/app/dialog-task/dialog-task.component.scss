@@ -1,7 +1,44 @@
 @import '../../styles.scss';
 
+.dialog-container {
+    position: relative;
+}
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    .title {
+        margin-right: auto;
+    }
+    .button-dropdown {
+        // position: absolute;
+        // right: 0;
+        // top: 0;
+
+       
+    }
+}
+.edit-delete-wrapper { 
+    gap: 10px;
+    .edit-board {
+       color: $text-gray;
+       font-weight: 500;
+       transition: opacity 200ms ease;
+       &:hover {
+          opacity: .7;
+       }
+    }
+    .delete-board {
+       color: $danger;
+       font-weight: 500;
+       transition: opacity 200ms ease;
+       &:hover {
+          opacity: .7;
+       }
+    }
+ }
+
 .description {
-   font-size: .8125rem;
+    font-size: .8125rem;
     color: #828fa3;
     color: $text-gray;
     line-height: 23px;
