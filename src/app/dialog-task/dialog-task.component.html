@@ -9,15 +9,15 @@
          </div>
       </app-button-dropdown>
    </div>
-   <div class="description">{{ task.description }}</div>
+   <div class="description mb-2">{{ task.description }}</div>
    <label class="label mb-2">
-      <div class="mb-2">Subtasks (0 of 1)</div>
+      <div class="mb-2 text-label">Subtasks (0 of 1)</div>
       @for (subtask of task.subtasks; track $index) {
          <app-checkbox [text]="subtask.title" [checked]="subtask.isDone" (click)="toggleSubtask($index)" />
       }
    </label>
    <label class="label">
-      <div class="mb-2">Current Status</div>
+      <div class="mb-2 text-label">Current Status</div>
       <app-select [columns]="columns" (onSelect)="moveColumn($event)" [currentColumn]="columns[data.columnIndex]" />
    </label>
 

@@ -2,12 +2,17 @@
 
 textarea {
    background-color: transparent;
-   border: 2px solid #4e4f61;
    border-radius: 4px;
+   border: 2px solid rgba(130, 143, 163, .4);
    padding: 8px 16px;
-   color: white;
    width: 100%;
    outline: none;
+   color: #000;
+
+   &.dark {
+      border: 2px solid #4e4f61;
+      color: white;
+   }
    
    &:focus-visible {
       border-color: $primary;

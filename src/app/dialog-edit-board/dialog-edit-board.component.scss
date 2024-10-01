@@ -9,6 +9,10 @@
    align-items: center;
    justify-content: center;
    width: 40px;
+   &:disabled {
+      opacity: .3;
+      cursor:default;
+   }
 }
 .error {
    position: absolute;

@@ -1,1 +1,1 @@
-<textarea name="" id="" [formControl]="control" [ngClass]="{error: isError}" [rows]="rows"></textarea>
+<textarea name="" id="" [formControl]="control" [ngClass]="{error: isError, dark: (theme$ | async) === 'dark'}" [rows]="rows"></textarea>

@@ -2,24 +2,29 @@ import { Component, inject, viewChildren, effect } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { v4 as uuid } from 'uuid';
+import { Observable } from 'rxjs';
+import { NgClass, AsyncPipe } from '@angular/common';
 
 import { Store } from '@ngrx/store';
+import { State } from '../reducers';
 import { Column } from '../reducers/board.reducer';
 import { editBoard, newColumn } from '../actions/board.action';
 
 import { ButtonComponent } from '../button/button.component';
 import { InputComponent } from '../input/input.component';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-edit-board',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InputComponent, ButtonComponent],
+  imports: [FormsModule, ReactiveFormsModule, InputComponent, ButtonComponent, NgClass, AsyncPipe],
   templateUrl: './dialog-edit-board.component.html',
   styleUrl: './dialog-edit-board.component.scss'
 })
 export class DialogEditBoardComponent {
   constructor() {
+    this.theme$ = this.store.select('theme');
+    this.data = JSON.parse(JSON.stringify(this.data));
+    console.log('this.data.columns', this.data.columns)
     this.form.controls.columns.clear();
     this.form.controls.columnsId.clear();
     this.columnsControl = this.data.columns.map((c: any) => ({name: c.name, id: c.id}));
@@ -31,11 +36,11 @@ export class DialogEditBoardComponent {
       this.columns()[this.form.controls.columns.length - 1].input?.nativeElement.focus()
     });
   }
-
+  theme$ = new Observable();
   dialogRef = inject(MatDialogRef);
   data = inject(MAT_DIALOG_DATA)
   columnsControl: any[];
-  store = inject(Store);
+  store = inject<Store<State>>(Store);
   
   columns = viewChildren<InputComponent>('column');
   submitted: boolean = false;
@@ -50,8 +55,10 @@ export class DialogEditBoardComponent {
 
   addNewColumn() {
     if (this.form.controls.columns.length === 6) return;
-    this.form.controls.columns.push(new FormControl('', [Validators.required]))
-    this.form.controls.columnsId.push(new FormControl(uuid(), [Validators.required]))
+    this.form.controls.columns.push(new FormControl('', [Validators.required]));
+    this.form.controls.columnsId.push(new FormControl(uuid(), [Validators.required]));
+    console.log('this.data.columns isSealed', Object.isSealed(this.data.columns))
+    this.data.columns.push({id: uuid(), name: '', tasks: []});
   }
   removeColumn(index: number) {
     this.form.controls.columns.removeAt(index)

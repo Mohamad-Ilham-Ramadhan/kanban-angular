@@ -40,11 +40,12 @@ $primary: #635fc7;
 $primary-light: #A8A4FF;
 $danger: #ea5555;
 $dark-bg: #20212c;
+$light-bg: #F4F7FD;
 $dark-main: #2b2c37;
 $dark-border: #3e3f4e;
+$light-border: #E4EBFA;
 $text-gray: #828fa3;
 $focus-outline: rgb(230, 181, 97);
-
 $light-bg: #f4f7fd;
 $button-dropdown: #828fa3;
 
@@ -217,9 +218,15 @@ button {
     outline: $focus-outline 2px solid;
   }
 }
+body.dark {
+  .label {
+    color: #fff;
+  }
+}
 .label {
   font-size: 12px;
   font-weight: 600;
+  color: $text-gray;
 }
 
 // custom scroll bar
@@ -228,37 +235,52 @@ button {
   width: 11.5px;
   height: 11.5px;
 }
-
 /* Track */
 ::-webkit-scrollbar-track {
   border-radius: 10px;
-  background-color: darken($color: $dark-bg, $amount: 3);
+  background-color: #aaacb1;
 }
- 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: #3E3F4E; 
+  background-color: #828fa3;
   border-radius: 10px;
 }
-
+::-webkit-scrollbar:horizontal {
+ height: 8px !important;
+}
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: $primary; 
 }
-
 // Corner
 ::-webkit-scrollbar-corner { 
-  background-color: darken($color: $dark-bg, $amount: 3);
+  background-color: #fff;
+}
+body.dark {
+  ::-webkit-scrollbar-track {
+    background-color: darken($color: $dark-bg, $amount: 3) !important;
+  };
+  ::-webkit-scrollbar-thumb {
+    background-color: #3E3F4E; 
+  }
+  ::-webkit-scrollbar-corner { 
+    background-color: darken($color: $dark-bg, $amount: 3);
+  }
 }
 
 .mat-mdc-dialog-surface.mdc-dialog__surface {
   border-radius: 0px;
   background-color: transparent;
 }
+.dark {
+  .dialog-container {
+    background-color: $dark-main !important;
+  }
+}
 .dialog-container {
-  background-color: $dark-main;
   padding: 32px;
   border-radius: 8px;
+  background-color: #ffffff;
   .title {
     font-size: 18px;
     margin-bottom: 16px;
@@ -305,3 +327,4 @@ button {
     padding-right: #{$i * 0.250}rem;
   }
 }
+.mt-auto {margin-top: auto;}

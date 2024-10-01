@@ -3,10 +3,19 @@
 .wrapper {
    display: flex;
    align-items: center;
-   background-color: $dark-bg;
+   background-color: $light-bg;
    padding: 12px;
    border-radius: 8px;
    margin-bottom: 8px;
+
+   &.dark {
+      background-color: $dark-bg;
+      &.checked {
+         .checkbox {
+            background-color: $primary !important;
+         }
+      }
+   }
 
    &:hover {
       cursor: pointer;
@@ -15,7 +24,7 @@
    .checkbox {
       width: 16px;
       height: 16px;
-      background-color: $dark-main;
+      background-color: #fff;
       border: 1px solid $dark-border;
       border-radius: 3px;
       margin-right: 16px;
@@ -53,5 +62,11 @@
          text-decoration: line-through;
          color: $text-gray;
       }
+   }
+}
+.dark {   
+   .checkbox { 
+      background-color: $dark-main !important;
+
    }
 }

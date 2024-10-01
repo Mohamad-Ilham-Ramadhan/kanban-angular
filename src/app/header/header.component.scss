@@ -1,36 +1,44 @@
 @import '../../styles.scss';
 
 .header {
-   background-color: $dark-main;
    height: 96px;
-   border-bottom: 1px solid $dark-border;
    position: fixed;
    z-index: 1000;
    top: 0;
    left: 0;
-}
-.logo-wrapper {
-   width: 300px;
-   flex-shrink: 0;
-   border-right: 1px solid $dark-border;
-   height: 100%;
-   display: flex;
-   align-items: center;
-   padding-left: 32px;
-   padding-bottom: 6px;
-}
-.main-wrapper {
-   padding-left: 32px;
-}
-.title {
-   font-size: 24px;
-   font-weight: 700;
-   width: 300px;
-   text-overflow: ellipsis;
-   text-wrap: nowrap;
-   overflow: hidden;
-}
+   background-color: #ffffff;
+   border-bottom: 1px solid $light-border;   
 
+   &.dark {
+      background-color: $dark-main;
+      border-bottom: 1px solid $dark-border;   
+      .logo-wrapper {
+         border-right: 1px solid $dark-border;
+      }
+   }
+
+   .logo-wrapper {
+      width: 300px;
+      flex-shrink: 0;
+      border-right: 1px solid $light-border;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-left: 32px;
+      padding-bottom: 6px;
+   }
+   .main-wrapper {
+      padding-left: 32px;
+      .title {
+         font-size: 24px;
+         font-weight: 700;
+         width: 300px;
+         text-overflow: ellipsis;
+         text-wrap: nowrap;
+         overflow: hidden;
+      }
+   }
+}
 .edit-delete-wrapper { 
    gap: 10px;
    .edit-board {

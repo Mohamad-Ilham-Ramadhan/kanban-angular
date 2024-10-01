@@ -10,13 +10,9 @@
         margin-right: auto;
     }
     .button-dropdown {
-        // position: absolute;
-        // right: 0;
-        // top: 0;
-
-       
     }
 }
+.text-label { color: $text-gray}
 .edit-delete-wrapper { 
     gap: 10px;
     .edit-board {
@@ -36,7 +32,6 @@
        }
     }
  }
-
 .description {
     font-size: .8125rem;
     color: #828fa3;
@@ -46,4 +41,12 @@
     overflow-x: hidden;
     word-break: break-word;
     overflow-y: auto;
+}
+.dark {
+    .title {
+        color: #000;
+    }
+    .text-label {
+        color: #fff;  
+    }
 }

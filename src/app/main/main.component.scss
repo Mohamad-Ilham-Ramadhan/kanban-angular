@@ -10,8 +10,9 @@
    padding-left: 300px;
    height: 100vh;
    width: 100%;
-   transition: 200ms ease;
+   transition: 200ms ease position;
    overflow: auto;
+   background-color: $light-bg;
 
    &.hide {
       padding-left: 0px;
@@ -41,14 +42,17 @@
       position: fixed;
       left: 0;
       width: 300px;
-      background-color: $dark-main;
       flex-shrink: 0;
       height: calc(100vh - 96px);
       overflow-y: auto;
-      transition: 200ms ease;
+      transition: 200ms ease position;
       padding-right: 24px;
       padding-top: 16px;
-      border-right: 1px solid $dark-border;
+      padding-bottom: 32px;
+      border-right: 1px solid $light-border;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
 
       .boards-count {
          color: $text-gray;
@@ -119,7 +123,7 @@
          }
       }
       .switch-theme-wrapper {
-         background-color: $dark-bg;
+         background-color: $light-bg;
          border-radius: 8px;
          margin-left: 32px;
          margin-right: 20px;
@@ -128,6 +132,7 @@
          justify-content: center;
          align-items: center;
          height: 48px;
+         transition: background-color 0ms ease !important;
          
          .switch-theme {
             background-color: $primary;
@@ -160,7 +165,6 @@
          }
       }
    }
-
    .board-section {
       height: 100%;
       overflow: auto;
@@ -219,10 +223,10 @@
             }
             .task {
                border-radius: 8px;
-               border: 1px solid $dark-border;
-               background-color: $dark-main;
+               background-color: #fff;
                margin-bottom: 16px;
                padding: 24px 16px;
+               box-shadow: 0 4px 6px #364e7e1a;
                .title {
                   font-weight: bold;
                   font-size: 15px;
@@ -241,7 +245,7 @@
                height: 100%;
                border-radius: 8px;
                // border: 2px dashed $dark-border;
-               border: 2px dashed darken($text-gray, 25%);
+               border: 2px dashed rgba(130, 143, 163, .4);
             }
          }
 
@@ -267,6 +271,25 @@
                }
             }
          }
+      }
+   }
+
+   &.dark {
+      background-color: $dark-bg;
+      .aside {
+         background-color: $dark-main;
+         border-right: 1px solid $dark-border;
+      }
+      .task { 
+         background-color: $dark-main !important;
+         border: 1px solid $dark-border;
+         box-shadow: none;
+      }
+      .switch-theme-wrapper {
+         background-color: $dark-bg !important;
+      }
+      .empty-column {
+         border: 2px dashed darken($text-gray, 25%) !important;
       }
    }
 }

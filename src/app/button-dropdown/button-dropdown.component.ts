@@ -1,14 +1,17 @@
 import { Renderer2, Component, effect, ElementRef, viewChild, ViewChild, inject, Inject, Input, TemplateRef, ViewContainerRef, AfterViewInit} from '@angular/core';
-import { DOCUMENT, NgClass} from '@angular/common';
+import { DOCUMENT, NgClass, AsyncPipe} from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import {MatMenuModule} from '@angular/material/menu';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Store } from '@ngrx/store';
+import { State } from '../reducers';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-button-dropdown',
   standalone: true,
-  imports: [NgClass, OverlayModule, PortalModule, MatMenuModule],
+  imports: [NgClass, OverlayModule, PortalModule, MatMenuModule, AsyncPipe],
   templateUrl: './button-dropdown.component.html',
   styleUrl: './button-dropdown.component.scss',
   animations: [
@@ -37,10 +40,10 @@ export class ButtonDropdownComponent implements AfterViewInit {
   @Input() position: 'center'|'left'|'right' = 'left';
   dropdown = viewChild<ElementRef<HTMLDivElement>>('dropdown');
   show: boolean = false;
-
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {
+  theme$ = new Observable();
+  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private store: Store<State>) {
     this.window = document.defaultView;
-
+    this.theme$ = store.select('theme');
     effect(() => {
       const $dropdown = this.dropdown()?.nativeElement;
       const rect = $dropdown?.getBoundingClientRect();

@@ -1,3 +1,1 @@
-- unique board name.
-- form validation on create new board
-- new column
+- Hanya bisa delete column yang kosong task nya.

@@ -2,6 +2,13 @@
 
 .container {
    position: relative;
+   &.dark {
+      .button {
+         &:hover {
+            background-color: $dark-bg;
+         }
+      }
+   }
    .button {
       display: flex;
       align-items: center;
@@ -12,16 +19,16 @@
       background-color: transparent;
       
       &:hover {
-         background-color: $dark-bg;
+         background-color: #e4ebfa;
       }
    }
 }
 .dropdown {
    min-width: 190px;
-   background-color: darken($color: $dark-bg, $amount: 1%);
    padding: 18px 20px;
    border-radius: 8px;
-
+   background-color: #fff;
+   box-shadow: 0 0 8px #364e7e1a;;
    position: absolute;
    top: 12px;
 
@@ -30,5 +37,9 @@
    &.pos-center {
       left: 50%;
       transform: translateX(calc(-50% + 8px));
+   }
+
+   &.dark {
+      background-color: darken($color: $dark-bg, $amount: 1%);
    }
 }

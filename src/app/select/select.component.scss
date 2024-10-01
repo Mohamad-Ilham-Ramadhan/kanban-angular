@@ -66,7 +66,7 @@
       margin-bottom: 8px;
       &:hover { 
          cursor: pointer;
-         color: #ffffff;
+         color: #000;
          font-weight: 600;
       }
    }
@@ -75,6 +75,11 @@
    .button {
       border: 2px solid #4e4f61 !important;
       color: #fff;
+   }
+   .option {
+      &:hover {
+         color: #fff !important;
+      }
    }
 }
 

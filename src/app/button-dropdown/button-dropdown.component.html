@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{dark: (theme$ | async) === 'dark'}">
    <button class="button" (click)="show = !show" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
       <svg width="5" height="20" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;"><g fill="currentColor" fill-rule="evenodd"><circle cx="2.308" cy="2.308" r="2.308"></circle><circle cx="2.308" cy="10" r="2.308"></circle><circle cx="2.308" cy="17.692" r="2.308"></circle></g></svg>
    </button>
@@ -8,7 +8,7 @@
       [cdkConnectedOverlayOpen]="show"
       (overlayOutsideClick)="show = !show"
    >
-      <div @openClose class="dropdown" #dropdown [ngClass]="{'pos-left': position === 'left', 'pos-center': position === 'center', 'pos-right': position === 'right'}">
+      <div @openClose class="dropdown" #dropdown [ngClass]="{'pos-left': position === 'left', 'pos-center': position === 'center', 'pos-right': position === 'right', dark: (theme$ | async) === 'dark'}">
          <ng-content/>
       </div>
    </ng-template>

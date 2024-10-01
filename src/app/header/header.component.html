@@ -1,6 +1,10 @@
-<header class="header bg-light-bg dark:bg-dark-bg flex items-center w-full">
+<header class="header bg-light-bg dark:bg-dark-bg flex items-center w-full" [ngClass]="{dark: (theme$ | async) === 'dark'}">
    <div class="logo-wrapper">
-      <img class="logo" src="/images/logo.svg" alt="">
+      @if ((theme$ | async) === 'dark') {
+         <img class="logo" src="/images/logo.svg" alt="">
+      } @else {
+         <img class="logo" src="/images/logo-light.svg" alt="">
+      }
    </div>
    <div class="main-wrapper flex justify-between items-center w-full pr-8">
       <div class="title">{{ (board$ | async)?.name }}</div>

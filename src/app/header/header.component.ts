@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, ViewChild, ComponentRef } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
@@ -19,7 +19,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [AsyncPipe, ButtonComponent, ButtonDropdownComponent],
+  imports: [AsyncPipe, ButtonComponent, ButtonDropdownComponent, NgClass, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -31,7 +31,10 @@ export class HeaderComponent implements OnInit {
   incrementSlider() {
     this.form.get('slider')?.patchValue(this.form.get('slider')?.value + 1)
   }
+  theme$ = new Observable()
   constructor(private store: Store<State>, private fb: FormBuilder) {
+    this.theme$ = store.select('theme');
+    
     this.form = this.fb.group({
       slider: [50]
     });

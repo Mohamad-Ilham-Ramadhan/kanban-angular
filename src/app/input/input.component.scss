@@ -2,12 +2,18 @@
 
 input {
    background-color: transparent;
-   border: 2px solid #4e4f61;
+   border: 2px solid rgba(130, 143, 163, .4);
    border-radius: 4px;
    padding: 8px 16px;
-   color: white;
    width: 100%;
    outline: none;
+   color: #000;
+   font-weight: 500;
+   
+   &.dark {
+      border: 2px solid #4e4f61;
+      color: #fff;
+   }
    
    &:focus-visible {
       border-color: $primary;
