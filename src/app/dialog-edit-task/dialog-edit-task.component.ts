@@ -1,4 +1,5 @@
 import { Component, effect, inject, viewChildren } from '@angular/core';
+import { NgClass, AsyncPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -17,7 +18,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-dialog-edit-task',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InputComponent, ButtonComponent, TextareaComponent, SelectComponent],
+  imports: [FormsModule, ReactiveFormsModule, InputComponent, ButtonComponent, TextareaComponent, SelectComponent, NgClass, AsyncPipe],
   templateUrl: './dialog-edit-task.component.html',
   styleUrl: './dialog-edit-task.component.scss'
 })
@@ -44,8 +45,6 @@ export class DialogEditTaskComponent {
     e.preventDefault();
     this.submitted = true;
     if (this.form.invalid) return;
-
-
 
     const { status, title, description, subtasks} = this.form.controls;
 
@@ -81,10 +80,9 @@ export class DialogEditTaskComponent {
 
   board$: Observable<Board>;
   columns: Column[] = [];
-  
+  theme$ = new Observable();
   constructor(private store: Store<State>, private fb: FormBuilder) {
-    console.log('this.dialogData', this.dialogData);
-
+    this.theme$ = this.store.select('theme');
     this.form = this.fb.group({
       title: new FormControl(this.dialogData.task.title, [Validators.required]),
       description: new FormControl(this.dialogData.task.description),
