@@ -5,10 +5,10 @@
    .button {
       position: relative;
       background-color: transparent;
-      border: 2px solid #4e4f61;
+      border: 2px solid rgba(130, 143, 163, .4);
       border-radius: 4px;
       padding: 8px 16px;
-      color: white;
+      color: #000;
       width: 100%;
       min-height: 39px;
       outline: none;
@@ -30,13 +30,22 @@
          right: 16px;
          top: 50%;
          transform: translateY(-50%);
+         transition: transform 200ms ease;
+         &.show {
+            transform: rotate(180deg) translateY(50%);
+         }
       }
       
    }
 }
 .dropdown {
    min-width: 190px;
-   background-color: $dark-bg;
+   background-color: #fff;
+   box-shadow: 0 0 8px #364e7e1a;
+   &.dark {
+      background-color: $dark-bg;
+      box-shadow: none;
+   }
    padding: 16px;
    border-radius: 4px;
 
@@ -62,3 +71,11 @@
       }
    }
 }
+.dark {
+   .button {
+      border: 2px solid #4e4f61 !important;
+      color: #fff;
+   }
+}
+
+// 2px solid rgba(130, 143, 163, .4);

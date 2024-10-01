@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" [ngClass]="{dark: (theme$ | async) === 'dark'}">
    <button #button class="button" type="button" (click)="show = !show" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
       <span class="selected-name">{{ selectedName }}</span>
-      <svg class="arrow" width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path stroke="#635FC7" stroke-width="2" fill="none" d="m1 1 4 4 4-4"></path></svg>
+      <svg class="arrow" [ngClass]="{show: show}" width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path stroke="#635FC7" stroke-width="2" fill="none" d="m1 1 4 4 4-4"></path></svg>
    </button>
    <ng-template
       cdkConnectedOverlay
@@ -9,7 +9,7 @@
       [cdkConnectedOverlayOpen]="show"
       (overlayOutsideClick)="show = !show"
    >
-      <div class="dropdown" #dropdown [ngClass]="{'pos-left': position === 'left', 'pos-center': position === 'center', 'pos-right': position === 'right'}">
+      <div class="dropdown" #dropdown [ngClass]="{'pos-left': position === 'left', 'pos-center': position === 'center', 'pos-right': position === 'right', dark: (theme$ | async) === 'dark'}">
          @for (column of columns; track $index) {
             <div (click)="selectOption(column.id, column.name)" class="option">{{ column.name }}</div>
          }

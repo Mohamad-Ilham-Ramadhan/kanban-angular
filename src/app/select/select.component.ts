@@ -1,10 +1,12 @@
 import { Component, forwardRef, Input, ViewChild, TemplateRef, ElementRef, viewChild, Inject, Renderer2, effect, Output, EventEmitter} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DOCUMENT, NgClass } from '@angular/common';
+import { DOCUMENT, NgClass, AsyncPipe } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 
-import { Column } from '../reducers/board.reducer';
+import { Store } from '@ngrx/store';
+import { State } from '../reducers';
+import { Observable } from 'rxjs';
 export interface Value {
   id: string;
   name: string;
@@ -13,7 +15,7 @@ export interface Value {
 @Component({
   selector: 'app-select',
   standalone: true,
-  imports: [OverlayModule, PortalModule, NgClass],
+  imports: [OverlayModule, PortalModule, NgClass, AsyncPipe],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => SelectComponent),
@@ -28,21 +30,20 @@ export class SelectComponent implements ControlValueAccessor {
   @ViewChild('overlay') overlayTemplate!: TemplateRef<unknown>;
   @ViewChild('menu') menu!: ElementRef<HTMLDivElement>;
   @Input() position: 'center'|'left'|'right' = 'left';
-  button = viewChild<ElementRef<HTMLButtonElement>>('button');
-  dropdown = viewChild<ElementRef<HTMLDivElement>>('dropdown');
-  show: boolean = false;
-
   @Input() columns: Value[] = [];
   @Input() currentColumn!: Value;
   @Output() onSelect = new EventEmitter();
+  button = viewChild<ElementRef<HTMLButtonElement>>('button');
+  dropdown = viewChild<ElementRef<HTMLDivElement>>('dropdown');
+  show: boolean = false;
   open: boolean = false;
-
   selectedName: string;
   selectedId: string;
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {
-    console.log('this.currentColumn', this.currentColumn);
+  theme$ = new Observable()
 
-    
+  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private store: Store<State>) {
+    console.log('this.currentColumn', this.currentColumn);
+    this.theme$ = store.select('theme');
     this.window = document.defaultView;
     this.selectedName = this.columns.length > 0 ? this.columns[0].name : '';
     this.selectedId = this.columns.length > 0 ? this.columns[0].id : '';
