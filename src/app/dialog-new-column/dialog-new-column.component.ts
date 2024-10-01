@@ -20,6 +20,7 @@ import { InputComponent } from '../input/input.component';
 export class DialogNewColumnComponent {
   constructor() {
     console.log('dialog new column constructor()', this.data);
+    this.data= JSON.parse(JSON.stringify(this.data));
     this.form.controls.columns.clear();
     this.form.controls.columnsId.clear();
     this.columnsControl = this.data.columns.map((c: any) => ({name: c.name, id: c.id}));
@@ -51,8 +52,9 @@ export class DialogNewColumnComponent {
 
   addNewColumn() {
     if (this.form.controls.columns.length === 6) return;
-    this.form.controls.columns.push(new FormControl('', [Validators.required]))
-    this.form.controls.columnsId.push(new FormControl(uuid(), [Validators.required]))
+    this.form.controls.columns.push(new FormControl('', [Validators.required]));
+    this.form.controls.columnsId.push(new FormControl(uuid(), [Validators.required]));
+    this.data.columns.push({id: uuid(), name: '', tasks: []});
   }
   removeColumn(index: number) {
     this.form.controls.columns.removeAt(index)
