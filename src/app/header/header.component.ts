@@ -58,6 +58,7 @@ export class HeaderComponent implements OnInit {
   openDialogDeleteBoard() {
     this.dialogDeleteRef = this.dialog.open(DialogDeleteComponent, {
       width: '480px',
+      height: '100%',
       data: {
         title: 'Delete this board?',
         description: `Are you sure you want to delete the '${this.dialogData.name}' board? This action will remove all columns and tasks and cannot be reversed`,
@@ -72,6 +73,7 @@ export class HeaderComponent implements OnInit {
     console.log('edit Board')
     this.dialogEditRef = this.dialog.open(DialogEditBoardComponent, {
       width: '480px',
+      height: '100%',
       data: this.dialogData
     })
   }
@@ -79,6 +81,7 @@ export class HeaderComponent implements OnInit {
     console.log('add new task');
     this.dialogAddNewTask = this.dialog.open(DialogNewTaskComponent, {
       width: '480px',
+      height: '100%',
       data: {
         title: 'Delete this board?',
         description: `Are you sure you want to delete the '${this.dialogData.name}' board? This action will remove all columns and tasks and cannot be reversed`,
