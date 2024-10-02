@@ -1,0 +1,45 @@
+@import '../../styles.scss';
+.switch-theme-wrapper {
+   background-color: $light-bg;
+   border-radius: 8px;
+   margin-left: 32px;
+   margin-right: 20px;
+   margin-bottom: 16px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 48px;
+   transition: background-color 0ms ease !important;
+   &.dark {
+      background-color: $dark-bg !important;
+   }
+   .switch-theme {
+      background-color: $primary;
+      height: 20px;
+      width: 40px;
+      border-radius: 20px;
+      padding: 6px 4px;
+      display: flex;
+      align-items: center;
+      margin: 0px 32px;
+      position: relative;
+
+      &.light {
+         .circle {
+            left: 22px;
+         }
+      }
+      .circle {
+         height: 14px;
+         width: 14px;
+         background-color: #ffffff;
+         border-radius: 100%;
+         position: absolute;
+         left: 4px;
+         transition: 200ms ease;
+      }
+   }
+   .icon {
+      color: $text-gray;
+   }
+}
