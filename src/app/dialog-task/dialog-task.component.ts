@@ -22,10 +22,12 @@ import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.co
   styleUrl: './dialog-task.component.scss'
 })
 export class DialogTaskComponent {
+
   data = inject(MAT_DIALOG_DATA);
   columns$: Observable<Column[]>;
   columns: Value[] = [];
   task: Task = this.data.task;
+  dialogRef = inject(MatDialogRef);
   dialog = inject(MatDialog)
 
   constructor(private store: Store<State>) {

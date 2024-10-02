@@ -95,6 +95,7 @@ export class MainComponent {
   openDialogTask(task: Task, columnIndex: number, taskIndex: number) {
     const dialogRef = this.dialog.open(DialogTaskComponent, {
       width: '480px',
+      height: '100%',
       data: {task, columnIndex, taskIndex}
     });
   }
