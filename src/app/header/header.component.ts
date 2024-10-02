@@ -14,6 +14,7 @@ import { ButtonDropdownComponent } from '../button-dropdown/button-dropdown.comp
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 import { DialogEditBoardComponent } from '../dialog-edit-board/dialog-edit-board.component';
 import { DialogNewTaskComponent } from '../dialog-new-task/dialog-new-task.component';
+import { DialogMobileMenuComponent} from '../dialog-mobile-menu/dialog-mobile-menu.component';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
@@ -81,6 +82,16 @@ export class HeaderComponent implements OnInit {
       data: {
         title: 'Delete this board?',
         description: `Are you sure you want to delete the '${this.dialogData.name}' board? This action will remove all columns and tasks and cannot be reversed`,
+      }
+    })
+  }
+
+  openDialogMobileMenu() {
+    console.log('')
+    const dialogRef = this.dialog.open(DialogMobileMenuComponent, {
+      width: '300px',
+      position: {
+        top: '80px'
       }
     })
   }

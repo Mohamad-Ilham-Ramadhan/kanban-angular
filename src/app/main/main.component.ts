@@ -11,6 +11,7 @@ import { DialogNewColumnComponent } from '../dialog-new-column/dialog-new-column
 import { DialogTaskComponent } from '../dialog-task/dialog-task.component';
 import { InputComponent } from '../input/input.component';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { SwitchThemeComponent } from '../switch-theme/switch-theme.component';
 
 import { State } from '../reducers';
 import { selectBoards, selectActiveBoard, selectCurrentBoard } from '../selectors/board.selector';
@@ -23,7 +24,7 @@ import { CountPipe } from '../pipes/count.pipe';
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterLink, CommonModule, AsyncPipe, InputComponent, FormsModule, ReactiveFormsModule, CountPipe],
+  imports: [RouterLink, CommonModule, AsyncPipe, InputComponent, FormsModule, ReactiveFormsModule, CountPipe, SwitchThemeComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })

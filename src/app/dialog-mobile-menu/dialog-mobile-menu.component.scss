@@ -1,0 +1,38 @@
+@import '../../styles.scss';
+
+.dialog-container {
+   color: $text-gray;
+   text-transform: uppercase;
+   font-size: 12px;
+   letter-spacing: 1.7px;
+   font-weight: bold;
+   padding: 24px 0px;
+
+   .boards-count {
+      margin-bottom: 24px;
+      padding-left: 28px;
+   }
+   
+   .nav {
+      .board {
+         display: flex;
+         align-items: center;
+         width: 100%;
+         padding-top: 8px;
+         padding-bottom: 8px;
+         padding-left: 28px;
+         margin-bottom: 2px;
+
+         .icon {
+            margin-right: 24px
+         }
+         .name{
+            font-size: 16px;
+         }
+      }
+      .board-create {
+         color: $primary;
+         margin-bottom: 8px;
+      }
+   }
+}

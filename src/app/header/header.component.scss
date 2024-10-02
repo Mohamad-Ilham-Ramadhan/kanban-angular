@@ -17,6 +17,9 @@
       }
    }
 
+   .mobile-menu {display: none;}
+   .logo-mobile {display: none;}
+
    .logo-wrapper {
       width: 300px;
       flex-shrink: 0;
@@ -36,6 +39,10 @@
          text-overflow: ellipsis;
          text-wrap: nowrap;
          overflow: hidden;
+      }
+      .buttons-wrapper {
+         .button-add-new-task {display: block;}
+         .button-add-new-task-mobile {display: none}
       }
    }
 }
@@ -58,15 +65,15 @@
       }
    }
 }
-
 @media only screen and (max-width: $mobile-breakpoint) {
    .logo-wrapper {
       display: none !important;
    }
    .header {
       .logo-mobile {
+         display: block;
          padding-left: 32px;
-         padding-right: 32px;
+         padding-right: 24px;
       }
       .mobile-menu {
          width: 200px;
@@ -95,6 +102,8 @@
 
          .buttons-wrapper {
             margin-left: auto;
+            .button-add-new-task {display:none}
+            .button-add-new-task-mobile {display: block}
          }
       }
       
