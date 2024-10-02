@@ -6,9 +6,20 @@
          <img class="logo" src="/images/logo-light.svg" alt="">
       }
    </div>
+
+   <!-- mobile view -->
+   <img class="logo-mobile" src="/images/logo-mobile.svg" alt="logo mobile">
+    <div class="mobile-menu">
+      <div class="title">{{(board$ | async)?.name}}</div>
+      <div class="arrow-wrapper">
+         <svg class="arrow" width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path stroke="#635FC7" stroke-width="2" fill="none" d="m1 1 4 4 4-4"></path></svg>
+      </div>
+    </div>
+   <!-- mobile view -->
+   
    <div class="main-wrapper flex justify-between items-center w-full pr-8">
       <div class="title">{{ (board$ | async)?.name }}</div>
-      <div class="flex items-center">
+      <div class="flex items-center buttons-wrapper">
          <app-button class="mr-4" (click)="addNewTask()">+ Add New Task</app-button>
          <app-button-dropdown position="right">
             <div class="flex flex-column edit-delete-wrapper">

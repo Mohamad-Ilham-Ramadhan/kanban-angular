@@ -58,3 +58,45 @@
       }
    }
 }
+
+@media only screen and (max-width: $mobile-breakpoint) {
+   .logo-wrapper {
+      display: none !important;
+   }
+   .header {
+      .logo-mobile {
+         padding-left: 32px;
+         padding-right: 32px;
+      }
+      .mobile-menu {
+         width: 200px;
+         font-size: 23px;
+         font-weight: bold;
+         display: flex;
+         align-items: center;
+         flex-shrink: 0;
+
+         .title {
+            text-wrap: nowrap;
+            overflow: hidden;
+         }
+         .arrow-wrapper {
+            width: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         }
+
+      }
+      .main-wrapper {
+         .title {
+            display: none;
+         }
+
+         .buttons-wrapper {
+            margin-left: auto;
+         }
+      }
+      
+   }
+}
