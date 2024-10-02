@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class ButtonComponent {
   @Input('type') type: 'button' | 'submit' = 'button';
-  @Input('size') size: 'medium' | 'small' = 'medium';
+  @Input('size') size: 'medium' | 'small' | 'mobile' = 'medium';
   @Input('color') color: 'primary' | 'white' | 'danger' = 'primary';
   @Input('classes') classes: string = '';
   theme$ = new Observable();
