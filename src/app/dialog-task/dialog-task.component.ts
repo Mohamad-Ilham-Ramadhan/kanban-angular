@@ -49,6 +49,7 @@ export class DialogTaskComponent {
     this.dialog.closeAll();
     this.dialogEditTaskRef = this.dialog.open(DialogEditTaskComponent, {
       width: '480px',
+      height: '100%',
       data: {
         task,
         columnIndex: this.data.columnIndex,
@@ -62,6 +63,7 @@ export class DialogTaskComponent {
     this.dialog.closeAll();
     this.dialogDeleteTaskRef = this.dialog.open(DialogDeleteComponent, {
       width: '480px',
+      height: '100%',
       data: {
         title: 'Delete this board?',
         description: `Are you sure you want to delete the '${task.title}' board? This action will remove all columns and tasks and cannot be reversed.`,
