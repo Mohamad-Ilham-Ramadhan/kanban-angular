@@ -1,4 +1,7 @@
 <div class="dialog-container">
+   <button class="button-close" (click)="dialogRef.close()">
+      <img src="/images/x.svg" alt="">
+   </button>
    <div class="title">{{ data.title }}</div>
    <div class="text">{{ data.description }}</div>
    <div class="flex buttons-wrapper">
