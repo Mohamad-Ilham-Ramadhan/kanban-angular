@@ -29,7 +29,7 @@ export class DialogTaskComponent {
   task: Task = this.data.task;
   dialogRef = inject(MatDialogRef);
   dialog = inject(MatDialog)
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<State>, @Inject(DOCUMENT) private document: Document) {
     this.columns$ = store.select(selectColumns);
     this.columns$.subscribe( val => {
       this.columns = val.map( c => ({id: c.id, name: c.name}));
@@ -54,7 +54,7 @@ export class DialogTaskComponent {
     this.dialog.closeAll();
     this.dialogEditTaskRef = this.dialog.open(DialogEditTaskComponent, {
       width: '480px',
-      height: '100%',
+      height: `${document.documentElement.clientWidth <= 766 ? '100%' : 'auto'}`, 
       data: {
         task,
         columnIndex: this.data.columnIndex,
@@ -68,7 +68,7 @@ export class DialogTaskComponent {
     this.dialog.closeAll();
     this.dialogDeleteTaskRef = this.dialog.open(DialogDeleteComponent, {
       width: '480px',
-      height: '100%',
+      height: `${document.documentElement.clientWidth <= 766 ? '100%' : 'auto'}`, 
       data: {
         title: 'Delete this board?',
         description: `Are you sure you want to delete the '${task.title}' board? This action will remove all columns and tasks and cannot be reversed.`,
