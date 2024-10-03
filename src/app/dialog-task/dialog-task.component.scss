@@ -51,10 +51,12 @@
     }
 }
 
+.button-close {display: none;}
 @media only screen and (max-width: $mobile-breakpoint) {
     .button-close {
-       position: absolute;
-       top: 9px;
-       right: 9px;
+        display: block;
+        position: absolute;
+        top: 9px;
+        right: 9px;
     }
  }

@@ -530,31 +530,11 @@ export const boardReducer = createReducer(
       localStorage.setItem('board', JSON.stringify(newState))
       return newState;
    }),
-   on(moveColumn, (state, {prevId, newId, taskId}) => {
-      let prevColumn = {...state.boards[state.activeBoard].columns.find(c => c.id === prevId)}
-      let newColumn = {...state.boards[state.activeBoard].columns.find( c => c.id === newId)}
-      let task = prevColumn.tasks?.find( t => t.id === taskId);
-      let newColumnTasks: Task[] = [];
-      if (newColumn.tasks) {
-         newColumnTasks = [...newColumn.tasks]
-      }
-      prevColumn.tasks = prevColumn.tasks?.filter( (t) => t.id !== taskId);
-      if (task) {newColumnTasks?.push(task)}
-      newColumn.tasks = newColumnTasks;
-      let boardColumns = [...state.boards[state.activeBoard].columns].map( c => {
-         if (c.id === newId) {
-            return newColumn;
-         } else if (c.id === prevId) {
-            return prevColumn;
-         } 
-         return c;
-      });
-      let currentBoard = {...state.boards[state.activeBoard]};
-      currentBoard.columns = boardColumns as Column[];
-      let boards = [...state.boards];
-      boards[state.activeBoard] = currentBoard;
-      let newState = {...state};
-      newState.boards = boards;
+   on(moveColumn, (state, {prevIndex, newIndex, taskIndex}) => {
+      if (prevIndex === newIndex) return state;
+      let newState : BoardState= JSON.parse(JSON.stringify(state));
+      let task = newState.boards[newState.activeBoard].columns[prevIndex].tasks.splice(taskIndex, 1)[0];
+      newState.boards[newState.activeBoard].columns[newIndex].tasks.push(task);
       localStorage.setItem('board', JSON.stringify(newState));
       return newState;
    }),

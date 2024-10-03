@@ -11,7 +11,7 @@ import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component'
 
 import { State } from '../reducers';
 import { Column, Task} from '../reducers/board.reducer';
-import { selectColumns } from '../selectors/board.selector';
+import { selectColumns, selectTask } from '../selectors/board.selector';
 import { moveColumn, toggleSubtask, deleteTask } from '../actions/board.action';
 import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.component';
 @Component({
@@ -29,19 +29,21 @@ export class DialogTaskComponent {
   task: Task = this.data.task;
   dialogRef = inject(MatDialogRef);
   dialog = inject(MatDialog)
-
   constructor(private store: Store<State>) {
     this.columns$ = store.select(selectColumns);
     this.columns$.subscribe( val => {
-      console.log('this.columns$.subscribe', this.data.taskIndex)
       this.columns = val.map( c => ({id: c.id, name: c.name}));
-      this.task = val[this.data.columnIndex].tasks[this.data.taskIndex];
-    });
+      // this.task = val[this.data.columnIndex].tasks[this.data.taskIndex];
+    }).unsubscribe();
   }
 
   moveColumn(event: any) {
-    this.store.dispatch(moveColumn({prevId: event.prevId, newId: event.newId, taskId: this.data.task.id}))
+    this.store.dispatch(moveColumn({prevIndex: event.prevIndex, newIndex: event.newIndex, taskIndex: this.data.taskIndex}));
+    this.columns$.subscribe( val => {
+      this.data.taskIndex = val[event.newIndex].tasks.length - 1;
+    }).unsubscribe();
   }
+
   toggleSubtask(event: any) {
     this.store.dispatch(toggleSubtask({columnIndex: this.data.columnIndex, taskIndex: this.data.taskIndex, subtaskIndex: event}))
   }

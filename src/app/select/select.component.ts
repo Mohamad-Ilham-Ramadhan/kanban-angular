@@ -32,13 +32,14 @@ export class SelectComponent implements ControlValueAccessor {
   @Input() position: 'center'|'left'|'right' = 'left';
   @Input() columns: Value[] = [];
   @Input() currentColumn!: Value;
+  @Input() currentColumnIndex: number = 0;
   @Output() onSelect = new EventEmitter();
   button = viewChild<ElementRef<HTMLButtonElement>>('button');
   dropdown = viewChild<ElementRef<HTMLDivElement>>('dropdown');
   show: boolean = false;
   open: boolean = false;
   selectedName: string;
-  selectedId: string;
+  selectedIndex: number;
   theme$ = new Observable()
 
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private store: Store<State>) {
@@ -46,9 +47,7 @@ export class SelectComponent implements ControlValueAccessor {
     this.theme$ = store.select('theme');
     this.window = document.defaultView;
     this.selectedName = this.columns.length > 0 ? this.columns[0].name : '';
-    this.selectedId = this.columns.length > 0 ? this.columns[0].id : '';
-
-    console.log('this.columnIndex')
+    this.selectedIndex = 0;
 
     effect(() => {
       console.log('select effect()');
@@ -75,10 +74,10 @@ export class SelectComponent implements ControlValueAccessor {
     setTimeout(() => {
       if (this.currentColumn) {
         this.selectedName = this.currentColumn.name;
-        this.updateValue(this.currentColumn.id);
+        this.updateValue(this.currentColumnIndex);
       } else if (this.columns.length > 0) {
         this.selectedName = this.columns.length > 0 ? this.columns[0].name : '';
-        this.updateValue(this.columns.length > 0 ? this.columns[0].id : '');
+        this.updateValue(0);
       }
     })
   }
@@ -110,18 +109,18 @@ export class SelectComponent implements ControlValueAccessor {
     // this.disabled = isDisabled;
   } 
 
-  updateValue(id: string): void {
-    console.log('updateValue() id', id)
-    this.selectedId = id;
-    this.onChange(id);
+  updateValue(index: number): void {
+    console.log('updateValue() index', index)
+    this.selectedIndex = index;
+    this.onChange(index);
     this.onTouch();
   }
 
-  selectOption(id: string, name: string) {
-    console.log('select component selectOption ', id);
+  selectOption(index: number, name: string) {
+    console.log('select component selectOption ', index);
     this.selectedName = name;
     this.show = false;
-    this.onSelect.emit({prevId: this.selectedId, newId: id});
-    this.updateValue(id);
+    this.onSelect.emit({prevIndex: this.selectedIndex, newIndex: index});
+    this.updateValue(index);
   }
 }
