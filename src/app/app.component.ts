@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewBoardComponent } from './dialog-create-new-board/dialog-create-new-board.component';
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DOCUMENT } from '@angular/common';
 
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { SelectComponent, Value } from '../select/select.component';
@@ -50,6 +50,7 @@ export class DialogTaskComponent {
 
   dialogEditTaskRef!: MatDialogRef<DialogEditTaskComponent>;
   openDialogEditTask(task: Task) {
+    console.log('document', document)
     this.dialog.closeAll();
     this.dialogEditTaskRef = this.dialog.open(DialogEditTaskComponent, {
       width: '480px',

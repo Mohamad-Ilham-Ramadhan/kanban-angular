@@ -23,4 +23,10 @@
    position: absolute;
    top: 9px;
    right: 9px;
+   display: none;
+}
+@media only screen and (max-width: $mobile-breakpoint) {
+   .button-close {
+      display: block;
+   }
 }

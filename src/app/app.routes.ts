@@ -4,7 +4,7 @@ import { CobaComponent } from './coba/coba.component';
 import { CobaCreateBoardComponent } from './coba-create-board/coba-create-board.component';
 
 export const routes: Routes = [
-   {component: AppComponent, path: ''},
+   {path: '', component: AppComponent},
    {component: CobaComponent, path: 'coba'},
    {component: CobaCreateBoardComponent, path: 'coba-create'},
 ];

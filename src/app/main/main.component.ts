@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { CommonModule, AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, Inject, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { CommonModule, AsyncPipe, DOCUMENT } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -41,18 +41,12 @@ export class MainComponent {
   dialogData: any;
   theme$ = new Observable();
 
-  constructor(private store: Store<State>, private fb : FormBuilder) {
+  constructor(private store: Store<State>, private fb : FormBuilder, @Inject(DOCUMENT) private document: Document) {    
     this.form = this.fb.group({
       select: '1'
     });
-    this.form.get('select')?.valueChanges.subscribe( (val) => {
-      console.log("this.form.get('select')?.valueChanges.subscribe", val)
-    });
 
     this.theme$ = store.select('theme');
-    this.theme$.subscribe( val => {
-      console.log('val', val);
-    });
     
     this.boards$ = store.select(selectBoards);
     this.activeBoard$ = store.select(selectActiveBoard);
@@ -82,12 +76,14 @@ export class MainComponent {
   dialog = inject(MatDialog);
   openDialogNewBoard() {
     const dialogRef = this.dialog.open(DialogCreateNewBoardComponent, {
-      width: '480px'
+      width: '480px',
+      height: `${document.documentElement.clientWidth <= 766 ? '100%' : 'auto'}`, 
     });
   }
   openDialogNewColumn() {
     const dialogRef = this.dialog.open(DialogNewColumnComponent, {
       width: '480px',
+      height: `${document.documentElement.clientWidth <= 766 ? '100%' : 'auto'}`,
       data: this.dialogData
     });
   }
@@ -95,22 +91,8 @@ export class MainComponent {
   openDialogTask(task: Task, columnIndex: number, taskIndex: number) {
     const dialogRef = this.dialog.open(DialogTaskComponent, {
       width: '480px',
-      height: '100%',
+      height: `${document.documentElement.clientWidth <= 766 ? '100%' : 'auto'}`,
       data: {task, columnIndex, taskIndex}
     });
   }
-
-  dialogDeleteTaskRef!: MatDialogRef<DialogDeleteComponent>;
-  openDialogDeleteTask(task: Task) {
-    this.dialogDeleteTaskRef = this.dialog.open(DialogDeleteComponent, {
-      width: '480px',
-      data: {
-        title: 'Delete this board?',
-        description: `Are you sure you want to delete the '${task.title}' board? This action will remove all columns and tasks and cannot be reversed.`,
-        delete: () => {
-          alert('delete task');
-        }
-      }
-    })
-  };
 }

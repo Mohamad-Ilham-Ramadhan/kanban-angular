@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
@@ -12,7 +13,7 @@ import { BoardState } from '../reducers/board.reducer';
 @Component({
   selector: 'app-coba-create-board',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, AsyncPipe, MatSlideToggleModule],
+  imports: [FormsModule, ReactiveFormsModule, AsyncPipe, MatSlideToggleModule, RouterLink],
   templateUrl: './coba-create-board.component.html',
   styleUrl: './coba-create-board.component.scss'
 })
@@ -33,6 +34,5 @@ export class CobaCreateBoardComponent {
     e.preventDefault();
     const { name } = this.form.controls;
     console.log('name', name.value?.toString());
-    // this.store.dispatch(create({name: name.value ? name.value : ''}))
   }
 }
