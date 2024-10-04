@@ -95,4 +95,28 @@ export class MainComponent {
       data: {task, columnIndex, taskIndex}
     });
   }
+
+  scrolling(e: Event) {
+    console.log('asdf')
+    console.log('scrolling');
+    const $this = e.currentTarget;
+    document.documentElement.style.userSelect = 'none';
+    // setScrolling(true)
+    // setOverlay(true);
+    function onDrag(e: MouseEvent) {
+      // @ts-ignore
+      $this.scrollLeft = $this.scrollLeft - e.movementX;
+    }
+
+    function onRelease() {
+      // setScrolling(false);
+      // setOverlay(false);
+      document.removeEventListener('mousemove', onDrag)
+      document.removeEventListener('mouseup', onRelease) 
+      document.documentElement.style.userSelect = '';
+    }
+
+    document.addEventListener('mousemove', onDrag)
+    document.addEventListener('mouseup', onRelease)
+  }
 }

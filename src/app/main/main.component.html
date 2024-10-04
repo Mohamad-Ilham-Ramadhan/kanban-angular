@@ -27,7 +27,10 @@
    </aside>
 
 
-   <div class="board-section">
+   <div 
+      class="board-section"
+      (mousedown)="scrolling($event)"
+   >
       <div class="wrapper">
           @for (column of columns; track $index; let columnIndex = $index) {
              <div class="tasks-wrapper">
