@@ -496,7 +496,7 @@ export const boardReducer = createReducer(
       localStorage.setItem('board', JSON.stringify(newState))
       return newState;
    }),
-   on(addTask, (state, {title, description, subtasks, status}) => {
+   on(addTask, (state, {title, description, subtasks, status}) => { 
       let newState: BoardState = JSON.parse(JSON.stringify(state));
 
       newState.boards[state.activeBoard].columns[Number(status)].tasks.push({
@@ -521,28 +521,11 @@ export const boardReducer = createReducer(
       return newState;
    }),
    on(toggleSubtask, (state, {columnIndex, taskIndex, subtaskIndex}) => {
-
-      let newState = {...state};
-      let boards = [...newState.boards];
-      let board = {...boards[newState.activeBoard]};
-      let columns = [...board.columns];
-      let column = {...columns[Number(columnIndex)]};
-      let tasks = [...column.tasks];
-      let task = {...tasks[Number(taskIndex)]};
-      let subtasks = [...task.subtasks];
-      let subtask = {...task.subtasks[Number(subtaskIndex)]};
-      subtask.isDone = !subtask.isDone;
-      subtasks[Number(subtaskIndex)] = subtask;
-      task.subtasks = subtasks;
-      tasks[Number(taskIndex)] = task;
-      column.tasks = tasks;
-      columns[Number(columnIndex)] = column;
-      board.columns = columns;
-      boards[newState.activeBoard] = board;
-      newState.boards = boards;
+      let newState: BoardState = JSON.parse(JSON.stringify(state));
+      newState.boards[newState.activeBoard].columns[Number(columnIndex)].tasks[Number(taskIndex)].subtasks[Number(subtaskIndex)].isDone = !newState.boards[newState.activeBoard].columns[Number(columnIndex)].tasks[Number(taskIndex)].subtasks[Number(subtaskIndex)].isDone;
 
       localStorage.setItem('board', JSON.stringify(newState));
-
+      
       return newState;
    }),
    on(deleteTask, (state, {columnIndex, taskIndex}) => {
@@ -562,16 +545,27 @@ export const boardReducer = createReducer(
       return newState;
    }),
    on(editTask, (state, {title, description, subtasks, status, columnIndex, taskIndex}) => {
-      let newState = JSON.parse(JSON.stringify(state)) as BoardState;
+      let newState: BoardState = JSON.parse(JSON.stringify(state));
 
+      console.log('editTask()')
+      console.log('title', title)
+      console.log('description', description)
+      console.log('subtasks', subtasks)
+      console.log('status', status)
+      console.log('columnIndex', columnIndex)
+      console.log('taskIndex', taskIndex)
+      
+      
       let newColumnIndex = 0;
-      let newColumn = newState.boards[state.activeBoard].columns.find( (c, idx) => {
-         if (c.id === status) {
-            newColumnIndex = idx;
-            return true;
-         }
-         return false;
-      });
+      // let newColumn = newState.boards[state.activeBoard].columns.find( (c, idx) => {
+      //    if (c.id === status) {
+      //       newColumnIndex = idx;
+      //       return true;
+      //    }
+      //    return false;
+      // });
+      let newColumn = newState.boards[state.activeBoard].columns[Number(status)];
+      console.log('newColumn', newColumn);
       if (!newColumn) return state;
       // move column [start]
       let task = newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks.splice(Number(taskIndex), 1)[0];
@@ -581,7 +575,7 @@ export const boardReducer = createReducer(
       task.subtasks = subtasks
          // edit task [end]
       newColumn.tasks.push(task);
-      newState.boards[state.activeBoard].columns[newColumnIndex] = newColumn;
+      newState.boards[state.activeBoard].columns[Number(status)] = newColumn;
       // move column [end]
       localStorage.setItem('board', JSON.stringify(newState));
 

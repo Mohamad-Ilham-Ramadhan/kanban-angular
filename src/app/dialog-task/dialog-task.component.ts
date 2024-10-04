@@ -32,20 +32,27 @@ export class DialogTaskComponent {
   constructor(private store: Store<State>, @Inject(DOCUMENT) private document: Document) {
     this.columns$ = store.select(selectColumns);
     this.columns$.subscribe( val => {
+      console.log('this.columns$.subscribe');
       this.columns = val.map( c => ({id: c.id, name: c.name}));
       // this.task = val[this.data.columnIndex].tasks[this.data.taskIndex];
-    }).unsubscribe();
+    });
   }
 
   moveColumn(event: any) {
     this.store.dispatch(moveColumn({prevIndex: event.prevIndex, newIndex: event.newIndex, taskIndex: this.data.taskIndex}));
     this.columns$.subscribe( val => {
       this.data.taskIndex = val[event.newIndex].tasks.length - 1;
+      this.data.columnIndex = event.newIndex;
     }).unsubscribe();
   }
 
   toggleSubtask(event: any) {
     this.store.dispatch(toggleSubtask({columnIndex: this.data.columnIndex, taskIndex: this.data.taskIndex, subtaskIndex: event}))
+    this.columns$.subscribe( val => {
+      console.log('this.columns$.subscribe');
+      this.columns = val.map( c => ({id: c.id, name: c.name}));
+      this.task = val[this.data.columnIndex].tasks[this.data.taskIndex];
+    }).unsubscribe();
   }
 
   dialogEditTaskRef!: MatDialogRef<DialogEditTaskComponent>;

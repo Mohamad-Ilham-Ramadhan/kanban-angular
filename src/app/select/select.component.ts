@@ -43,14 +43,12 @@ export class SelectComponent implements ControlValueAccessor {
   theme$ = new Observable()
 
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private store: Store<State>) {
-    console.log('this.currentColumn', this.currentColumn);
     this.theme$ = store.select('theme');
     this.window = document.defaultView;
     this.selectedName = this.columns.length > 0 ? this.columns[0].name : '';
     this.selectedIndex = 0;
 
     effect(() => {
-      console.log('select effect()');
       const $dropdown = this.dropdown()?.nativeElement;
       if ($dropdown) renderer.setStyle($dropdown, 'width', `${this.button()?.nativeElement.getBoundingClientRect().width}px`);
       const rect = $dropdown?.getBoundingClientRect();
