@@ -1,3 +1,2 @@
 === bug ===
-   - ada bug di move column dialog task
-   - dialog mobile version di desktop viewport
+   - animation show/hide sidebar.
