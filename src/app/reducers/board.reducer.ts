@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
-import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask, deleteTask, editTask} from "../actions/board.action";
+import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask, deleteTask, editTask, swapTask} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -567,17 +567,68 @@ export const boardReducer = createReducer(
       let newColumn = newState.boards[state.activeBoard].columns[Number(status)];
       console.log('newColumn', newColumn);
       if (!newColumn) return state;
-      // move column [start]
-      let task = newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks.splice(Number(taskIndex), 1)[0];
-         // edit task [start]
-      task.title = title;
-      task.description = description;
-      task.subtasks = subtasks
-         // edit task [end]
-      newColumn.tasks.push(task);
-      newState.boards[state.activeBoard].columns[Number(status)] = newColumn;
+      
+      if (status === columnIndex) {
+         newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks[Number(taskIndex)] = {
+            id: uuid(),
+            title,
+            description,
+            subtasks
+         }
+      } else {
+         // move column [start]
+            let task = newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks.splice(Number(taskIndex), 1)[0];
+            // edit task [start]
+         task.title = title;
+         task.description = description;
+         task.subtasks = subtasks
+            // edit task [end]
+         newColumn.tasks.push(task);
+         newState.boards[state.activeBoard].columns[Number(status)] = newColumn;
+      }
       // move column [end]
       localStorage.setItem('board', JSON.stringify(newState));
+
+      return newState;
+   }),
+   on(swapTask, (state, {fromColumnIndex, toColumnIndex, fromIndex, toIndex}) => {
+      let newState: BoardState = JSON.parse(JSON.stringify(state));
+      const board: Board = newState.boards[newState.activeBoard];
+      // this.board.columns[colIndex].tasks
+      if (toColumnIndex === null && fromIndex === toIndex) {
+         return newState;
+      } else if (fromColumnIndex === toColumnIndex || toColumnIndex === null) {
+         // same column
+         if (toIndex > fromIndex) { // drag ke bawah
+            console.log('drag ke bawah');
+            const newTasks = board.columns[fromColumnIndex].tasks.map((t, index) => {
+               if (index > toIndex || index < fromIndex) return t; // stay in the place
+               if (index == toIndex) return board.columns[fromColumnIndex].tasks[fromIndex]; // dragged card
+               if (index >= fromIndex){ 
+                  console.log('index >= fromIndex');
+                  return board.columns[fromColumnIndex].tasks[index + 1]};
+               return t;
+            })
+            console.log('newTasks', newTasks);
+            if (newTasks !== undefined) {
+               newState.boards[newState.activeBoard].columns[fromColumnIndex].tasks = newTasks;
+            }
+            localStorage.setItem('board', JSON.stringify(newState));
+            return newState;
+         } else if (toIndex < fromIndex) { // drag ke atas
+            const newTasks = board.columns[fromColumnIndex].tasks.map((t, index) => {
+               if (index < toIndex || index > fromIndex) return t
+               if (index == toIndex) return board.columns[fromColumnIndex].tasks[fromIndex] 
+               if (index <= fromIndex) return board.columns[fromColumnIndex].tasks[index - 1]
+               return t;
+            })
+            newState.boards[newState.activeBoard].columns[fromColumnIndex].tasks = newTasks
+         }
+      } else {
+         // oldColumn
+         const theTask = board.columns[fromColumnIndex].tasks.splice(fromIndex, 1)[0];
+         board.columns[toColumnIndex].tasks.splice(toIndex, 0, theTask)
+      }
 
       return newState;
    })
