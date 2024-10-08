@@ -616,20 +616,24 @@ export const boardReducer = createReducer(
             localStorage.setItem('board', JSON.stringify(newState));
             return newState;
          } else if (toIndex < fromIndex) { // drag ke atas
+            console.log('drag ke atas')
             const newTasks = board.columns[fromColumnIndex].tasks.map((t, index) => {
                if (index < toIndex || index > fromIndex) return t
                if (index == toIndex) return board.columns[fromColumnIndex].tasks[fromIndex] 
                if (index <= fromIndex) return board.columns[fromColumnIndex].tasks[index - 1]
                return t;
             })
-            newState.boards[newState.activeBoard].columns[fromColumnIndex].tasks = newTasks
+            newState.boards[newState.activeBoard].columns[fromColumnIndex].tasks = newTasks;
+            console.log('newTasks', newTasks);
+            localStorage.setItem('board', JSON.stringify(newState));
+            return newState;
          }
       } else {
-         // oldColumn
+         // different columns
          const theTask = board.columns[fromColumnIndex].tasks.splice(fromIndex, 1)[0];
          board.columns[toColumnIndex].tasks.splice(toIndex, 0, theTask)
       }
-
+      console.log('sampe sini, harus di save ke localStorage');
       return newState;
    })
 );

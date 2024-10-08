@@ -1,4 +1,4 @@
-import { Component, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, ViewChild, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -18,21 +18,17 @@ import { BoardState } from '../reducers/board.reducer';
   styleUrl: './coba-create-board.component.scss'
 })
 export class CobaCreateBoardComponent {
-  constructor(private store: Store<{board: BoardState}>) {
-    this.board$ = store.select('board');
-    this.board$.subscribe(val => {
-      console.log('board$.subscribe val', val)
-    });
-  }
-  form = new FormGroup({
-    name: new FormControl(''),
-  });
+  @ViewChild('input1') input1!: ElementRef;
+  @ViewChild('input2') input2!: ElementRef;
 
-  board$: Observable<BoardState>
+  @ViewChildren('task') tasks!: QueryList<ElementRef>;
 
-  formSubmit(e: Event) {
-    e.preventDefault();
-    const { name } = this.form.controls;
-    console.log('name', name.value?.toString());
+  check() {
+    console.log('this.input1.nativeElement', this.input1.nativeElement)
+    console.log('this.input2.nativeElement', this.input2.nativeElement)
+    this.tasks.forEach( t => {
+      console.log('t', t)
+    })
+    console.log("this.tasks.get(0)?.nativeElement.dataset['destination-y']", this.tasks.get(0)?.nativeElement.dataset['destinationY'])
   }
 }

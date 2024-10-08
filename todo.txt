@@ -1,2 +1,3 @@
 === bug ===
-   - animation show/hide sidebar.
+   - text submit di dialog edit task.
+   - edit task. task yang di edit jadi ada di posisi terakhir.

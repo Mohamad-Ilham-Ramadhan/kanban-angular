@@ -178,6 +178,9 @@ body {
      background-color: $dark-bg;
   }
 }
+body.no-selection {
+  user-select: none;
+}
 
 input {
   color: black;

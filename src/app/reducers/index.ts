@@ -13,6 +13,7 @@ import { booksReducer } from '../state/books.reducer';
 import { collectionReducer } from '../state/collection.reducer';
 import { themeReducer } from './theme.reducer';
 import { boardReducer } from './board.reducer';
+import { cobaReducer, Task } from './coba.reducer';
 
 export interface State {
   count: number;
@@ -20,6 +21,7 @@ export interface State {
   collection: ReadonlyArray<string>;
   theme: string;
   board: any;
+  coba: Task[];
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -27,7 +29,8 @@ export const reducers: ActionReducerMap<State> = {
   books: booksReducer,
   collection: collectionReducer,
   theme: themeReducer,
-  board: boardReducer
+  board: boardReducer,
+  coba: cobaReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];

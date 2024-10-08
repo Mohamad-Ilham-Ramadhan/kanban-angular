@@ -1,17 +1,18 @@
-.main {
-   // display: flex;
-   // position: fixed;  
-   // top: 0;
-   // left: 0;
-   height: 200px;
-   width: 2500px;
-   background-color: aqua;
-   overflow: auto;
-
-   .section {
-      display: flex;
-      background-color: tomato;
-      height: 100px;
-      width: 2000px;
-   }
+.container {
+   width: 300px;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   margin-left: auto;
+   margin-right: auto;
+   padding-top: 32px;
+}
+.task {
+   height: 50px;
+   background-color: gray;
+   margin-bottom: 16px;
+   padding: 8px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }

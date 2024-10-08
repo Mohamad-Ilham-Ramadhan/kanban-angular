@@ -13,3 +13,4 @@ export const toggleSubtask = createAction('[Board] toggle subtask', props<{colum
 export const deleteTask = createAction('[Board] delete task', props<{columnIndex: string, taskIndex: string}>());
 export const editTask = createAction('[Board] edit task', props<{title: string, description: string, subtasks: any[], status: string, columnIndex: string, taskIndex: string}>());
 export const getTask = createAction('[Board] get task', props<{columnIndex: number, taskIndex: number}>());
+export const swapTask = createAction('[Board] swap task', props<{fromColumnIndex: number, toColumnIndex: number, fromIndex: number, toIndex: number}>());

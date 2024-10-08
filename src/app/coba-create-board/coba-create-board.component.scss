@@ -1,0 +1,30 @@
+.main {
+   padding-top: 32px;
+   padding-bottom: 32px;
+   display: flex;
+   justify-content: center;
+}
+.column {
+   display: flex;
+   flex-direction: column;
+   height: calc(100vh - 80px);
+   background-color: tomato;
+   width: 280px;
+}
+.title {
+   margin-bottom: 24px; 
+   font-size: 24px;
+}
+.wrapper {
+   border: 2px gray dashed;
+   height: 100%;
+}
+.tasks-wrapper {
+   height: 100%;
+}
+.task {
+   height: 100px;
+   background-color: tomato;
+   width: 280px;
+   margin-bottom: 16px;
+}

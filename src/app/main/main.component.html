@@ -33,20 +33,37 @@
    >
       <div class="wrapper">
           @for (column of columns; track $index; let columnIndex = $index) {
-             <div class="tasks-wrapper">
+             <div 
+               class="column"
+             >
                <div class="column-name">
                   <span [class]="'circle ' + 'color-'+columnIndex"></span>
                   <span class="text">{{ column.name }}({{column.tasks.length}})</span>
                </div>
-               @for (task of column.tasks; track $index) {
-                  <div class="task" (click)="openDialogTask(task, columnIndex, $index)">
-                     <div class="title">{{ task.title }}</div>
-                     <div class="subtasks-done">{{ task.subtasks | count: 'isDone'}} of {{task.subtasks.length}} subtasks</div>
-                  </div>
-               }
-               @if (column.tasks.length === 0) {
-                  <div class="empty-column"></div>
-               }
+               <div 
+                  class="tasks-wrapper"
+                  [attr.data-column-index]="columnIndex"
+                  data-is-animating="0"
+               >
+                  @if (column.tasks.length > 0) {
+                     @for (task of column.tasks; track task.id) {
+                        <div class="task" 
+                           (mousedown)="dragDesktop($event, task, columnIndex, $index)"
+                           data-moveable="0"
+                           [attr.data-index]="$index"
+                           data-y="0"
+                           [attr.data-title]="task.title"
+                           data-is-animating="0"
+                           data-destination-y="0"
+                        >
+                           <div class="title">{{ task.title }}</div>
+                           <div class="subtasks-done">{{ task.subtasks | count: 'isDone'}} of {{task.subtasks.length}} subtasks</div>
+                        </div>
+                     }
+                  }@else {
+                     <div class="empty-column"></div>
+                  }
+               </div>
             </div>
           }
           <div class="add-new-column">

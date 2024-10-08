@@ -1,12 +1,9 @@
-<div>{{ board$ | async }}</div>
-<mat-slide-toggle>Toggle me!</mat-slide-toggle>
+<input type="text" #input1>
+<input type="text" #input2>
 
-<a href="" routerLink="/coba">Back to coba</a>
+<button (click)="check()">Check inputs</button>
 
-<form action="" [formGroup]="form" (submit)="formSubmit($event)">
-   <label for="">
-      Name:
-      <input type="text" formControlName="name">
-   </label>
-   <button>Submit</button>
-</form>
+<div class="task" #task data-destination-y="0">1</div>
+<div class="task" #task>2</div>
+<div class="task" #task>sardonis</div>
+<div class="task" #task>4</div>

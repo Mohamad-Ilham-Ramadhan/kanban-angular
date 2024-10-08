@@ -182,11 +182,7 @@
          gap: 32px;
          padding: 24px 32px;
          height: 100%;
-         .tasks-wrapper {
-            width: 280px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
+         .column {
             .column-name {
                display: flex;
                align-items: center;
@@ -225,31 +221,42 @@
                   letter-spacing: 2px;
                }
             }
-            .task {
-               border-radius: 8px;
-               background-color: #fff;
-               margin-bottom: 16px;
-               padding: 24px 16px;
-               box-shadow: 0 4px 6px #364e7e1a;
-               .title {
-                  font-weight: bold;
-                  font-size: 15px;
-                  margin-bottom: 8px;
-               }
-               .subtasks-done {
-                  color: $text-gray;
-                  font-size: 12px;
-                  font-weight: bold;
-               }
-               &:hover {
-                  cursor: pointer;
-               }
-            }
-            .empty-column {
+            .tasks-wrapper {
+               width: 280px;
+               flex-shrink: 0;
+               display: flex;
+               flex-direction: column;
                height: 100%;
-               border-radius: 8px;
-               // border: 2px dashed $dark-border;
-               border: 2px dashed rgba(130, 143, 163, .4);
+               
+               .task {
+                  border-radius: 8px;
+                  background-color: #fff;
+                  margin-bottom: 16px;
+                  padding: 24px 16px;
+                  box-shadow: 0 4px 6px #364e7e1a;
+                  .title {
+                     font-weight: bold;
+                     font-size: 15px;
+                     margin-bottom: 8px;
+                  }
+                  .subtasks-done {
+                     color: $text-gray;
+                     font-size: 12px;
+                     font-weight: bold;
+                  }
+                  &:hover {
+                     cursor: pointer;
+                  }
+                  // &:last-of-type {
+                  //    margin-bottom: 0;
+                  // }
+               }
+               .empty-column {
+                  height: calc(100% - 40px);
+                  border-radius: 8px;
+                  // border: 2px dashed $dark-border;
+                  border: 2px dashed rgba(130, 143, 163, .4);
+               }
             }
          }
 
