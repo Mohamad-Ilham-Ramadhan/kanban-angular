@@ -51,6 +51,7 @@
                      @for (task of column.tasks; track task.id) {
                         <div class="task task-transition" 
                            (mousedown)="dragDesktop($event, task, columnIndex, $index)"
+                           (touchstart)="dragMobile(task, $index, columnIndex, $event)"
                            data-moveable="0"
                            [attr.data-index]="$index"
                            data-y="0"

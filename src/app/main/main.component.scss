@@ -296,10 +296,18 @@
          background-color: $dark-main;
          border-right: 1px solid $dark-border;
       }
-      .task { 
-         background-color: $dark-main !important;
-         border: 1px solid $dark-border;
-         box-shadow: none;
+      .board-section {
+         .wrapper {
+            .column {
+               .tasks-wrapper {
+                  .task { 
+                     background-color: $dark-main;
+                     border: 1px solid $dark-border;
+                     box-shadow: none;
+               }
+            }
+         }
+      }
       }
       .switch-theme-wrapper {
          background-color: $dark-bg !important;
