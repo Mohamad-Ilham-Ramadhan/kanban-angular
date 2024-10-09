@@ -251,6 +251,11 @@
                   //    margin-bottom: 0;
                   // }
                }
+               .task-transition {
+                  transition-property: transform, opacity;
+                  transition-timing-function: cubic-bezier(0.32, 0.82, 0.4, 0.99);
+                  transition-duration: 200ms;
+                }
                .empty-column {
                   height: calc(100% - 40px);
                   border-radius: 8px;

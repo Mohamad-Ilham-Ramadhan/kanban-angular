@@ -47,7 +47,7 @@
                >
                   @if (column.tasks.length > 0) {
                      @for (task of column.tasks; track task.id) {
-                        <div class="task" 
+                        <div class="task task-transition" 
                            (mousedown)="dragDesktop($event, task, columnIndex, $index)"
                            data-moveable="0"
                            [attr.data-index]="$index"

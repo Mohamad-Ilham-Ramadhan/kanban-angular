@@ -633,7 +633,7 @@ export const boardReducer = createReducer(
          const theTask = board.columns[fromColumnIndex].tasks.splice(fromIndex, 1)[0];
          board.columns[toColumnIndex].tasks.splice(toIndex, 0, theTask)
       }
-      console.log('sampe sini, harus di save ke localStorage');
+      localStorage.setItem('board', JSON.stringify(newState));
       return newState;
    })
 );

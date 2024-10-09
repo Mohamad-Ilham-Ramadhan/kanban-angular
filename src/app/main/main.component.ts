@@ -39,7 +39,7 @@ export class MainComponent {
   currentBoard$ = new Observable<Board>();
   columns: Column[] = [];
   dialogData: any;
-  theme$ = new Observable();
+  theme$ = new Observable<string>();
 
   constructor(private store: Store<State>, private fb : FormBuilder, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {    
     this.form = this.fb.group({
@@ -121,23 +121,25 @@ export class MainComponent {
 
 
   dragDesktop(e: MouseEvent, task: Task, columnIndex: number, taskIndex: number) {
-    console.log('drag desktop');
     e.stopPropagation();
-    this.document.body.classList.add('no-selection');
+    this.renderer.addClass(this.document.body, 'no-selection');
+    
     let dragged = false;
     let isOut = false;
-
+    
     const $this = e.currentTarget as HTMLElement;
+    const transitionDuration = parseFloat(window.getComputedStyle($this).transitionDuration) * 1000; // in ms
+    this.renderer.removeClass($this, 'task-transition');
     this.renderer.setStyle($this, 'z-index', '1000');
+    this.renderer.setStyle($this, 'background-color', 'red');
     let $wrapper = $this.parentElement;
+    const $initialWrapper = $this.parentElement;
     const marginBottom = window.parseInt(window.getComputedStyle($this).marginBottom);
     
     let fromIndex = Number($this.dataset['index']);
     let fromColumnIndex = Number(columnIndex);
     let toColumnIndex = Number(columnIndex);
     let movedCards = new Set([$this]);
-    const transitionDuration = parseFloat(window.getComputedStyle($this).transitionDuration) * 1000; // in ms
-
     // create shadowRect
     const $thisRect = $this.getBoundingClientRect();
     const $shadowRect = document.createElement("div");
@@ -148,8 +150,8 @@ export class MainComponent {
     this.renderer.setStyle($shadowRect, 'position', `absolute`);
     this.renderer.setStyle($shadowRect, 'top', `${$thisRect.top}px`);
     this.renderer.setStyle($shadowRect, 'left', `${$thisRect.left}px`);
-    this.renderer.setStyle($shadowRect, 'background-color', `red`);
-    this.renderer.setStyle($shadowRect, 'opacity', `.3`);
+    this.renderer.setStyle($shadowRect, 'border-radius', `8px`);
+    // this.renderer.setStyle($shadowRect, 'opacity', `.3`);
 
     document.body.appendChild($shadowRect);
 
@@ -176,7 +178,7 @@ export class MainComponent {
           e.clientY < $wrapperRect.top ||
           e.clientY > $wrapperRect.bottom
         ) {
-          console.log('Keluar Wrapper')
+          // console.log('Keluar Wrapper');
           Array.from($wrapper.children).forEach(($el) => {
             if ($el instanceof HTMLElement) {
               if (Number($el.dataset['index']) <= Number($this.dataset['index']))
@@ -201,7 +203,8 @@ export class MainComponent {
             $temp.dataset['isAnimating'] = '0';
           }, transitionDuration);
 
-          $shadowRect.remove();
+          // $shadowRect.remove(); // <== ini harus dihapus
+
           isOut = true;
           $wrapper = null;
           console.log('isOut = true;', isOut)
@@ -318,10 +321,9 @@ export class MainComponent {
             return $el.classList.contains("tasks-wrapper");
           }) as HTMLElement | undefined;
 
-          console.log('$neoWrapper', $neoWrapper, $neoWrapper?.childElementCount);
-
-        if (!!$neoWrapper && $neoWrapper.childElementCount === 0) {
+        if (!!$neoWrapper && $neoWrapper?.firstElementChild?.classList.contains('empty-column')) {
           // in to empty column
+          console.log('into empty column');
           $wrapper = $neoWrapper;
           isOut = false;
           $shadowRect.style.top = `${$wrapper.getBoundingClientRect().top}px`;
@@ -407,18 +409,38 @@ export class MainComponent {
         this.openDialogTask(task, columnIndex, taskIndex)
       }
 
+      if ($wrapper == null && $initialWrapper !== null) {
+        console.log('outcast!')
+        // if outside of wrapper when cancelDrag
+        movedCards.forEach(($el) => {
+          if ($this === $el) return
+          $el.style.transform = ''
+        })
+  
+        // reset cards.dataset.index
+        Array.from($initialWrapper.children).reduce((curIndex, $el) => {
+          if ($el === $this || Number(($el as HTMLElement).dataset['index']) < fromIndex) return curIndex;
+          ($el as HTMLElement).dataset['index'] = String(curIndex + 1)
+          return curIndex + 1
+        }, fromIndex)
+        
+        $shadowRect.style.top = `${$thisRect.top}px`;
+        $shadowRect.style.left = `${$thisRect.left}px`;
+        // document.body.appendChild($shadowRect)
+      }
+      
+      this.renderer.addClass($this, 'task-transition');
+
       // back to $shadowRect or back to initial position
       const moveX = $this.getBoundingClientRect().x - $shadowRect.getBoundingClientRect().x;
       const moveY = $this.getBoundingClientRect().y - $shadowRect.getBoundingClientRect().y;
       const matrix = new DOMMatrix(window.getComputedStyle($this).transform);
-      $this.style.transform = `translate(${matrix.e - moveX}px, ${matrix.f - moveY}px)`
-  
-      $this.classList.remove('z-50');
-      $this.style.zIndex = '';
+      this.renderer.setStyle($this, 'transform', `translate(${matrix.e - moveX}px, ${matrix.f - moveY}px)`);
+      this.renderer.setStyle($this, 'z-index', '');
 
       $shadowRect.remove();
 
-      window.setTimeout(() => {
+      setTimeout(() => {
         // set translateY 0 to all moved cards
         this.store.dispatch(swapTask({
           fromColumnIndex,
@@ -426,36 +448,16 @@ export class MainComponent {
           fromIndex,
           toIndex: isOut ? fromIndex : Number($this.dataset['index'])
         }));
-        window.setTimeout(() => {
-          movedCards.forEach(($c) => {
-            $c.classList.remove('card-task-transition')
-            $c.style.transform = 'translate(0px, 0px)'
-            $c.dataset['destinationY'] = '0'
-            window.setTimeout(() => {
-            $c.classList.add('card-task-transition')
-            }, 1) // needed so no transition
-          })
-          if (isOut) $this.dataset['index'] = String(fromIndex);
-        }, 0)
-        // @ts-ignore
-      //   dispatch(swapTask({
-      //     fromColumnIndex,
-      //     toColumnIndex: isOut ? fromColumnIndex : toColumnIndex,
-      //     fromIndex,
-      //     toIndex: isOut ? fromIndex : Number($this.dataset['index'])
-      //   })).then(() => {
-      //     movedCards.forEach(($c) => {
-      //       $c.classList.remove('card-task-transition')
-      //       $c.style.transform = 'translate(0px, 0px)'
-      //       $c.dataset['destinationY'] = '0'
-      //       window.setTimeout(() => {
-      //       $c.classList.add('card-task-transition')
-      //       }, 10) // needed so no transition
-      //     })
-      //     if (isOut) $this.dataset['index'] = String(fromIndex)
-      //   })
-      // }, transitionDuration) // this setTimeout needs for dragged card get back to the position using transition
-      }, 0) // this setTimeout needs for dragged card get back to the position using transition
+        movedCards.forEach(($c) => {
+          this.renderer.removeClass($c, 'task-transition');
+          this.renderer.setStyle($c, 'transform', 'translate(0px, 0px)');
+          $c.dataset['destinationY'] = '0';
+          setTimeout(() => {
+            this.renderer.addClass($c, 'task-transition');
+          }, 10) // needed so no transition
+        })
+        if (isOut) $this.dataset['index'] = String(fromIndex);
+      }, transitionDuration) // this setTimeout needs for dragged card get back to the position using transition
 
       
       document.removeEventListener("mousemove", dragCard);
