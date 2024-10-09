@@ -31,6 +31,7 @@ import { CountPipe } from '../pipes/count.pipe';
 export class MainComponent {
   @ViewChild('aside') asideEl!: ElementRef;
   @ViewChild('main') mainEl!: ElementRef;
+  @ViewChild('mainScroll') mainScrollEl!: ElementRef;
 
   form: FormGroup;
 
@@ -123,6 +124,8 @@ export class MainComponent {
   dragDesktop(e: MouseEvent, task: Task, columnIndex: number, taskIndex: number) {
     e.stopPropagation();
     this.renderer.addClass(this.document.body, 'no-selection');
+
+    // console.log('this.mainScrollEl', this.mainScrollEl.nativeElement);
     
     let dragged = false;
     let isOut = false;
@@ -154,6 +157,56 @@ export class MainComponent {
     // this.renderer.setStyle($shadowRect, 'opacity', `.3`);
 
     document.body.appendChild($shadowRect);
+
+    // scroll main board when dragging task [start]
+    const $mainScroll = this.mainScrollEl.nativeElement;
+    if ($mainScroll === null) return;
+
+    const mainScrollMaxScrollRight: number = Math.floor($mainScroll.scrollWidth - $mainScroll.clientWidth);
+    const mainScrollMaxScrollBottom: number = Math.floor($mainScroll.scrollHeight - $mainScroll.clientHeight);
+    
+    // let lastThisRectLeft = $this.getBoundingClientRect().left;
+    // let lastThisRectRight = $this.getBoundingClientRect().right;
+
+    const setScrollIntervalId = window.setInterval(() => {
+      if (!dragged) return;
+      // scroll when dragging out of frame (overflow mainboard) to scroll
+      const $thisRect = $this.getBoundingClientRect()
+      const $thisMatrix = new DOMMatrix(window.getComputedStyle($this).transform)
+      const $mainScrollRect = $mainScroll.getBoundingClientRect();
+
+      // if ($thisRect.left >= 300) lastThisRectLeft = 300;
+      // if ($thisRect.right <= window.innerWidth) lastThisRectRight = window.innerWidth;
+      
+      if ($thisRect.left < $mainScrollRect.left && $mainScroll.scrollLeft > 0) {
+        // scroll left
+        $this.style.transform = `translate(${Math.ceil($thisMatrix.e - 2)}px, ${$thisMatrix.f}px)`
+        $mainScroll.scrollLeft = Math.ceil($mainScroll.scrollLeft - 2);
+        $shadowRect.style.left = `${parseInt($shadowRect.style.left) + 2}px`;
+      }
+
+      if ($thisRect.right > $mainScrollRect.right && $mainScroll.scrollLeft < mainScrollMaxScrollRight) {
+        // scroll right
+        $this.style.transform = `translate(${Math.floor($thisMatrix.e + 2)}px, ${$thisMatrix.f}px)`
+        $mainScroll.scrollLeft = Math.ceil($mainScroll.scrollLeft + 2);
+        $shadowRect.style.left = `${parseInt($shadowRect.style.left) - 2}px`;
+      }
+  
+      if ($thisRect.bottom > ($mainScrollRect.bottom - 50) && $mainScroll.scrollTop < mainScrollMaxScrollBottom) {
+        // Scroll bottom
+        $this.style.transform = `translate(${$thisMatrix.e}px, ${Math.ceil($thisMatrix.f + 2)}px)`;
+        $mainScroll.scrollTop = Math.ceil($mainScroll.scrollTop + 2);
+        $shadowRect.style.top = `${parseInt($shadowRect.style.top) - 2}px`;
+      }
+  
+      if ($thisRect.top < ($mainScrollRect.top + 50) && $mainScroll.scrollTop > 0) {
+        // scroll top
+        $this.style.transform = `translate(${$thisMatrix.e}px, ${Math.ceil($thisMatrix.f - 2)}px)`
+        $mainScroll.scrollTop = Math.ceil($mainScroll.scrollTop - 2)
+        $shadowRect.style.top = `${parseInt($shadowRect.style.top) + 2}px`;
+      }
+    }, 5)
+    // scroll main board when dragging task [start]
 
     const dragCard = (e: MouseEvent) => {
       console.log('dragCard');
@@ -223,7 +276,6 @@ export class MainComponent {
           !!$swapCards[0].getAnimations().length == false
         ) {
           const $swapCard = $swapCards[0] as HTMLElement;
-          console.log('apa ini!!!', $swapCard);
           if (
             Number($this.dataset['index']) < Number($swapCard.dataset['index']) &&
             e.movementY > 0 && 
@@ -392,7 +444,6 @@ export class MainComponent {
             $shadowRect.style.left = `${$wrapperRect.left}px`;
             // @ts-ignore
             const top = $lastEl === null ? $wrapperRect.top - marginBottom : $lastEl.getBoundingClientRect().bottom + Number($lastEl.dataset.destinationY) - new DOMMatrix(window.getComputedStyle($lastEl).transform).f;
-            console.log('$shadowRect.style.top = `${top + marginBottom}px`', `${top + marginBottom}px`, 'top', top, 'marginBottom', marginBottom);
             $shadowRect.style.top = `${top + marginBottom}px`;
             document.body.appendChild($shadowRect);
           }
@@ -404,6 +455,7 @@ export class MainComponent {
     const cancelDrag = (e: Event) => {
       this.document.body.classList.remove('no-selection');
       console.log('cancelDrag', dragged);
+      clearInterval(setScrollIntervalId);
 
       if (dragged === false) {
         this.openDialogTask(task, columnIndex, taskIndex)

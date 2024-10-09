@@ -28,8 +28,10 @@
 
 
    <div 
+      #mainScroll
       class="board-section"
       (mousedown)="scrolling($event)"
+      id="main-scroll"
    >
       <div class="wrapper">
           @for (column of columns; track $index; let columnIndex = $index) {
