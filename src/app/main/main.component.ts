@@ -846,10 +846,9 @@ export class MainComponent {
   
     const touchEnd = (e: globalThis.TouchEvent): void => {
       e.preventDefault()
-
+      this.renderer.addClass($this, 'task-transition')
       this.renderer.setStyle($this, 'background-color', '');
       this.renderer.setStyle($this, 'opacity', '');
-      this.renderer.addClass($this, 'task-transition')
 
       window.clearTimeout(setBgTimeoutId)
       window.clearInterval(setScrollIntervalId)
@@ -868,10 +867,6 @@ export class MainComponent {
         this.openDialogTask(task, columnIndex, taskIndex)
 
         // open modal card
-        // boardStore.setColumnAndTaskIndex(columnIndex, index)
-        // dispatch(setActiveColumn(columnIndex))
-        // dispatch(setActiveTask(taskIndex))
-        // setModalTaskOpen(true)
         $shadowRect.remove()
         return
       }
