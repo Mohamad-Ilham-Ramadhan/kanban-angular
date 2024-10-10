@@ -1,18 +1,34 @@
-.container {
-   width: 300px;
+.wrapper {
    display: flex;
-   justify-content: center;
-   flex-direction: column;
-   margin-left: auto;
-   margin-right: auto;
-   padding-top: 32px;
-}
-.task {
-   height: 50px;
-   background-color: gray;
-   margin-bottom: 16px;
-   padding: 8px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+   height: 200px;
+   background-color: tomato;
+   padding-top: 8px;
+   padding-bottom: 8px;
+   .logo {
+      width: 100px;
+      flex-shrink: 0;
+   }
+   .title {
+      flex-grow: 1;
+      background-color: skyblue;
+      display: flex;
+      .text {
+         max-width: 100px;
+         background-color: blueviolet;
+         text-overflow: ellipsis;
+         text-wrap: nowrap;
+         overflow: hidden;
+      }
+      .arrow {
+         flex-shrink: 0;
+         width: 50px;
+         background-color: aquamarine;
+         margin-left: auto;
+      }
+   }
+   .kaku {
+      flex-shrink: 0;
+      width: 100px;
+      background-color: crimson;
+   }
 }

@@ -1,21 +1,10 @@
-<div class="container">
-   <div class="wrapper">
-      @for (task of (tasks$ | async); let index = $index; track $index) {
-         <div class="task" [attr.data-index]="$index">
-            {{ task.name}}
-         </div>
-      }
+<div class="wrapper">
+   <div class="logo">Lo</div>
+   <div class="title">
+      <div class="text-wrapper">
+         <div class="text">Flexible coba kasih tahu.</div>
+      </div>
+      <div class="arrow"><</div>
    </div>
-   <div>
-      <h2>Move task</h2>
-      <label for="fromIndex">
-         <div>From Index</div>
-         <input type="number" id="fromIndex" [value]="fromIndex" (change)="fromIndexChange($event)">
-      </label>
-      <label for="toIndex">
-         <div>To Index</div>
-         <input type="number" id="toIndex" [value]="toIndex" (change)="toIndexChange($event)">
-      </label>
-      <button class="button" (click)="moveTask()">Dor</button>
-   </div>
+   <div class="kaku">Kaku</div>
 </div>

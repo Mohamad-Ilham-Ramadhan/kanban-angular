@@ -31,14 +31,14 @@
       padding-bottom: 6px;
    }
    .main-wrapper {
-      padding-left: 32px;
       .title {
          font-size: 24px;
          font-weight: 700;
-         width: 300px;
+         width: 200px;
          text-overflow: ellipsis;
          text-wrap: nowrap;
          overflow: hidden;
+         margin-left: 32px;
       }
       .buttons-wrapper {
          .button-add-new-task {display: block;}
@@ -68,6 +68,42 @@
 .button-close {
    display: none;
 }
+@media only screen and (min-width: 800px) {
+   .header { 
+      .main-wrapper {
+         .title {
+            width: 240px;
+         }
+      }
+   }
+}
+@media only screen and (min-width: 1024px) {
+   .header { 
+      .main-wrapper {
+         .title {
+            width: 380px;
+         }
+      }
+   }
+}
+@media only screen and (min-width: 1200px) {
+   .header { 
+      .main-wrapper {
+         .title {
+            width: 540px;
+         }
+      }
+   }
+}
+@media only screen and (min-width: 1400px) {
+   .header { 
+      .main-wrapper {
+         .title {
+            width: 740px;
+         }
+      }
+   }
+}
 @media only screen and (max-width: $mobile-breakpoint) {
    .logo-wrapper {
       display: none !important;
@@ -75,30 +111,43 @@
    .header {
       .logo-mobile {
          display: block;
-         padding-left: 32px;
-         padding-right: 24px;
+         padding-left: 16px;
+         padding-right: 8px;
       }
       .mobile-menu {
-         width: 200px;
+         max-width: 160px;
          font-size: 23px;
          font-weight: bold;
          display: flex;
          align-items: center;
-         flex-shrink: 0;
-
+         flex-shrink: 1;
+         padding-left: 0px;
+         
          .title {
             text-wrap: nowrap;
             overflow: hidden;
+            font-size: 18px;
          }
          .arrow-wrapper {
             width: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding-left: 8px;
+            padding-right: 8px;
+            .arrow {
+               transition: 200ms ease all;
+            }
+            &.open {
+               .arrow {
+                  transform: rotate(180deg) ;
+               }
+            }
          }
 
       }
       .main-wrapper {
+         padding-right: 16px;
          .title {
             display: none;
          }
@@ -107,6 +156,9 @@
             margin-left: auto;
             .button-add-new-task {display:none}
             .button-add-new-task-mobile {display: block}
+            .edit-delete-wrapper {
+               margin-right: 8px;
+            }
          }
       }
       

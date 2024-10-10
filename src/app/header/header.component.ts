@@ -90,7 +90,9 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  menuOpen: boolean = false;
   openDialogMobileMenu() {
+    this.menuOpen = true;
     console.log('')
     const dialogRef = this.dialog.open(DialogMobileMenuComponent, {
       width: '300px',
@@ -98,5 +100,9 @@ export class HeaderComponent implements OnInit {
         top: '80px'
       }
     })
+    const af = dialogRef.afterClosed();
+    af.subscribe( () => {
+      this.menuOpen = false;
+    });
   }
 }
