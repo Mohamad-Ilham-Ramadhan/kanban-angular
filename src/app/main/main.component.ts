@@ -125,7 +125,7 @@ export class MainComponent {
   dragDesktop(e: MouseEvent, task: Task, columnIndex: number, taskIndex: number) {
     e.stopPropagation();
     this.renderer.addClass(this.document.body, 'no-selection');
-    console.log('taskIndex', taskIndex)
+    // console.log('taskIndex', taskIndex)
     // console.log('this.mainScrollEl', this.mainScrollEl.nativeElement);
     
     let dragged = false;
@@ -209,7 +209,7 @@ export class MainComponent {
     // scroll main board when dragging task [start]
 
     const dragCard = (e: MouseEvent) => {
-      console.log('dragCard');
+      // console.log('dragCard');
       dragged = true;
 
       // $this.style.opacity = "1";
@@ -260,7 +260,7 @@ export class MainComponent {
 
           isOut = true;
           $wrapper = null;
-          console.log('isOut = true;', isOut)
+          // console.log('isOut = true;', isOut)
 
         }
 
@@ -388,7 +388,7 @@ export class MainComponent {
         }
 
         if (!!$neoWrapper && Number($neoWrapper.dataset['isAnimating']) == 0) {
-          console.log('inside new wrapper')
+          // console.log('inside new wrapper')
           toColumnIndex = Number($neoWrapper.dataset['columnIndex']);
           $wrapper = $neoWrapper;
           let isFirst = false;
@@ -433,7 +433,7 @@ export class MainComponent {
           if (isMoved == false) {
             // insert into last position in a new wrapper or when wrapper is empty of any card (new wrapper is initial wrapper)
             // $lastEl === null ? empty wrapper : last position;
-            console.log('insert into last position');
+            // console.log('insert into last position');
             isOut = false;
             isMoved = true;
 
@@ -543,11 +543,13 @@ export class MainComponent {
     const $thisRect = $this.getBoundingClientRect()
     const $shadowRect = document.createElement('div');
     this.renderer.setStyle($shadowRect, 'height', `${$thisRect.height}px`);
-    this.renderer.setStyle($shadowRect, 'width', `${$thisRect.width}px`);
+    // this.renderer.setStyle($shadowRect, 'width', `${$thisRect.width}px`);
+    this.renderer.setStyle($shadowRect, 'width', `1px`);
     this.renderer.setStyle($shadowRect, 'position', 'absolute');
     this.renderer.setStyle($shadowRect, 'top', `${$thisRect.top}px`);
     this.renderer.setStyle($shadowRect, 'left', `${$thisRect.left}px`);
     this.renderer.setStyle($shadowRect, 'z-index', '100');
+    // this.renderer.setStyle($shadowRect, 'background-color', 'red');
     document.body.appendChild($shadowRect)
   
     // let isDragged = false
@@ -619,7 +621,7 @@ export class MainComponent {
       e.preventDefault();
       e.stopPropagation();
       
-      console.log('touchMove')
+      // console.log('touchMove')
 
       if (!isDragged) {
         if (Date.now() - startStamp > holdToDrag) {
@@ -663,7 +665,7 @@ export class MainComponent {
             // out of wrapper
             console.log('out of wrapper'); 
             (Array.from($wrapper.children) as HTMLElement[]).forEach(($el: HTMLElement) => {
-              if (Number($el.dataset['index']) <= Number($this.dataset['index'])) return
+              if (Number($el.dataset['index']) <= Number($this.dataset['index']) || $el.classList.contains('empty-column')) return;
   
               $el.dataset['index'] = String(Number($el.dataset['index']) - 1)
   
@@ -779,7 +781,7 @@ export class MainComponent {
           
           if (!!$neoWrapper && Number($neoWrapper.dataset['isAnimating']) == 0) {
             
-            // console.log('new wrapper')
+            console.log('new wrapper')
             toColumnIndex = Number($neoWrapper.dataset['columnIndex']);
             $wrapper = $neoWrapper;
             let isFirst = false;

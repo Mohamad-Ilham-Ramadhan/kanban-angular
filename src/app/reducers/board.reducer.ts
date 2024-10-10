@@ -600,7 +600,7 @@ export const boardReducer = createReducer(
       } else if (fromColumnIndex === toColumnIndex || toColumnIndex === null) {
          // same column
          if (toIndex > fromIndex) { // drag ke bawah
-            console.log('drag ke bawah');
+            // console.log('drag ke bawah');
             const newTasks = board.columns[fromColumnIndex].tasks.map((t, index) => {
                if (index > toIndex || index < fromIndex) return t; // stay in the place
                if (index == toIndex) return board.columns[fromColumnIndex].tasks[fromIndex]; // dragged card
@@ -609,14 +609,14 @@ export const boardReducer = createReducer(
                   return board.columns[fromColumnIndex].tasks[index + 1]};
                return t;
             })
-            console.log('newTasks', newTasks);
+            // console.log('newTasks', newTasks);
             if (newTasks !== undefined) {
                newState.boards[newState.activeBoard].columns[fromColumnIndex].tasks = newTasks;
             }
             localStorage.setItem('board', JSON.stringify(newState));
             return newState;
          } else if (toIndex < fromIndex) { // drag ke atas
-            console.log('drag ke atas')
+            // console.log('drag ke atas')
             const newTasks = board.columns[fromColumnIndex].tasks.map((t, index) => {
                if (index < toIndex || index > fromIndex) return t
                if (index == toIndex) return board.columns[fromColumnIndex].tasks[fromIndex] 
@@ -624,7 +624,7 @@ export const boardReducer = createReducer(
                return t;
             })
             newState.boards[newState.activeBoard].columns[fromColumnIndex].tasks = newTasks;
-            console.log('newTasks', newTasks);
+            // console.log('newTasks', newTasks);
             localStorage.setItem('board', JSON.stringify(newState));
             return newState;
          }

@@ -1,3 +1,2 @@
 === bug ===
-   - text submit di dialog edit task.
-   - edit task. task yang di edit jadi ada di posisi terakhir.
+   - Mobile drag: empty-column ke geser 
