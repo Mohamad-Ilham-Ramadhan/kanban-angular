@@ -233,15 +233,14 @@ export class MainComponent {
         ) {
           // console.log('Keluar Wrapper');
           Array.from($wrapper.children).forEach(($el) => {
+            if ($el.classList.contains('empty-column')) return;
             if ($el instanceof HTMLElement) {
               if (Number($el.dataset['index']) <= Number($this.dataset['index']))
                 return;
   
               $el.dataset['index'] = String(Number($el.dataset['index']) - 1);
   
-              const destinationY =
-                Number($el.dataset['destinationY']) -
-                (marginBottom + $thisRect.height);
+              const destinationY = Number($el.dataset['destinationY']) - (marginBottom + $thisRect.height);
               $el.style.transform = `translate(0px, ${destinationY}px)`;
               $el.dataset['destinationY'] = String(destinationY);
   
@@ -664,6 +663,7 @@ export class MainComponent {
           ) {
             // out of wrapper
             console.log('out of wrapper'); 
+
             (Array.from($wrapper.children) as HTMLElement[]).forEach(($el: HTMLElement) => {
               if (Number($el.dataset['index']) <= Number($this.dataset['index']) || $el.classList.contains('empty-column')) return;
   
