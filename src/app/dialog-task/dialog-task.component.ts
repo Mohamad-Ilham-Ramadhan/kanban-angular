@@ -46,12 +46,13 @@ export class DialogTaskComponent {
     }).unsubscribe();
   }
 
+  subtasksDone: number = 0;
   toggleSubtask(event: any) {
     this.store.dispatch(toggleSubtask({columnIndex: this.data.columnIndex, taskIndex: this.data.taskIndex, subtaskIndex: event}))
     this.columns$.subscribe( val => {
-      console.log('this.columns$.subscribe');
       this.columns = val.map( c => ({id: c.id, name: c.name}));
       this.task = val[this.data.columnIndex].tasks[this.data.taskIndex];
+      this.subtasksDone = this.task.subtasks.reduce( (acc, cv) =>  cv.isDone ? acc + 1 : acc, 0);
     }).unsubscribe();
   }
 

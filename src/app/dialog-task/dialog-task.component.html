@@ -15,7 +15,7 @@
    </div>
    <div class="description mb-2">{{ task.description }}</div>
    <label class="label mb-2">
-      <div class="mb-2 text-label">Subtasks (0 of 1)</div>
+      <div class="mb-2 text-label">Subtasks ({{subtasksDone}} of {{task.subtasks.length}})</div>
       @for (subtask of task.subtasks; track $index) {
          <app-checkbox [text]="subtask.title" [checked]="subtask.isDone" (click)="toggleSubtask($index)" />
       }
