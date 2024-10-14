@@ -605,7 +605,7 @@ export const boardReducer = createReducer(
                if (index > toIndex || index < fromIndex) return t; // stay in the place
                if (index == toIndex) return board.columns[fromColumnIndex].tasks[fromIndex]; // dragged card
                if (index >= fromIndex){ 
-                  console.log('index >= fromIndex');
+                  // console.log('index >= fromIndex');
                   return board.columns[fromColumnIndex].tasks[index + 1]};
                return t;
             })

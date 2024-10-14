@@ -460,7 +460,7 @@ export class MainComponent {
       }
 
       if ($wrapper == null && $initialWrapper !== null) {
-        console.log('outcast!')
+        // console.log('outcast!')
         // if outside of wrapper when cancelDrag
         movedCards.forEach(($el) => {
           if ($this === $el) return

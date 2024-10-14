@@ -19,9 +19,8 @@
       - delete board (done)
          - remove log 
 
-      - drag desktop (progress)
-         
-         - remove log 
+      - drag desktop (done)
+         - remove log (done)
 
 
    - On mobile phone Testing 
