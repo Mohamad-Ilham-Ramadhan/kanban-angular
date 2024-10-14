@@ -226,7 +226,11 @@
                flex-shrink: 0;
                display: flex;
                flex-direction: column;
-               height: calc(100% - 18px);
+               height: fit-content;
+               min-height: calc(100% - 18px);
+               &.empty {
+                  height: calc(100% - 18px);
+               }
                
                .task {
                   border-radius: 8px;

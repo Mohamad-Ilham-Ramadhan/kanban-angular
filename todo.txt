@@ -4,16 +4,25 @@
    - On Laptop Testing 
       - create new board (done)
          - design check (done)
+         - remove log 
       - add new task (done)
          - delete task (done)
          - edit task (done)
          - toggle subtasks (done)
          - design check (done)
-      - add new column 
-      - edit board 
-      - delete board 
+         - remove log 
+      - add new column (done)
+         - design check (done)
+         - remove log 
+      - edit board (done)
+         - remove log 
+      - delete board (done)
+         - remove log 
 
-      - drag desktop 
+      - drag desktop (progress)
+         
+         - remove log 
+
 
    - On mobile phone Testing 
       - create new board

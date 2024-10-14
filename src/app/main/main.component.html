@@ -44,6 +44,7 @@
                </div>
                <div 
                   class="tasks-wrapper"
+                  [ngClass]="{empty: column.tasks.length === 0}"
                   [attr.data-column-index]="columnIndex"
                   data-is-animating="0"
                >
