@@ -6,7 +6,6 @@ import { AsyncPipe } from '@angular/common';
 import { Board } from '../reducers/board.reducer';
 import { selectCurrentBoard } from '../selectors/board.selector';
 import { State } from '../reducers';
-import { deleteBoard } from '../actions/board.action';
 
 import { ButtonComponent } from '../button/button.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';

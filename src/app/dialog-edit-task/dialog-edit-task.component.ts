@@ -48,11 +48,11 @@ export class DialogEditTaskComponent {
 
     const { status, title, description, subtasks} = this.form.controls;
 
-    console.log('status', status.value);
-    console.log('title', title.value);
-    console.log('description', description.value);
-    console.log('subtasks', subtasks.value);
-    console.log('this.subtasksForm', this.subtasksForm);
+    // console.log('status', status.value);
+    // console.log('title', title.value);
+    // console.log('description', description.value);
+    // console.log('subtasks', subtasks.value);
+    // console.log('this.subtasksForm', this.subtasksForm);
 
     this.subtasksForm = this.subtasksForm.map((s, idx) => ({...s, title: subtasks.value[idx]}) );
     this.store.dispatch(editTask({

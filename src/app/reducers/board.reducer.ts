@@ -547,13 +547,13 @@ export const boardReducer = createReducer(
    on(editTask, (state, {title, description, subtasks, status, columnIndex, taskIndex}) => {
       let newState: BoardState = JSON.parse(JSON.stringify(state));
 
-      console.log('editTask()')
-      console.log('title', title)
-      console.log('description', description)
-      console.log('subtasks', subtasks)
-      console.log('status', status)
-      console.log('columnIndex', columnIndex)
-      console.log('taskIndex', taskIndex)
+      // console.log('editTask()')
+      // console.log('title', title)
+      // console.log('description', description)
+      // console.log('subtasks', subtasks)
+      // console.log('status', status)
+      // console.log('columnIndex', columnIndex)
+      // console.log('taskIndex', taskIndex)
       
       
       let newColumnIndex = 0;
@@ -565,7 +565,7 @@ export const boardReducer = createReducer(
       //    return false;
       // });
       let newColumn = newState.boards[state.activeBoard].columns[Number(status)];
-      console.log('newColumn', newColumn);
+      // console.log('newColumn', newColumn);
       if (!newColumn) return state;
       
       if (status === columnIndex) {

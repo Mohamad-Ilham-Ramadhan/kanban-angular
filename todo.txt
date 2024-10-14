@@ -10,7 +10,9 @@
       - dialog task (done)
          - remove log (done)
          - delete task (done)
+            - remove log(done)
          - edit task (done)
+            - 
          - toggle subtasks (done)
          - design check (done)
       - add new column (done)
