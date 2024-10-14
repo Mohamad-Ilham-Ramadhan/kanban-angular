@@ -25,10 +25,11 @@
       - edit board (done)
          - remove log(done)
       - delete board (done)
-         - remove log 
-
+         - remove log(done)
       - drag desktop (done)
          - remove log (done)
+      
+      - light theme design check()
 
 
    - On mobile phone Testing 
