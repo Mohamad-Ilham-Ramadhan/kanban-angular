@@ -4,7 +4,7 @@
    - On Laptop Testing 
       - create new board (done)
          - design check (done)
-         - remove log 
+         - remove log (done)
       - add new task (done)
          - delete task (done)
          - edit task (done)

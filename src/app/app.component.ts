@@ -11,7 +11,6 @@ import { getStateFromLocalStorage } from './actions/board.action';
 
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
-import { CobaCreateBoardComponent } from './coba-create-board/coba-create-board.component';
 import { CobaComponent } from './coba/coba.component';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +20,7 @@ import { DialogCreateNewBoardComponent } from './dialog-create-new-board/dialog-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, MainComponent, AsyncPipe, CobaCreateBoardComponent, CobaComponent],
+  imports: [RouterOutlet, HeaderComponent, MainComponent, AsyncPipe, CobaComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

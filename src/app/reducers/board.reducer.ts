@@ -420,16 +420,16 @@ export const boardReducer = createReducer(
       return initialState;
    }),
    on(create, (state, payload) => {
-      console.log('payload', payload)
+      // console.log('payload', payload)
       let newBoard: BoardState = {
          activeBoard: state.boards.length,
          boards: [...state.boards, {id: uuid(), name: payload.name, columns: payload.columns}]
       }
-      console.log('newBoard', newBoard)
+      // console.log('newBoard', newBoard)
       if (typeof window === 'undefined') {
-         console.log('tidak ada window di boardReducer')
+         // console.log('tidak ada window di boardReducer')
       } else {
-         console.log('ada window di boardReducer')
+         // console.log('ada window di boardReducer')
          localStorage.setItem('board', JSON.stringify( newBoard ))
       }
       return newBoard;

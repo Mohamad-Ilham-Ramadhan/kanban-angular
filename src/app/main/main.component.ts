@@ -42,6 +42,7 @@ export class MainComponent {
   dialogData: any;
   theme$ = new Observable<string>();
   theme: string = '';
+
   constructor(private store: Store<State>, private fb : FormBuilder, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {    
     this.form = this.fb.group({
       select: '1'
@@ -98,8 +99,9 @@ export class MainComponent {
     });
   }
 
+  // drag to scroll main board with mouse
   scrolling(e: Event) {
-    console.log('scrolling');
+    // console.log('scrolling');
     const $this = e.currentTarget;
     document.documentElement.style.userSelect = 'none';
     // setScrolling(true)
