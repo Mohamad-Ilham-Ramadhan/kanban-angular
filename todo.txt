@@ -1,6 +1,9 @@
 === bug ===
 
 === manual testing ===
+   - select focus highlight(done)
+   - subtask color on light theme must be black not gray
+
    - On Laptop Testing 
       - create new board (done)
          - design check (done)
@@ -20,7 +23,7 @@
          - design check (done)
          - remove log(done)
       - edit board (done)
-         - remove log 
+         - remove log(done)
       - delete board (done)
          - remove log 
 
