@@ -2,7 +2,7 @@
 
 === manual testing ===
    - select focus highlight(done)
-   - subtask color on light theme must be black not gray
+   - subtask color on light theme must be black not gray(done)
 
    - On Laptop Testing 
       - create new board (done)

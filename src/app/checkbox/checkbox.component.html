@@ -1,5 +1,5 @@
 <div class="wrapper" [ngClass]="{checked: checked, dark: (theme$ | async) === 'dark'}">
    <div class="checkbox"></div>
    <input type="hidden" class="checkbox">
-   <div class="text">{{text}}</div>
+   <div class="text" [ngClass]="{checked: checked}">{{text}}</div>
 </div>

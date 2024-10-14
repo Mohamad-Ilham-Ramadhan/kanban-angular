@@ -48,6 +48,7 @@
    .text {
       font-size: 12px;
       font-weight: 700;
+      color: #000000; 
    }
    &.checked {
       .checkbox {
@@ -60,11 +61,17 @@
       }
       .text {
          text-decoration: line-through;
-         color: $text-gray;
+         color: rgba(0, 0, 0, 0.5);   
       }
    }
 }
 .dark {   
+   .text {
+      color: #fff;
+      &.checked {
+         color: rgba(255,255,255,0.5);
+      }
+   }
    .checkbox { 
       background-color: $dark-main !important;
 
