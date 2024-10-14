@@ -10,6 +10,7 @@
 
    <!-- mobile view -->
    <img class="logo-mobile" src="/images/logo-mobile.svg" alt="logo mobile">
+   
    <div class="mobile-menu" (click)="openDialogMobileMenu()">
       <div class="title">{{(board$ | async)?.name}}</div>
       <div class="arrow-wrapper" [ngClass]="{open: menuOpen}">

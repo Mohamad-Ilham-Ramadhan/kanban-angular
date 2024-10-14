@@ -96,6 +96,7 @@ export class HeaderComponent implements OnInit {
     console.log('')
     const dialogRef = this.dialog.open(DialogMobileMenuComponent, {
       width: '300px',
+      maxHeight: '75vh',
       position: {
         top: '80px'
       }

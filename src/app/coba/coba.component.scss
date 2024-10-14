@@ -1,34 +1,13 @@
 .wrapper {
    display: flex;
-   height: 200px;
+   flex-direction: column;
+   height: 100%;
    background-color: tomato;
    padding-top: 8px;
    padding-bottom: 8px;
-   .logo {
-      width: 100px;
-      flex-shrink: 0;
-   }
-   .title {
-      flex-grow: 1;
+   
+   .row {
       background-color: skyblue;
-      display: flex;
-      .text {
-         max-width: 100px;
-         background-color: blueviolet;
-         text-overflow: ellipsis;
-         text-wrap: nowrap;
-         overflow: hidden;
-      }
-      .arrow {
-         flex-shrink: 0;
-         width: 50px;
-         background-color: aquamarine;
-         margin-left: auto;
-      }
-   }
-   .kaku {
-      flex-shrink: 0;
-      width: 100px;
-      background-color: crimson;
+      margin-bottom: 16px;
    }
 }
