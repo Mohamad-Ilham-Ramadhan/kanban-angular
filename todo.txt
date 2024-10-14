@@ -4,11 +4,11 @@
    - On Laptop Testing 
       - create new board (done)
          - design check (done)
-      - add new task
-         - delete task 
-         - edit task
-         - toggle subtasks 
-         - design check 
+      - add new task (done)
+         - delete task (done)
+         - edit task (done)
+         - toggle subtasks (done)
+         - design check (done)
       - add new column 
       - edit board 
       - delete board 
