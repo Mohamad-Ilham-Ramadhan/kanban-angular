@@ -8,7 +8,7 @@
       - add new task (done)
          - remove log (done)
       - dialog task (done)
-         - remove log 
+         - remove log (done)
          - delete task (done)
          - edit task (done)
          - toggle subtasks (done)

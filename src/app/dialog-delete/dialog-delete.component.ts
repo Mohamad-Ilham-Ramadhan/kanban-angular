@@ -39,7 +39,7 @@ export class DialogDeleteComponent implements AfterViewInit {
     this.dialogRef.close()
   }
   constructor(private store: Store<State>) {
-    console.log('this.data', this.data);
+    // console.log('this.data', this.data);
     this.board$ = this.store.select(selectCurrentBoard);
   }
 
