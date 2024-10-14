@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
     })
   }
   addNewTask() {
-    console.log('add new task');
+    // console.log('add new task');
     this.dialogAddNewTask = this.dialog.open(DialogNewTaskComponent, {
       width: '480px',
       height: `${document.documentElement.clientWidth <= 766 ? '100%' : 'auto'}`, 

@@ -6,11 +6,13 @@
          - design check (done)
          - remove log (done)
       - add new task (done)
+         - remove log (done)
+      - dialog task (done)
+         - remove log 
          - delete task (done)
          - edit task (done)
          - toggle subtasks (done)
          - design check (done)
-         - remove log 
       - add new column (done)
          - design check (done)
          - remove log 

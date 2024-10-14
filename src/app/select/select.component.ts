@@ -108,7 +108,7 @@ export class SelectComponent implements ControlValueAccessor {
   } 
 
   updateValue(index: number): void {
-    console.log('updateValue() index', index)
+    // console.log('updateValue() index', index)
     this.selectedIndex = index;
     this.onChange(index);
     this.onTouch();
