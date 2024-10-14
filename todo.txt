@@ -12,7 +12,7 @@
          - delete task (done)
             - remove log(done)
          - edit task (done)
-            - 
+            - remove log(done)
          - toggle subtasks (done)
          - design check (done)
       - add new column (done)

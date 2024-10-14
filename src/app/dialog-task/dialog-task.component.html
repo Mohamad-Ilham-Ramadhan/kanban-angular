@@ -14,7 +14,7 @@
       </app-button-dropdown>
    </div>
 
-   <div class="description mb-4">{{ task.description }}</div>
+   <div class="description mb-4">{{ task.description ? task.description : 'No description.' }}</div>
 
    <label class="label block mb-4">
       <div class="mb-2 text-label">Subtasks ({{subtasksDone}} of {{task.subtasks.length}})</div>
