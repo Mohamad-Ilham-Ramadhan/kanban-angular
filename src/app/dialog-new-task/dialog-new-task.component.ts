@@ -26,7 +26,7 @@ export class DialogNewTaskComponent {
   subtasks = viewChildren<InputComponent>('column');
   dialogRef = inject(MatDialogRef)
   removeSubtask(index: number) {
-    // this.form.controls['subtasks'].removeAt(index);
+    this.fa('subtasks').removeAt(index);
   }
   addNewSubtask() {
     this.fa('subtasks').push(new FormControl('', [Validators.required]));

@@ -1,4 +1,4 @@
-<div class="dialog-container">
+<div class="dialog-container" [ngClass]="{dark: (theme$ | async) === 'dark'}">
    <button class="button-close" (click)="dialogRef.close()">
       <img src="/images/x.svg" alt="">
    </button>
@@ -13,13 +13,19 @@
          </div>
       </app-button-dropdown>
    </div>
-   <div class="description mb-2">{{ task.description }}</div>
-   <label class="label mb-2">
+
+   <div class="description mb-4">{{ task.description }}</div>
+
+   <label class="label block mb-4">
       <div class="mb-2 text-label">Subtasks ({{subtasksDone}} of {{task.subtasks.length}})</div>
+      @if (task.subtasks.length === 0) {
+         <div class="description">No subtasks.</div>
+      }
       @for (subtask of task.subtasks; track $index) {
          <app-checkbox [text]="subtask.title" [checked]="subtask.isDone" (click)="toggleSubtask($index)" />
       }
    </label>
+
    <label class="label">
       <div class="mb-2 text-label">Current Status</div>
       <app-select [columns]="columns" (onSelect)="moveColumn($event)" [currentColumn]="columns[data.columnIndex]" [currentColumnIndex]="data.columnIndex" />

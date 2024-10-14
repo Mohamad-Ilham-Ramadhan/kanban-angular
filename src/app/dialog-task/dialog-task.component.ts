@@ -2,7 +2,7 @@ import { Component, Inject, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { AsyncPipe, DOCUMENT } from '@angular/common';
+import { AsyncPipe, DOCUMENT, NgClass } from '@angular/common';
 
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { SelectComponent, Value } from '../select/select.component';
@@ -14,10 +14,11 @@ import { Column, Task} from '../reducers/board.reducer';
 import { selectColumns, selectTask } from '../selectors/board.selector';
 import { moveColumn, toggleSubtask, deleteTask } from '../actions/board.action';
 import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.component';
+
 @Component({
   selector: 'app-dialog-task',
   standalone: true,
-  imports: [CheckboxComponent, SelectComponent, ButtonDropdownComponent, AsyncPipe],
+  imports: [CheckboxComponent, SelectComponent, ButtonDropdownComponent, AsyncPipe, NgClass],
   templateUrl: './dialog-task.component.html',
   styleUrl: './dialog-task.component.scss'
 })
@@ -28,14 +29,17 @@ export class DialogTaskComponent {
   columns: Value[] = [];
   task: Task = this.data.task;
   dialogRef = inject(MatDialogRef);
-  dialog = inject(MatDialog)
+  dialog = inject(MatDialog);
+  theme$ = new Observable<string>();
+
   constructor(private store: Store<State>, @Inject(DOCUMENT) private document: Document) {
     this.columns$ = store.select(selectColumns);
     this.columns$.subscribe( val => {
-      console.log('this.columns$.subscribe');
       this.columns = val.map( c => ({id: c.id, name: c.name}));
       // this.task = val[this.data.columnIndex].tasks[this.data.taskIndex];
+      this.subtasksDone = this.task.subtasks.reduce( (acc, cv) =>  cv.isDone ? acc + 1 : acc, 0);
     });
+    this.theme$ = store.select('theme');
   }
 
   moveColumn(event: any) {
@@ -58,7 +62,6 @@ export class DialogTaskComponent {
 
   dialogEditTaskRef!: MatDialogRef<DialogEditTaskComponent>;
   openDialogEditTask(task: Task) {
-    console.log('document', document)
     this.dialog.closeAll();
     this.dialogEditTaskRef = this.dialog.open(DialogEditTaskComponent, {
       width: '480px',

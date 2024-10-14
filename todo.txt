@@ -1,2 +1,30 @@
 === bug ===
-   - Mobile drag: empty-column ke geser 
+
+=== manual testing ===
+   - On Laptop Testing 
+      - create new board (done)
+         - design check (done)
+      - add new task
+         - delete task 
+         - edit task
+         - toggle subtasks 
+         - design check 
+      - add new column 
+      - edit board 
+      - delete board 
+
+      - drag desktop 
+
+   - On mobile phone Testing 
+      - create new board
+         - design check
+      - add new task
+         - delete task 
+         - edit task
+         - toggle subtasks 
+         - design check 
+      - add new column 
+      - edit board 
+      - delete board 
+
+      - drag desktop 

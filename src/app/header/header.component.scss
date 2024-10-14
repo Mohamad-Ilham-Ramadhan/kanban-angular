@@ -31,6 +31,7 @@
       padding-bottom: 6px;
    }
    .main-wrapper {
+      padding-right: 32px;
       .title {
          font-size: 24px;
          font-weight: 700;
@@ -40,6 +41,7 @@
          overflow: hidden;
          margin-left: 32px;
       }
+
       .buttons-wrapper {
          .button-add-new-task {display: block;}
          .button-add-new-task-mobile {display: none}

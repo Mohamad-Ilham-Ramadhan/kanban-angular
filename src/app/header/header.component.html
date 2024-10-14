@@ -1,4 +1,5 @@
 <header class="header bg-light-bg dark:bg-dark-bg flex items-center w-full" [ngClass]="{dark: (theme$ | async) === 'dark'}">
+   
    <div class="logo-wrapper">
       @if ((theme$ | async) === 'dark') {
          <img class="logo" src="/images/logo.svg" alt="">
