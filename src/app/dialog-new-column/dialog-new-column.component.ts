@@ -19,7 +19,7 @@ import { InputComponent } from '../input/input.component';
 })
 export class DialogNewColumnComponent {
   constructor() {
-    console.log('dialog new column constructor()', this.data);
+    // console.log('dialog new column constructor()', this.data);
     this.data= JSON.parse(JSON.stringify(this.data));
     this.form.controls.columns.clear();
     this.form.controls.columnsId.clear();

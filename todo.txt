@@ -14,10 +14,11 @@
          - edit task (done)
             - remove log(done)
          - toggle subtasks (done)
+            - remove log(done)
          - design check (done)
       - add new column (done)
          - design check (done)
-         - remove log 
+         - remove log(done)
       - edit board (done)
          - remove log 
       - delete board (done)
