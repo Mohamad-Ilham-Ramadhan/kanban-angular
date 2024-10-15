@@ -24,7 +24,7 @@ export class DialogEditBoardComponent {
   constructor() {
     this.theme$ = this.store.select('theme');
     this.data = JSON.parse(JSON.stringify(this.data));
-    console.log('this.data.columns', this.data.columns)
+    // console.log('this.data.columns', this.data.columns)
     this.form.controls.columns.clear();
     this.form.controls.columnsId.clear();
     this.columnsControl = this.data.columns.map((c: any) => ({name: c.name, id: c.id}));

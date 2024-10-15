@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit {
   };
 
   editBoard() {
-    console.log('edit Board')
+    // console.log('edit Board')
     this.dialogEditRef = this.dialog.open(DialogEditBoardComponent, {
       width: '480px',
       height: `${document.documentElement.clientWidth <= 766 ? '100%' : 'auto'}`, 
