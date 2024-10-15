@@ -15,6 +15,7 @@ import { CobaComponent } from './coba/coba.component';
 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewBoardComponent } from './dialog-create-new-board/dialog-create-new-board.component';
+import { BoardState } from './reducers/board.reducer';
 
 
 @Component({
@@ -25,10 +26,14 @@ import { DialogCreateNewBoardComponent } from './dialog-create-new-board/dialog-
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit  {
-  constructor(@Inject(DOCUMENT) private document: Document, private store: Store<AppState>) {
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store<State>) {
     this.theme$ = this.store.select(selectFeatureTheme);
+    this.board$ = this.store.select('board');
+   
   }
-  theme$: Observable<string>
+  theme$: Observable<string>;
+  board$: Observable<BoardState>;
+  loading: boolean = true;
   ngOnInit(): void {
     this.store.dispatch(getStateFromLocalStorage()); // board state
     this.theme$.subscribe( val => {
@@ -37,7 +42,10 @@ export class AppComponent implements OnInit  {
       } else {
         this.document.body.classList.remove('dark')
       }
-    })
+    });
+    this.board$.subscribe( val => {
+      this.loading = false;
+    }).unsubscribe()
   }
 
   dialog = inject(MatDialog);

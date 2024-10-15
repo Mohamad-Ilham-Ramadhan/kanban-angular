@@ -1,5 +1,9 @@
-<app-header></app-header>
-<app-main></app-main>
+@if (loading) {
+   <div>Loading</div>
+} @else {
+   <app-header></app-header>
+   <app-main></app-main>
+}
 
 <!-- <app-coba /> -->
 

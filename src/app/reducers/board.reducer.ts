@@ -27,7 +27,7 @@ export interface BoardState {
    activeBoard: number;
    boards: Board[]
 }
-export const initialState: BoardState = {
+const defaultState = {
    activeBoard: 0,
    boards: [
       {
@@ -403,7 +403,8 @@ export const initialState: BoardState = {
          ]
       }
    ],
-}
+};
+export const initialState: BoardState = {activeBoard: 0, boards: []}
 
 const emptyColumn = {
    id: uuid
@@ -414,7 +415,7 @@ export const boardReducer = createReducer(
    on(getStateFromLocalStorage, (state) => {
       if (typeof window !== 'undefined') {
          let state = JSON.parse(localStorage.getItem('board') || "{}");
-         if (Object.keys(state).length === 0) return initialState;
+         if (Object.keys(state).length === 0) return defaultState;
          return state;
       }
       return initialState;

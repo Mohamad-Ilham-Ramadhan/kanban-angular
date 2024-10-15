@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
   standalone: true,
   imports: [ReactiveFormsModule, NgClass, AsyncPipe],
   templateUrl: './input.component.html',
-  styleUrl: './input.component.scss'
+  styleUrl: './input.component.scss',
 })
 export class InputComponent  {
   @Input('type') type: 'text'|'number'|'file' = 'text';

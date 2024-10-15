@@ -1,5 +1,6 @@
 === bug ===
-
+=== features ===
+   - no duplicate board name.
 === manual testing ===
    - select focus highlight(done)
    - subtask color on light theme must be black not gray(done)
