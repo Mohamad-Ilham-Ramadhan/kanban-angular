@@ -27,13 +27,13 @@ export class DialogMobileMenuComponent {
   constructor(private store: Store<State>) {
     this.boards$ = store.select(selectBoards);
     this.activeBoard$ = store.select(selectActiveBoard);
-    console.log('this.dialog', this.dialogRef);
+    // console.log('this.dialog', this.dialogRef);
 
     this.dialogRef.addPanelClass('coba-coba')
   }
 
   openDialogCreateNewBoard() {
-    this.dialogRef.close('Allah');
+    this.dialogRef.close();
     const dialogRef = this.dialog.open(DialogCreateNewBoardComponent, {
       width: '480px',
       height: '100%',
@@ -42,6 +42,7 @@ export class DialogMobileMenuComponent {
   }
 
   chooseBoard(index: number) {
-    this.store.dispatch(setActiveBoard({index}))
+    this.store.dispatch(setActiveBoard({index}));
+    this.dialogRef.close();
   }
 }
