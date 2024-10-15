@@ -42,6 +42,7 @@ export class MainComponent {
   dialogData: any;
   theme$ = new Observable<string>();
   theme: string = '';
+  cursorGrabbing: boolean = false; // to set css to {cursor: grabbing} when start scrolling on #main-scroll
 
   constructor(private store: Store<State>, private fb : FormBuilder, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {    
     this.form = this.fb.group({
@@ -104,6 +105,7 @@ export class MainComponent {
     // console.log('scrolling');
     const $this = e.currentTarget;
     document.documentElement.style.userSelect = 'none';
+    this.cursorGrabbing = true;
     // setScrolling(true)
     // setOverlay(true);
     function onDrag(e: MouseEvent) {
@@ -111,9 +113,10 @@ export class MainComponent {
       $this.scrollLeft = $this.scrollLeft - e.movementX;
     }
 
-    function onRelease() {
+    const  onRelease = () => {
       // setScrolling(false);
       // setOverlay(false);
+      this.cursorGrabbing = false;
       document.removeEventListener('mousemove', onDrag)
       document.removeEventListener('mouseup', onRelease) 
       document.documentElement.style.userSelect = '';

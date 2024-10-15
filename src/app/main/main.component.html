@@ -32,6 +32,7 @@
       class="board-section"
       (mousedown)="scrolling($event)"
       id="main-scroll"
+      [ngClass]="{grabbing: cursorGrabbing}"
    >
       <div class="wrapper">
           @for (column of columns; track $index; let columnIndex = $index) {
