@@ -235,11 +235,11 @@
                flex-direction: column;
                height: fit-content;
                padding-bottom: 56px;
-               min-height: calc(100% - 58px);
-               // min-height: 100%;
+               // min-height: calc(100% - 58px);
+               min-height: 100%;
                &.empty {
-                  height: calc(100% - 58px);
-                  // height: 100%;
+                  // height: calc(100% - 58px);
+                  height: 100%;
                }
                
                .task {
@@ -261,9 +261,6 @@
                   &:hover {
                      cursor: pointer;
                   }
-                  // &:last-of-type {
-                  //    margin-bottom: 0;
-                  // }
                }
                .task-transition {
                   transition-property: transform, opacity;
@@ -271,9 +268,8 @@
                   transition-duration: 200ms;
                 }
                .empty-column {
-                  height: calc(100% - 40px);
+                  height: 100%;
                   border-radius: 8px;
-                  // border: 2px dashed $dark-border;
                   border: 2px dashed rgba(130, 143, 163, .4);
                }
             }

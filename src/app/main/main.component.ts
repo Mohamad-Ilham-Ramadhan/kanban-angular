@@ -126,6 +126,7 @@ export class MainComponent {
 
   dragDesktop(e: MouseEvent, task: Task, columnIndex: number, taskIndex: number) {
     e.stopPropagation();
+
     this.renderer.addClass(this.document.body, 'no-selection');
     // console.log('taskIndex', taskIndex)
     // console.log('this.mainScrollEl', this.mainScrollEl.nativeElement);
@@ -454,7 +455,7 @@ export class MainComponent {
 
     }
     const cancelDrag = (e: Event) => {
-      this.document.body.classList.remove('no-selection');
+      this.renderer.removeClass(this.document.body, 'no-selection');
       clearInterval(setScrollIntervalId);
 
       if (dragged === false) {
@@ -522,6 +523,7 @@ export class MainComponent {
   dragMobile(task: Task, taskIndex: number, columnIndex: number , e: TouchEvent) {
     e.stopPropagation()
     // console.log('dragMobile event', e);
+    this.renderer.addClass(this.document.body, 'no-selection');
 
     let isDragged = false
   
@@ -849,7 +851,8 @@ export class MainComponent {
     }
   
     const touchEnd = (e: globalThis.TouchEvent): void => {
-      e.preventDefault()
+      e.preventDefault();
+      this.renderer.removeClass(this.document.body, 'no-selection');
       this.renderer.addClass($this, 'task-transition')
       this.renderer.setStyle($this, 'background-color', '');
       this.renderer.setStyle($this, 'opacity', '');
