@@ -57,7 +57,7 @@ export class DialogEditBoardComponent {
     if (this.form.controls.columns.length === 6) return;
     this.form.controls.columns.push(new FormControl('', [Validators.required]));
     this.form.controls.columnsId.push(new FormControl(uuid(), [Validators.required]));
-    console.log('this.data.columns isSealed', Object.isSealed(this.data.columns))
+    // console.log('this.data.columns isSealed', Object.isSealed(this.data.columns))
     this.data.columns.push({id: uuid(), name: '', tasks: []});
   }
   removeColumn(index: number) {
