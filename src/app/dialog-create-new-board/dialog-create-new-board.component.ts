@@ -33,7 +33,7 @@ export class DialogCreateNewBoardComponent {
     });
     this.board$ = this.store.select('board');
     this.board$.subscribe( board => {
-      board.boards.forEach( b => this.boardNames.add(b.name))
+      board.boards.forEach( b => this.boardNames.add(b.name.toLocaleLowerCase().trim()))
     })
   }
   board$: Observable<BoardState>;
@@ -55,7 +55,7 @@ export class DialogCreateNewBoardComponent {
   // unique board name validator
   uniqueName() {
     return (control: AbstractControl): ValidationErrors | null => {
-      const forbidden = this.boardNames.has(control.value);
+      const forbidden = this.boardNames.has(control.value.trim());
       return forbidden ? {forbiddenName: {value: control.value}} : null;
     };
   }
