@@ -1,5 +1,5 @@
 import { Component, effect, inject, viewChildren } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators, FormArray, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -61,11 +61,20 @@ export class DialogNewTaskComponent {
     return this.fa('subtasks').controls as FormControl[]
   }
 
+  // unique board name validator
+  uniqueName() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const forbidden = this.tasksTitleSet.has(control.value);
+      return forbidden ? {forbiddenName: {value: control.value}} : null;
+    };
+  }
+
   board$: Observable<Board>;
   columns: Column[] = [];
+  tasksTitleSet = new Set();
   constructor(private store: Store<State>, private fb: FormBuilder) {
     this.form = this.fb.group({
-      title: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required, this.uniqueName()]),
       description: new FormControl(''),
       subtasks: new FormArray([
         new FormControl('', [Validators.required])
@@ -76,9 +85,14 @@ export class DialogNewTaskComponent {
     // =======================================
 
     this.board$ = store.select(selectCurrentBoard);
-    this.board$.subscribe( val => {
-      this.columns = val.columns;
-    });
+    this.board$.subscribe( board => {
+      this.columns = board.columns;
+      board.columns.forEach( column => {
+        column.tasks.forEach( task => {
+          this.tasksTitleSet.add(task.title.toLocaleLowerCase().trim())
+        })
+      })
+    }).unsubscribe()
 
     effect(() => {
       this.subtasks()[this.fa('subtasks')?.length - 1].input?.nativeElement.focus()

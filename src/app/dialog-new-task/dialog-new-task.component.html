@@ -7,9 +7,11 @@
       <label for="input-name" class="block mb-4">
          <div class="label mb-2">Title</div>
          <div class="relative">
-            <app-input [control]="fc('title')" [isError]="submitted && !!form.get('title')?.hasError('required')" />
+            <app-input [control]="fc('title')" [isError]="submitted && (!!form.get('title')?.hasError('required') || !!form.get('title')?.hasError('forbiddenName'))" />
             @if (submitted && !!form.get('title')?.hasError('required')) {
                <div class="error">Required</div>
+            } @else if (submitted && !!form.get('title')?.hasError('forbiddenName')) {
+               <div class="error">Used</div>
             }
          </div>
       </label>
