@@ -55,7 +55,7 @@ export class DialogCreateNewBoardComponent {
   // unique board name validator
   uniqueName() {
     return (control: AbstractControl): ValidationErrors | null => {
-      const forbidden = this.boardNames.has(control.value.trim());
+      const forbidden = this.boardNames.has(control.value.toLowerCase().trim());
       return forbidden ? {forbiddenName: {value: control.value}} : null;
     };
   }
