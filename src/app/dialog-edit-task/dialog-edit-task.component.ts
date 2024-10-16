@@ -32,7 +32,7 @@ export class DialogEditTaskComponent {
 
   removeSubtask(index: number) {
     this.fa('subtasks').removeAt(index);
-    console.log('this.dialogData.task.subtasks is sealed', Object.isSealed(this.dialogData.task.subtasks));
+    // console.log('this.dialogData.task.subtasks is sealed', Object.isSealed(this.dialogData.task.subtasks));
     this.subtasksForm.splice(index, 1);
   }
   addNewSubtask() {

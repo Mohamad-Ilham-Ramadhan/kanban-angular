@@ -50,9 +50,14 @@ export class ButtonDropdownComponent implements AfterViewInit {
       const pad = 16; // padding from the screen when overflow the screen
       if (!rect || !$dropdown) return;
       // overflow right edge 
+      // console.log('rect', rect, 'this.window.innerWidth', this.window.innerWidth);
       if (rect && rect.right > this.window.innerWidth) {
+        // console.log('overflow right edge');
+        const matrix = new DOMMatrix(window.getComputedStyle($dropdown).transform)
+        // console.log('matrix', matrix);
         const px = rect.right - this.window.innerWidth + pad;
-        renderer.setStyle($dropdown, 'transform', `translateX(-${px}px)`)
+        // console.log('px', px, matrix.e - px);
+        renderer.setStyle($dropdown, 'transform', `translateX(${matrix.e - px}px)`)
       }
     })
   }

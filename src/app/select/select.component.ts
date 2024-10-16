@@ -61,7 +61,7 @@ export class SelectComponent implements ControlValueAccessor {
       }
       // overflow bottom edge
       if (rect && rect.bottom > this.window.innerHeight) {
-        console.log('overflow bottom');
+        // console.log('overflow bottom');
         const px = rect.bottom - this.window.innerHeight + pad;
         renderer.setStyle($dropdown, 'transform', `translateY(-${px}px)`)
       }
@@ -115,7 +115,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   selectOption(index: number, name: string) {
-    console.log('select component selectOption ', index);
+    // console.log('select component selectOption ', index);
     this.selectedName = name;
     this.show = false;
     this.onSelect.emit({prevIndex: this.selectedIndex, newIndex: index});
