@@ -64,7 +64,7 @@ export class DialogNewTaskComponent {
   // unique board name validator
   uniqueName() {
     return (control: AbstractControl): ValidationErrors | null => {
-      const forbidden = this.tasksTitleSet.has(control.value.trim());
+      const forbidden = this.tasksTitleSet.has(control.value.toLowerCase().trim());
       return forbidden ? {forbiddenName: {value: control.value}} : null;
     };
   }
