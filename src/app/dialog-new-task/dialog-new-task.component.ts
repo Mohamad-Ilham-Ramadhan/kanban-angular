@@ -95,7 +95,7 @@ export class DialogNewTaskComponent {
     }).unsubscribe()
 
     effect(() => {
-      this.subtasks()[this.fa('subtasks')?.length - 1].input?.nativeElement.focus()
+      if (this.subtasks().length > 0) this.subtasks()[this.fa('subtasks')?.length - 1].input?.nativeElement.focus()
     })
   }
 }
