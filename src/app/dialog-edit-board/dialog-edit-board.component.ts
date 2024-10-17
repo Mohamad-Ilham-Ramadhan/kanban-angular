@@ -1,14 +1,14 @@
 import { Component, inject, viewChildren, effect } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, FormArray, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { v4 as uuid } from 'uuid';
 import { Observable } from 'rxjs';
 import { NgClass, AsyncPipe } from '@angular/common';
 
 import { Store } from '@ngrx/store';
 import { State } from '../reducers';
-import { Column } from '../reducers/board.reducer';
-import { editBoard, newColumn } from '../actions/board.action';
+import { BoardState, Column } from '../reducers/board.reducer';
+import { editBoard } from '../actions/board.action';
 
 import { ButtonComponent } from '../button/button.component';
 import { InputComponent } from '../input/input.component';
@@ -32,10 +32,19 @@ export class DialogEditBoardComponent {
       this.form.controls.columns.push(new FormControl(c.name, [Validators.required]));
       this.form.controls.columnsId.push(new FormControl(c.id));
     });
+    this.board$ = this.store.select('board');
+    this.board$.subscribe( board => {
+      board.boards.forEach( b => {
+        if (b.name.toLocaleLowerCase().trim() === this.data.name.toLocaleLowerCase().trim()) return;
+        this.boardNames.add(b.name.toLocaleLowerCase().trim())
+      })
+    })
+
     effect(() => {
       this.columns()[this.form.controls.columns.length - 1].input?.nativeElement.focus()
     });
   }
+  board$ = new Observable<BoardState>();
   theme$ = new Observable();
   dialogRef = inject(MatDialogRef);
   data = inject(MAT_DIALOG_DATA)
@@ -44,15 +53,23 @@ export class DialogEditBoardComponent {
   
   columns = viewChildren<InputComponent>('column');
   submitted: boolean = false;
+  boardNames: Set<string> = new Set();
   
   form = new FormGroup({
-    name: new FormControl(this.data.name, [Validators.required]),
+    name: new FormControl(this.data.name, [Validators.required, this.uniqueName()]),
     columns: new FormArray([
       new FormControl('', [Validators.required]),
     ]),
     columnsId: new FormArray([new FormControl('', [Validators.required])])
   });
-
+  // unique board name validator
+  uniqueName() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      
+      const forbidden = this.boardNames.has(control.value.toLowerCase().trim());
+      return forbidden ? {forbiddenName: {value: control.value}} : null;
+    };
+  }
   addNewColumn() {
     if (this.form.controls.columns.length === 6) return;
     this.form.controls.columns.push(new FormControl('', [Validators.required]));
