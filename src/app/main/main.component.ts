@@ -380,7 +380,7 @@ export class MainComponent {
 
         if (!!$neoWrapper && $neoWrapper?.firstElementChild?.classList.contains('empty-column')) {
           // in to empty column
-          console.log('into empty column');
+          // console.log('into empty column');
           $wrapper = $neoWrapper;
           isOut = false;
           $shadowRect.style.top = `${$wrapper.getBoundingClientRect().top}px`;
