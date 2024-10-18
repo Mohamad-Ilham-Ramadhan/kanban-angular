@@ -20,9 +20,12 @@
          @for (control of form.controls.columns.controls; track $index) {
             <div class="mb-2 flex relative">
                <div class="relative w-full">
-                  <app-input [control]="control" [isError]="submitted && form.controls.columns.controls[$index].hasError('required')" class="block w-full" #column />
+                  <app-input (onFocusout)="inputColumnFocusout($event, $index)" [control]="control" [isError]="submitted && form.controls.columns.controls[$index].hasError('required')" class="block w-full" #column/>
                   @if (submitted && form.controls.columns.controls[$index].hasError('required')) {
                      <div class="error">Required</div>
+                  }
+                  @if (submitted && form.controls.columns.controls[$index].hasError('forbiddenName')) {
+                     <div class="error">Used</div>
                   }
                </div>
                @if (form.controls.columns.controls.length > 1) {

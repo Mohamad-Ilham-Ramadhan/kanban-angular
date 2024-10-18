@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { NgClass, AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { State } from '../reducers';
@@ -17,7 +17,9 @@ export class InputComponent  {
   @Input() control?: FormControl | undefined;
   @Input() isError: boolean = false;
   @Input() isDisabled: boolean = false;
+  @Output() onFocusout = new EventEmitter();
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+
 
   theme$ = new Observable();
   constructor(private store: Store<State>) {

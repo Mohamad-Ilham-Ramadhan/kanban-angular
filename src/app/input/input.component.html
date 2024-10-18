@@ -1,5 +1,5 @@
 @if(control) {
-   <input [type]="type" [formControl]="control" #input [ngClass]="{error: isError, dark: (theme$ | async) === 'dark'}" [attr.disabled]="isDisabled" />
+   <input [type]="type" [formControl]="control" #input [ngClass]="{error: isError, dark: (theme$ | async) === 'dark'}" [attr.disabled]="isDisabled" (focusout)="onFocusout.emit($event)"/>
 } @else {
-   <input [type]="type" #input [ngClass]="{error: isError, dark: (theme$ | async) === 'dark'}" [attr.disabled]="isDisabled" />
+   <input [type]="type" #input [ngClass]="{error: isError, dark: (theme$ | async) === 'dark'}" [attr.disabled]="isDisabled" (focusout)="onFocusout.emit($event)"/>
 }
