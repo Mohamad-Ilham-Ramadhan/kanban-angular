@@ -29,8 +29,10 @@ export class DialogEditBoardComponent {
     this.form.controls.columnsId.clear();
     this.columnsControl = this.data.columns.map((c: any) => ({name: c.name, id: c.id}));
     this.data.columns.forEach( (c: Column)=> {
-      this.form.controls.columns.push(new FormControl(c.name, [Validators.required]));
+      const columnControl = new FormControl(c.name, [Validators.required, this.uniqueName()]);
+      this.form.controls.columns.push(columnControl);
       this.form.controls.columnsId.push(new FormControl(c.id));
+      this.columnsName.push([columnControl, c.name.toLocaleLowerCase().trim()]);
     });
     this.board$ = this.store.select('board');
     this.board$.subscribe( board => {
@@ -52,6 +54,7 @@ export class DialogEditBoardComponent {
   store = inject<Store<State>>(Store);
   
   columns = viewChildren<InputComponent>('column');
+  columnsName: (FormControl<string | null>|string)[][] = [];
   submitted: boolean = false;
   boardNames: Set<string> = new Set();
   
@@ -65,25 +68,52 @@ export class DialogEditBoardComponent {
   // unique board name validator
   uniqueName() {
     return (control: AbstractControl): ValidationErrors | null => {
-      
-      const forbidden = this.boardNames.has(control.value.toLowerCase().trim());
+      if (typeof control.value !== 'string') return null;
+      let forbidden = false;
+      for (let i = 0; i < this.columnsName.length; i++) {
+        const [c,v] = this.columnsName[i];
+        if (control === c) break;
+        if ((v as string).toLowerCase().trim() === control.value.toLocaleLowerCase().trim()) {
+          forbidden = true;
+          break;
+        }
+      }
       return forbidden ? {forbiddenName: {value: control.value}} : null;
     };
   }
+  inputColumnFocusout(event: FocusEvent, index: number) {
+    const inputEl = (event.target as HTMLInputElement);
+    const columnControl = new FormControl(inputEl, [Validators.required, this.uniqueName()]);
+    if (this.columnsName[index] === undefined) {
+      this.columnsName.push([columnControl, inputEl.value])
+    } else {
+      this.columnsName[index][1] = inputEl.value;
+    }
+      this.columnsName[index][1] = inputEl.value;
+  }
   addNewColumn() {
     if (this.form.controls.columns.length === 6) return;
-    this.form.controls.columns.push(new FormControl('', [Validators.required]));
+    const columnControl = new FormControl('', [Validators.required, this.uniqueName()]);
+    this.form.controls.columns.push(columnControl);
     this.form.controls.columnsId.push(new FormControl(uuid(), [Validators.required]));
-    // console.log('this.data.columns isSealed', Object.isSealed(this.data.columns))
     this.data.columns.push({id: uuid(), name: '', tasks: []});
+    // ==============
+    this.columnsName.push([columnControl, ''])
   }
   removeColumn(index: number) {
     this.form.controls.columns.removeAt(index)
     this.form.controls.columnsId.removeAt(index)
+    // =============
+    this.columnsName.splice(index, 1);
   }
   submit(e: Event) {
     e.preventDefault();
     this.submitted = true;
+    
+    (this.form.get('columns') as FormArray)?.controls.forEach((c: AbstractControl) => {
+      c.updateValueAndValidity()
+    });
+
     if (this.form.invalid) return;
     const { name, columns, columnsId } = this.form.controls;
 

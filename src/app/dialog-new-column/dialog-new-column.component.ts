@@ -19,7 +19,6 @@ import { InputComponent } from '../input/input.component';
 })
 export class DialogNewColumnComponent {
   constructor() {
-    // console.log('dialog new column constructor()', this.data);
     this.data= JSON.parse(JSON.stringify(this.data));
     this.form.controls.columns.clear();
     this.form.controls.columnsId.clear();
@@ -28,7 +27,7 @@ export class DialogNewColumnComponent {
       const columnControl = new FormControl(c.name, [Validators.required, this.uniqueName()]);
       this.form.controls.columns.push(columnControl);
       this.form.controls.columnsId.push(new FormControl(c.id));
-      this.columnsName.push([columnControl, c.name.toLocaleLowerCase().trim()])
+      this.columnsName.push([columnControl, c.name.toLocaleLowerCase().trim()]);
     });
     this.form.controls.name.disable()
     effect(() => {
