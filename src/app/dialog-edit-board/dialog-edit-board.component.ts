@@ -89,7 +89,6 @@ export class DialogEditBoardComponent {
     } else {
       this.columnsName[index][1] = inputEl.value;
     }
-      this.columnsName[index][1] = inputEl.value;
   }
   addNewColumn() {
     if (this.form.controls.columns.length === 6) return;

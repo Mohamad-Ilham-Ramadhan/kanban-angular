@@ -43,12 +43,13 @@ export class DialogCreateNewBoardComponent {
   data = inject<DialogData>(MAT_DIALOG_DATA);
 
   columns = viewChildren<InputComponent>('column');
+  columnsName: (FormControl<string | null>|string)[][] = [];
   submitted: boolean = false;
   
   form = new FormGroup({
     name: new FormControl('', [Validators.required, this.uniqueName()]),
     columns: new FormArray([
-      new FormControl('', [Validators.required]),
+      new FormControl('', [Validators.required, this.uniqueColumnName()]),
     ])
   });
 
@@ -59,14 +60,46 @@ export class DialogCreateNewBoardComponent {
       return forbidden ? {forbiddenName: {value: control.value}} : null;
     };
   }
-  
+  uniqueColumnName() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (typeof control.value !== 'string') return null;
+      let forbidden = false;
+      for (let i = 0; i < this.columnsName.length; i++) {
+        const [c,v] = this.columnsName[i];
+        if (control === c) break;
+        if ((v as string).toLowerCase().trim() === control.value.toLocaleLowerCase().trim()) {
+          forbidden = true;
+          break;
+        }
+      }
+      return forbidden ? {forbiddenName: {value: control.value}} : null;
+    };
+  }
+
+  inputColumnFocusout(event: FocusEvent, index: number) {
+    const inputEl = (event.target as HTMLInputElement);
+    const columnControl = new FormControl(inputEl, [Validators.required, this.uniqueColumnName()]);
+    if (this.columnsName[index] === undefined) {
+      this.columnsName.push([columnControl, inputEl.value])
+    } else {
+      this.columnsName[index][1] = inputEl.value;
+    }
+  }
+
   addNewColumn() {
     if (this.form.controls.columns.length === 6) return;
-    this.form.controls.columns.push(new FormControl('', [Validators.required]))
+    const columnControl = new FormControl('', [Validators.required, this.uniqueColumnName()]);
+    this.form.controls.columns.push(columnControl);
+    // ==============
+    this.columnsName.push([columnControl, ''])
   }
+
   removeColumn(index: number) {
     this.form.controls.columns.removeAt(index)
+    // ==============
+    this.columnsName.splice(index, 1);
   }
+
   submit(e: Event) {
     e.preventDefault();
     this.submitted = true;
