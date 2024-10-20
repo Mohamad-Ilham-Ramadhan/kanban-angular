@@ -12,7 +12,7 @@ import { InputComponent } from '../input/input.component';
 
 import { State } from '../reducers';
 import { Observable } from 'rxjs';
-import { BoardState, Board } from '../reducers/board.reducer';
+import { BoardState } from '../reducers/board.reducer';
 
 export interface DialogData {
   name: string;
@@ -116,6 +116,7 @@ export class DialogCreateNewBoardComponent {
         }
       )
     });
+
     this.store.dispatch(create({columns: columnsValue, name: name.value ? name.value : ''}));
     this.dialogRef.close();
   }

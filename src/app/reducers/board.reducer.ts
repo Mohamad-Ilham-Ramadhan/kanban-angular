@@ -406,9 +406,6 @@ const defaultState = {
 };
 export const initialState: BoardState = {activeBoard: 0, boards: []}
 
-const emptyColumn = {
-   id: uuid
-}
 
 export const boardReducer = createReducer(
    initialState,
@@ -444,11 +441,11 @@ export const boardReducer = createReducer(
          if (index >= filteredColumns.length) {
             newColumns.push({
                id: uuid(),
-               name, 
+               name: name.trim(), 
                tasks: []
             })
          } else {
-            newColumns.push({...filteredColumns[index], name})
+            newColumns.push({...filteredColumns[index], name: name.trim()})
          }
       });
 
