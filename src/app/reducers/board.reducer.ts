@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { v4 as uuid } from 'uuid';
-import { create, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask, deleteTask, editTask, swapTask} from "../actions/board.action";
+import { createNewBoard, deleteBoard, editBoard, getStateFromLocalStorage, newColumn, setActiveBoard, addTask, moveColumn, toggleSubtask, deleteTask, editTask, swapTask} from "../actions/board.action";
 
 export interface Subtask  {
    id: string;
@@ -417,19 +417,13 @@ export const boardReducer = createReducer(
       }
       return initialState;
    }),
-   on(create, (state, payload) => {
-      // console.log('payload', payload)
+   on(createNewBoard, (state, payload) => {
+      // console.log('payload', payload)apa
       let newBoard: BoardState = {
          activeBoard: state.boards.length,
-         boards: [...state.boards, {id: uuid(), name: payload.name, columns: payload.columns}]
+         boards: [...state.boards, {id: uuid(), name: payload.name.trim(), columns: payload.columns.map( c => ({...c, name: c.name.trim()}))}]
       }
-      // console.log('newBoard', newBoard)
-      if (typeof window === 'undefined') {
-         // console.log('tidak ada window di boardReducer')
-      } else {
-         // console.log('ada window di boardReducer')
-         localStorage.setItem('board', JSON.stringify( newBoard ))
-      }
+      localStorage.setItem('board', JSON.stringify( newBoard ))
       return newBoard;
    }),
    on(newColumn, (state, {columnNames, ids}) => {

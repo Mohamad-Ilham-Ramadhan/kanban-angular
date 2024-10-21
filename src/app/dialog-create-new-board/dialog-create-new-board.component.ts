@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 import { Store } from '@ngrx/store';
 import { Column } from '../reducers/board.reducer';
-import { create } from '../actions/board.action';
+import { createNewBoard } from '../actions/board.action';
 
 import { ButtonComponent } from '../button/button.component';
 import { InputComponent } from '../input/input.component';
@@ -117,7 +117,7 @@ export class DialogCreateNewBoardComponent {
       )
     });
 
-    this.store.dispatch(create({columns: columnsValue, name: name.value ? name.value : ''}));
+    this.store.dispatch(createNewBoard({columns: columnsValue, name: name.value ? name.value : ''}));
     this.dialogRef.close();
   }
 }
