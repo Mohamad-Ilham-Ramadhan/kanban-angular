@@ -460,17 +460,17 @@ export const boardReducer = createReducer(
          if (index >= filteredColumns.length) {
             newColumns.push({
                id: uuid(),
-               name, 
+               name: name.trim(), 
                tasks: []
             })
          } else {
-            newColumns.push({...filteredColumns[index], name})
+            newColumns.push({...filteredColumns[index], name: name.trim()})
          }
       });
 
       let newBoard = {...state.boards[state.activeBoard]};
       newBoard.columns = newColumns;
-      newBoard.name = boardName;
+      newBoard.name = boardName.trim();
       let newBoards = [...state.boards];
       newBoards[state.activeBoard] = newBoard;
       const newState = {...state, boards: newBoards};
