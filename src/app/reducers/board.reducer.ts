@@ -564,17 +564,17 @@ export const boardReducer = createReducer(
       if (status === columnIndex) {
          newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks[Number(taskIndex)] = {
             id: uuid(),
-            title,
-            description,
-            subtasks
+            title: title.trim(),
+            description: title.trim(),
+            subtasks: subtasks.map( st => ({...st, title: st.title.trim()})),
          }
       } else {
          // move column [start]
-            let task = newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks.splice(Number(taskIndex), 1)[0];
-            // edit task [start]
-         task.title = title;
-         task.description = description;
-         task.subtasks = subtasks
+         let task = newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks.splice(Number(taskIndex), 1)[0];
+         // edit task [start]
+         task.title = title.trim();
+         task.description = description.trim();
+         task.subtasks = subtasks.map( st => ({...st, title: st.title.trim()}))
             // edit task [end]
          newColumn.tasks.push(task);
          newState.boards[state.activeBoard].columns[Number(status)] = newColumn;
