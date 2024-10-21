@@ -499,14 +499,15 @@ export const boardReducer = createReducer(
 
       newState.boards[state.activeBoard].columns[Number(status)].tasks.push({
          id: uuid(),
-         title,
-         description,
+         title: title.trim(),
+         description: description.trim(),
          subtasks: subtasks.map( s => ({
             id: uuid(),
-            title: s,
+            title: s.trim(),
             isDone: false
          }))
-      })
+      });
+
       localStorage.setItem('board', JSON.stringify(newState));
       return newState;
    }),
