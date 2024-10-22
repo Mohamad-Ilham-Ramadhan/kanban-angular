@@ -67,10 +67,15 @@
       font-weight: 500;
       color: $text-gray;
       margin-bottom: 8px;
+      display: block;
+      width: 100%;
       &:hover { 
          cursor: pointer;
          color: #000;
          font-weight: 600;
+      }
+      &:focus {
+         outline: 1px solid $focus-outline;
       }
    }
 }

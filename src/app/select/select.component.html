@@ -11,7 +11,7 @@
    >
       <div class="dropdown" #dropdown [ngClass]="{'pos-left': position === 'left', 'pos-center': position === 'center', 'pos-right': position === 'right', dark: (theme$ | async) === 'dark'}">
          @for (column of columns; track $index) {
-            <div (click)="selectOption($index, column.name)" class="option">{{ column.name }}</div>
+            <button #option (click)="selectOption($index, column.name)" class="option" tabindex="1">{{ column.name }}</button>
          }
       </div>
    </ng-template>

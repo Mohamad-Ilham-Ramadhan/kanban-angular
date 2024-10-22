@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, ViewChild, TemplateRef, ElementRef, viewChild, Inject, Renderer2, effect, Output, EventEmitter} from '@angular/core';
+import { Component, forwardRef, Input, ViewChild, TemplateRef, ElementRef, viewChild, viewChildren, Inject, Renderer2, effect, Output, EventEmitter} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT, NgClass, AsyncPipe } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -36,6 +36,7 @@ export class SelectComponent implements ControlValueAccessor {
   @Output() onSelect = new EventEmitter();
   button = viewChild<ElementRef<HTMLButtonElement>>('button');
   dropdown = viewChild<ElementRef<HTMLDivElement>>('dropdown');
+  options = viewChildren<ElementRef<HTMLDivElement>>('option')
   show: boolean = false;
   open: boolean = false;
   selectedName: string;
@@ -50,6 +51,12 @@ export class SelectComponent implements ControlValueAccessor {
 
     effect(() => {
       const $dropdown = this.dropdown()?.nativeElement;
+      if (this.show) {
+        this.options()[0].nativeElement.focus()
+      } else if(!this.show) {
+        this.button()?.nativeElement.focus();
+      }
+      
       if ($dropdown) renderer.setStyle($dropdown, 'width', `${this.button()?.nativeElement.getBoundingClientRect().width}px`);
       const rect = $dropdown?.getBoundingClientRect();
       const pad = 16; // padding from the screen when overflow the screen
