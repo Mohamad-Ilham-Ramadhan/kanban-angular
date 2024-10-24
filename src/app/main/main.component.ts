@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, Inject, ViewChild, Renderer2, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, inject, Inject, ViewChild, Renderer2, RendererStyleFlags2 } from '@angular/core';
 import { CommonModule, AsyncPipe, DOCUMENT } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -141,6 +141,7 @@ export class MainComponent {
     const transitionDuration = parseFloat(window.getComputedStyle($this).transitionDuration) * 1000; // in ms
     this.renderer.removeClass($this, 'task-transition');
     this.renderer.setStyle($this, 'z-index', '1000');
+    this.renderer.setStyle(document.body, 'cursor', 'grabbing', RendererStyleFlags2.Important);
     let $wrapper = $this.parentElement;
     const $initialWrapper = $this.parentElement;
     const marginBottom = window.parseInt(window.getComputedStyle($this).marginBottom);
@@ -459,6 +460,7 @@ export class MainComponent {
     }
     const cancelDrag = (e: Event) => {
       this.renderer.removeClass(this.document.body, 'no-selection');
+      this.renderer.setStyle(document.body, 'cursor', '');
       clearInterval(setScrollIntervalId);
 
       if (dragged === false) {
