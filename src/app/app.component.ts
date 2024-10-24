@@ -4,14 +4,19 @@ import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { selectFeatureTheme, AppState } from './selectors/theme.selector';
-import { toggleTheme, setTheme } from './actions/theme.action';
+import { selectFeatureTheme } from './selectors/theme.selector';
+import { setTheme } from './actions/theme.action';
 import { State } from './reducers';
 import { getStateFromLocalStorage } from './actions/board.action';
 
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { CobaComponent } from './coba/coba.component';
+
+// ==============
+import { CobaHeaderComponent } from './coba-header/coba-header.component';
+import { CobaMainComponent } from './coba-main/coba-main.component';
+// ==============
 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewBoardComponent } from './dialog-create-new-board/dialog-create-new-board.component';
@@ -21,7 +26,7 @@ import { BoardState } from './reducers/board.reducer';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, MainComponent, AsyncPipe, CobaComponent],
+  imports: [RouterOutlet, HeaderComponent, MainComponent, AsyncPipe, CobaComponent, CobaHeaderComponent, CobaMainComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -36,8 +41,9 @@ export class AppComponent implements OnInit  {
   loading: boolean = true;
   firstInit = true;
   ngOnInit(): void {
-    console.log('app ngOnInit() localStorage', localStorage.getItem('theme'));
-    const theme = JSON.parse(localStorage.getItem('theme') || '');
+    // console.log('app ngOnInit() localStorage', localStorage.getItem('theme'));
+    const theme = JSON.parse(localStorage.getItem('theme') || '{}');
+    console.log('theme', theme);
     if (theme) {
         this.store.dispatch(setTheme({theme}))
     }

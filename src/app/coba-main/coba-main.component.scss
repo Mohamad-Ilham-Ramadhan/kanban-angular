@@ -1,0 +1,29 @@
+:host {
+   display: block;
+   height: calc(100vh - 96px);
+   width: 100%;
+   overflow: auto;
+   position: fixed;
+   top: 96px;
+   left: 0;
+}
+main {
+   height: 100%;
+   width: 100%;
+   overflow: auto;
+   background-color: skyblue;
+   padding-bottom: 32px;
+}
+.column {
+   width: 300px;
+   border: 1px dashed black;
+   height: fit-content;
+   padding-bottom: 32px;
+
+   .task {
+      height: 100px;
+      background-color: #fff;
+      border-radius: 8px;
+      margin-bottom: 24px;
+   }
+}
