@@ -19,7 +19,7 @@
       <label for="input-name" class="block mb-4">
          <div class="label mb-2">Description</div>
          <div class="relative">
-            <app-textarea [control]="fc('description')" [isError]="submitted && fc('description').hasError('required')" />
+            <app-textarea rows="3" [control]="fc('description')" [isError]="submitted && fc('description').hasError('required')" />
             @if (submitted && fc('description').hasError('required')) {
                <div class="error">Required</div>
             }
@@ -40,8 +40,8 @@
             </div>
          }
       </label>
-      @if (fa('subtasks').length < 6) {
-         <app-button (click)="addNewSubtask()" size="small" color="white" class="block w-full mb-4" classes="w-full">+ Add New Column</app-button>
+      @if (fa('subtasks').length < 7) {
+         <app-button (click)="addNewSubtask()" size="small" color="white" class="block w-full mb-4" classes="w-full">+ Add New Subtask</app-button>
       }
 
       <label for="input-name" class="block mb-4">

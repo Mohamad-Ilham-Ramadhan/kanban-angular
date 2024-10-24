@@ -1,5 +1,9 @@
 @import '../../styles.scss';
 
+.dialog-container {
+   max-height: 100vh;
+   overflow: auto;
+}
 .title {
    font-size: 18px;
    margin-bottom: 16px;
