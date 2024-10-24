@@ -27,7 +27,8 @@ export interface BoardState {
    activeBoard: number;
    boards: Board[]
 }
-const defaultState = {
+
+const defaultState: BoardState = {
    activeBoard: 0,
    boards: [
       {
@@ -40,120 +41,123 @@ const defaultState = {
                tasks: [
                   {
                      id: uuid(),
-                     title: 'Design onboarding flow',
+                     title: 'Build UI for onboarding flow',
                      description: '',
                      subtasks: [
                         {
                            id: uuid(),
                            title: 'Sign up page',
-                           isDone: true,
+                           isDone: true
                         },
                         {
                            id: uuid(),
                            title: 'Sign in page',
-                           isDone: false,
+                           isDone: false
                         },
                         {
                            id: uuid(),
                            title: 'Welcome page',
-                           isDone: false,
+                           isDone: true
                         },
-                     ],
+                     ]
                   },
                   {
                      id: uuid(),
-                     title: 'Research pricing points of various competitors and trial different business models',
-                     description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+                     title: 'Build UI for Search',
+                     description: '',
                      subtasks: [
                         {
                            id: uuid(),
-                           title: 'Research competitor pricing and business models',
-                           isDone: true,
+                           title: 'Search page',
+                           isDone: false
                         },
-                        {
-                           id: uuid(),
-                           title: 'Outline a business model that works for our solution',
-                           isDone: false,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
-                        },
-                     ],
+                     ]
                   },
                   {
                      id: uuid(),
-                     title: 'Research pricing points of various competitors and trial different business models',
-                     description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+                     title: 'Build settings UI',
+                     description: '',
                      subtasks: [
                         {
                            id: uuid(),
-                           title: 'Research competitor pricing and business models',
-                           isDone: true,
+                           title: 'Account page',
+                           isDone: true
                         },
                         {
                            id: uuid(),
-                           title: 'Outline a business model that works for our solution',
-                           isDone: false,
+                           title: 'Billing page',
+                           isDone: false
                         },
-                        {
-                           id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
-                        },
-                     ],
+                     ]
                   },
                   {
                      id: uuid(),
-                     title: 'Research pricing points of various competitors and trial different business models',
-                     description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+                     title: 'QA and test all major user journeys',
+                     description: 'Once we feel version one is ready, we need to rigorously test it both internally and externally to identify any major gaps.',
                      subtasks: [
                         {
                            id: uuid(),
-                           title: 'Research competitor pricing and business models',
-                           isDone: true,
+                           title: 'Internal testing',
+                           isDone: true
                         },
                         {
                            id: uuid(),
-                           title: 'Outline a business model that works for our solution',
-                           isDone: false,
+                           title: 'External testing',
+                           isDone: false
                         },
-                        {
-                           id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
-                        },
-                     ],
+                     ]
                   },
-                  {
-                     id: uuid(),
-                     title: 'Research pricing points of various competitors and trial different business models',
-                     description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-                     subtasks: [
-                        {
-                           id: uuid(),
-                           title: 'Research competitor pricing and business models',
-                           isDone: true,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Outline a business model that works for our solution',
-                           isDone: false,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
-                        },
-                     ],
-                  },
+
                ],
             },
             {
                id: uuid(),
-               name: 'Todo',
+               name: 'Doing',
                tasks: [
+                  {
+                     id: uuid(),
+                     title: 'Design settings and search pages',
+                     description: '',
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Settings - Account page',
+                           isDone: true
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Settings - Billing page',
+                           isDone: true
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Search page',
+                           isDone: false
+                        },
+                     ],
+                  },
+                  {
+                     id: uuid(),
+                     title: 'Add account management endpoints',
+                     description: '',
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Upgrade plan',
+                           isDone: true
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Cancel plan',
+                           isDone: true
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Update payment method',
+                           isDone: false
+                        },
+                     ],
+                  },
                   {
                      id: uuid(),
                      title: 'Design onboarding flow',
@@ -162,17 +166,51 @@ const defaultState = {
                         {
                            id: uuid(),
                            title: 'Sign up page',
-                           isDone: true,
+                           isDone: true
                         },
                         {
                            id: uuid(),
                            title: 'Sign in page',
-                           isDone: true,
+                           isDone: false
                         },
                         {
                            id: uuid(),
                            title: 'Welcome page',
-                           isDone: true,
+                           isDone: false
+                        },
+                     ],
+                  },
+                  {
+                     id: uuid(),
+                     title: 'Add search enpoints',
+                     description: '',
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Add search endpoint',
+                           isDone: true
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Define search filters',
+                           isDone: false
+                        },
+                     ],
+                  },
+                  {
+                     id: uuid(),
+                     title: 'Add authentication endpoints',
+                     description: '',
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Define user model',
+                           isDone: true
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Add auth endpoints',
+                           isDone: false
                         },
                      ],
                   },
@@ -184,235 +222,324 @@ const defaultState = {
                         {
                            id: uuid(),
                            title: 'Research competitor pricing and business models',
-                           isDone: true,
+                           isDone: true
                         },
                         {
                            id: uuid(),
                            title: 'Outline a business model that works for our solution',
-                           isDone: false,
+                           isDone: false
                         },
                         {
                            id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
+                           title: 'Talk to potential customers about our proposed solution and a sk for fair price expectancy',
+                           isDone: false
                         },
+
                      ],
                   },
-               ],
+               ]
             },
             {
                id: uuid(),
-               name: 'Todo',
+               name: 'Done',
                tasks: [
                   {
                      id: uuid(),
-                     title: 'Design onboarding flow',
-                     description: '',
+                     title: 'Conduct 5 wireframe tests',
+                     description: 'Ensure the layout continues to make sense and we have strong buy-in from potential users.',
                      subtasks: [
                         {
                            id: uuid(),
-                           title: 'Sign up page',
+                           title: 'complete 5 wireframe prototype tests',
                            isDone: true,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Sign in page',
-                           isDone: false,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Welcome page',
-                           isDone: false,
-                        },
-                     ],
+                        }
+                     ]
                   },
                   {
                      id: uuid(),
-                     title: 'Research pricing points of various competitors and trial different business models',
-                     description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+                     title: 'Create wireframe prototype',
+                     description: 'Create a greyscale clickable wireframe prototype to test our asssumptions so far.',
                      subtasks: [
                         {
                            id: uuid(),
-                           title: 'Research competitor pricing and business models',
+                           title: 'Create clickable wireframe prototype in Balsamiq',
                            isDone: true,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Outline a business model that works for our solution',
-                           isDone: false,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
-                        },
-                     ],
-                  },
-               ],
-            },
-            {
-               id: uuid(),
-               name: 'Todo',
-               tasks: [
-                  {
-                     id: uuid(),
-                     title: 'Design onboarding flow',
-                     description: '',
-                     subtasks: [
-                        {
-                           id: uuid(),
-                           title: 'Sign up page',
-                           isDone: true,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Sign in page',
-                           isDone: false,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Welcome page',
-                           isDone: false,
-                        },
-                     ],
+                        }
+                     ]
                   },
                   {
                      id: uuid(),
-                     title: 'Research pricing points of various competitors and trial different business models',
-                     description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+                     title: 'Review results of usability tests and iterate',
+                     description: "Keep iterating through the subtasks until we're clear on the core concepts for the app.",
                      subtasks: [
                         {
                            id: uuid(),
-                           title: 'Research competitor pricing and business models',
+                           title: 'Meet to review notes from previous tests and plan changes',
                            isDone: true,
                         },
                         {
                            id: uuid(),
-                           title: 'Outline a business model that works for our solution',
-                           isDone: false,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
-                        },
-                     ],
-                  },
-               ],
-            },
-            {
-               id: uuid(),
-               name: 'Todo',
-               tasks: [
-                  {
-                     id: uuid(),
-                     title: 'Design onboarding flow',
-                     description: '',
-                     subtasks: [
-                        {
-                           id: uuid(),
-                           title: 'Sign up page',
+                           title: 'Make changes to paper prototypes',
                            isDone: true,
                         },
                         {
                            id: uuid(),
-                           title: 'Sign in page',
-                           isDone: false,
+                           title: 'Conduct 5 usability tests',
+                           isDone: true,
                         },
-                        {
-                           id: uuid(),
-                           title: 'Welcome page',
-                           isDone: false,
-                        },
-                     ],
+                     ]
                   },
                   {
                      id: uuid(),
-                     title: 'Research pricing points of various competitors and trial different business models',
-                     description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+                     title: 'Create paper prototypes and conduct 10 usability tests with potential customers',
+                     description: "",
                      subtasks: [
                         {
                            id: uuid(),
-                           title: 'Research competitor pricing and business models',
+                           title: 'Create paper prototype for version one',
                            isDone: true,
                         },
                         {
                            id: uuid(),
-                           title: 'Outline a business model that works for our solution',
-                           isDone: false,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
-                        },
-                     ],
-                  },
-               ],
-            },
-            {
-               id: uuid(),
-               name: 'Todo',
-               tasks: [
-                  {
-                     id: uuid(),
-                     title: 'Design onboarding flow',
-                     description: '',
-                     subtasks: [
-                        {
-                           id: uuid(),
-                           title: 'Sign up page',
+                           title: 'Complete 10 usability tests',
                            isDone: true,
                         },
-                        {
-                           id: uuid(),
-                           title: 'Sign in page',
-                           isDone: false,
-                        },
-                        {
-                           id: uuid(),
-                           title: 'Welcome page',
-                           isDone: false,
-                        },
-                     ],
+                     ]
                   },
                   {
                      id: uuid(),
-                     title: 'Research pricing points of various competitors and trial different business models',
-                     description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+                     title: 'Market discovery',
+                     description: "We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP",
                      subtasks: [
                         {
                            id: uuid(),
-                           title: 'Research competitor pricing and business models',
+                           title: 'Interview 10 prospective customers',
+                           isDone: true,
+                        },
+                     ]
+                  },
+                  {
+                     id: uuid(),
+                     title: 'Competitor analysis',
+                     description: "",
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Find direct and indirect competitors',
                            isDone: true,
                         },
                         {
                            id: uuid(),
-                           title: 'Outline a business model that works for our solution',
-                           isDone: false,
+                           title: 'SWOT analysis for each competitor',
+                           isDone: true,
+                        },
+
+                     ]
+                  },
+                  {
+                     id: uuid(),
+                     title: 'Research the market',
+                     description: "We need to get a solid overview of the market to ensure we have up-to-date estimates of market size and demand.",
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Write up research analysis',
+                           isDone: true,
                         },
                         {
                            id: uuid(),
-                           title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-                           isDone: false,
+                           title: 'Calculate TAM',
+                           isDone: true,
                         },
-                     ],
+
+                     ]
                   },
-               ],
+               ]
             },
          ]
+      },
+      {
+         id: uuid(),
+         name: 'Marketing Plan',
+         columns: [
+            {
+               id: uuid(),
+               name: 'Todo',
+               tasks: [
+                  {
+                     id: uuid(),
+                     title: 'Plan Product Hunt launch',
+                     description: '',
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Find hunter',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Gather assets',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Draft product page',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Notify customers',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Notify network',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Launch!',
+                           isDone: false,
+                        },
+                     ],
+                  },
+                  {
+                     id: uuid(),
+                     title: 'Share on Show HN',
+                     description: '',
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Draft out HN post',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Get feedback and refine',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Publish post',
+                           isDone: false,
+                        },
+                     ],
+                  },
+                  {
+                     id: uuid(),
+                     title: 'Write launch article to publish on multiple channels',
+                     description: '',
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Write article',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Publish on LinkedIn',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Publish on Indie Hackers',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Publish on Medium',
+                           isDone: false,
+                        },
+                     ],
+                  },
+               ],
+            },
+            {
+               id: uuid(),
+               name: 'Doing',
+               tasks: []
+            }
+         ]
+      },
+      {
+         id: uuid(),
+         name: 'Roadmap',
+         columns: [
+            {
+               id: uuid(),
+               name: 'Now',
+               tasks: [
+                  {
+                     id: uuid(),
+                     title: 'Launch version one',
+                     description: '',
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Launch privately to our waitlist',
+                           isDone: false
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Launch publicly on PH, NH, etc.',
+                           isDone: false
+                        }
+                     ],
+                  },
+                  {
+                     id: uuid(),
+                     title: 'Review early feedback and plan next steps for roadmap',
+                     description: "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",
+                     subtasks: [
+                        {
+                           id: uuid(),
+                           title: 'Interview 10 customers',
+                           isDone: false
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Review common customer pain points and suggestions',
+                           isDone: false,
+                        },
+                        {
+                           id: uuid(),
+                           title: 'Outline next steps for our roadmap',
+                           isDone: false,
+                        }
+                     ],
+                  },
+               ]
+            },
+            {
+               id: uuid(),
+               name: 'Next',
+               tasks: [],
+            },
+            {
+               id: uuid(),
+               name: 'Later',
+               tasks: [],
+            },
+
+         ]
       }
-   ],
-};
+   ]
+}
+
+
+
 export const initialState: BoardState = {activeBoard: 0, boards: []}
 
 
 export const boardReducer = createReducer(
-   initialState,
+   defaultState,
    on(getStateFromLocalStorage, (state) => {
       if (typeof window !== 'undefined') {
          let state = JSON.parse(localStorage.getItem('board') || "{}");
-         if (Object.keys(state).length === 0) return defaultState;
+         if (Object.keys(state).length === 0) {
+            localStorage.setItem('board', JSON.stringify(defaultState))
+            return defaultState;
+         };
          return state;
       }
       return initialState;
