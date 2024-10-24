@@ -461,6 +461,7 @@ export class MainComponent {
     const cancelDrag = (e: Event) => {
       this.renderer.removeClass(this.document.body, 'no-selection');
       this.renderer.setStyle(document.body, 'cursor', '');
+      this.renderer.setStyle($this, 'opacity', '');
       clearInterval(setScrollIntervalId);
 
       if (dragged === false) {
