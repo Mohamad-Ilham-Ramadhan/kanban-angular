@@ -683,7 +683,7 @@ export const boardReducer = createReducer(
          newState.boards[state.activeBoard].columns[Number(columnIndex)].tasks[Number(taskIndex)] = {
             id: uuid(),
             title: title.trim(),
-            description: title.trim(),
+            description: description.trim(),
             subtasks: subtasks.map( st => ({...st, title: st.title.trim()})),
          }
       } else {
