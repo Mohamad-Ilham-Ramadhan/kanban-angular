@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { selectFeatureTheme, AppState } from './selectors/theme.selector';
-import { toggleTheme } from './actions/theme.action';
+import { toggleTheme, setTheme } from './actions/theme.action';
 import { State } from './reducers';
 import { getStateFromLocalStorage } from './actions/board.action';
 
@@ -34,7 +34,13 @@ export class AppComponent implements OnInit  {
   theme$: Observable<string>;
   board$: Observable<BoardState>;
   loading: boolean = true;
+  firstInit = true;
   ngOnInit(): void {
+    console.log('app ngOnInit() localStorage', localStorage.getItem('theme'));
+    const theme = JSON.parse(localStorage.getItem('theme') || '');
+    if (theme) {
+        this.store.dispatch(setTheme({theme}))
+    }
     this.store.dispatch(getStateFromLocalStorage()); // board state
     this.theme$.subscribe( val => {
       if (val === 'dark') {
@@ -46,6 +52,7 @@ export class AppComponent implements OnInit  {
     this.board$.subscribe( val => {
       this.loading = false;
     }).unsubscribe()
+    this.firstInit = false;
   }
 
   dialog = inject(MatDialog);

@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { toggleTheme } from "../actions/theme.action";
+import { setTheme, toggleTheme } from "../actions/theme.action";
 
 export const initialState : string = 'dark';
 
@@ -10,4 +10,9 @@ export const themeReducer = createReducer(
       localStorage.setItem('theme', JSON.stringify(newState))
       return newState;
    }),
+   on(setTheme, (state, {theme}) => {
+      let newState = theme;
+      localStorage.setItem('theme', JSON.stringify(newState))
+      return newState
+   })
 )
