@@ -7,6 +7,7 @@
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
       [cdkConnectedOverlayOpen]="show"
+      [cdkConnectedOverlayDisableClose]="true"
       (overlayOutsideClick)="show = !show"
    >
       <div class="dropdown" #dropdown [ngClass]="{'pos-left': position === 'left', 'pos-center': position === 'center', 'pos-right': position === 'right', dark: (theme$ | async) === 'dark'}">

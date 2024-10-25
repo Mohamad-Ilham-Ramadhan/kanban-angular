@@ -5,12 +5,11 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { FormGroup,  FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewBoardComponent } from '../dialog-create-new-board/dialog-create-new-board.component';
 import { DialogNewColumnComponent } from '../dialog-new-column/dialog-new-column.component';
 import { DialogTaskComponent } from '../dialog-task/dialog-task.component';
 import { InputComponent } from '../input/input.component';
-import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 import { SwitchThemeComponent } from '../switch-theme/switch-theme.component';
 
 import { State } from '../reducers';

@@ -87,10 +87,6 @@ export class SelectComponent implements ControlValueAccessor {
     })
   }
 
-  menuOpened() {
-    console.log('this.menu', this.menu)
-  }
-
   toggleDropdown() {
     this.show = !this.show;
   }
